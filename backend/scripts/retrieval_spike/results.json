@@ -1,0 +1,1188 @@
+{
+  "timestamp": "2026-11-08T06:58:52Z",
+  "queries": [
+    "Goodbye Claude, Hello Pi",
+    "What I run on my $10 USD OpenStick homelab",
+    "Claude Code's \"Don't Ask Again\" exposes passwords in 1,122 public GitHub files",
+    "ZapFast: A fast, native WhatsApp client in Rust and egui",
+    "Making any integer with four 2s (2025)",
+    "NIST post-quantum cryptography standards",
+    "US midterm elections 2026 House results",
+    "FactCheck.org viral claim",
+    "Linux kernel Rust drivers",
+    "MiniCheck fact-checking model",
+    "Reuters Commerce Department export rules chips",
+    "claude code security leak github"
+  ],
+  "summary": {
+    "google_news": {
+      "candidate": "Google News RSS",
+      "queries_with_items": "12/12",
+      "total_items": 760,
+      "trusted_items": 760,
+      "resolved_to_real_host": 0,
+      "total_resolve_attempts": 35,
+      "extractions_ok": 0,
+      "mean_latency_ms": 460.4,
+      "errors_count": 0,
+      "errors": []
+    },
+    "gdelt": {
+      "candidate": "GDELT DOC API",
+      "queries_with_items": "0/12",
+      "total_items": 0,
+      "trusted_items": 0,
+      "resolved_to_real_host": 0,
+      "total_resolve_attempts": 0,
+      "extractions_ok": 0,
+      "mean_latency_ms": 9459.0,
+      "errors_count": 11,
+      "errors": [
+        "Query 'Goodbye Claude, Hello Pi': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the",
+        "Query 'What I run on my $10 USD OpenStick homelab': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the",
+        "Query 'Claude Code's \"Don't Ask Again\" exposes passwords in 1,122 public GitHub files': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the",
+        "Query 'ZapFast: A fast, native WhatsApp client in Rust and egui': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the",
+        "Query 'Making any integer with four 2s (2025)': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the",
+        "Query 'NIST post-quantum cryptography standards': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the",
+        "Query 'US midterm elections 2026 House results': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the",
+        "Query 'FactCheck.org viral claim': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the",
+        "Query 'Linux kernel Rust drivers': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the",
+        "Query 'MiniCheck fact-checking model': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the",
+        "Query 'Reuters Commerce Department export rules chips': HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      ]
+    }
+  },
+  "details": {
+    "google_news": [
+      {
+        "query": "Goodbye Claude, Hello Pi",
+        "status_code": 200,
+        "latency_ms": 938.13,
+        "items_count": 49,
+        "trusted_count": 49,
+        "items": [
+          {
+            "title": "herdrdev/herdr: the runtime your coding agents live on - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE9LOGRoWkhXWlVOakJ5YWhhSVBncF81RnF6bmdvQVJlY01CZVdvQkRlWHE0X1BWcmd6cXl6bmFqTC04QW1WYUIzdQ?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Wed, 29 Jul 2026 20:37:51 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "system_prompts_leaks/Anthropic/claude-opus-5.5.md at main \u00b7 asgeirtj/system_prompts_leaks - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQSkk1RllPQzdqMkRTT0tRU1VsZ05ldTdrNE1GNnF3RVhsajlrbjhTQ1BXU2hNRnFDU0ZqMkt6bHdBRm5pYkhEOUxQOEMwVm9aM1dRMzFZZWtqZWlRRENqRTBlX0gwTU1pU29EVDlXSTdWYXRYS0Q1R0lSaElWeHNQU05FdThyV2xSbUxRTHp5Zks?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 22 Sep 2026 07:00:00 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "livekit-examples/hello-wakeword: Spawning a LiveKit Agent with Wake Word Detection - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9PamhJZFJGLTc5T29TYUxvTExBdUxEUEk4ejhfaHBXakNiQkQtaEF3VUZlZUhqVU5KcGZGRm54V2phTVlDc1NhenlLZEZJbjJTcUlYM2k3M0VacXlfMEU4?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Mon, 06 Apr 2026 11:33:51 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "system_prompts_leaks/Anthropic/claude-fable-5.md at main \u00b7 asgeirtj/system_prompts_leaks - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOR2pNdjBqMVg4eVlTTEprc1AyRjRhTFhGT0hpMG5jMVdpVXVEcXlLa1hWQVJiNnhCOHNUNnlYQzhGYmNxUFV3MWt1YjBpc2c4OGhjY0dRb0VQVEFWWjRDSk9kY0xjRXJKd3p1Nzlxa0NsX0djbS1XSkpoY0w3aERmTXJlcFhhOC1pYTNfdnFXcw?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 09 Jun 2026 22:44:07 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "For Assistant messages, the status field is not populated \u00b7 Issue #20828 \u00b7 vercel/ai - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1tY2JaZjZYZy0xVkpsb1pEaXRUWDJtem92eFZnOGhhNWYyT2FkZS1FQzZDcmVORW1kT2pNQWExR2l1SkstcU5GQzFiTGF1bzZzWTdZ?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Wed, 16 Sep 2026 07:00:00 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE9LOGRoWkhXWlVOakJ5YWhhSVBncF81RnF6bmdvQVJlY01CZVdvQkRlWHE0X1BWcmd6cXl6bmFqTC04QW1WYUIzdQ?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE9LOGRoWkhXWlVOakJ5YWhhSVBncF81RnF6bmdvQVJlY01CZVdvQkRlWHE0X1BWcmd6cXl6bmFqTC04QW1WYUIzdQ?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQSkk1RllPQzdqMkRTT0tRU1VsZ05ldTdrNE1GNnF3RVhsajlrbjhTQ1BXU2hNRnFDU0ZqMkt6bHdBRm5pYkhEOUxQOEMwVm9aM1dRMzFZZWtqZWlRRENqRTBlX0gwTU1pU29EVDlXSTdWYXRYS0Q1R0lSaElWeHNQU05FdThyV2xSbUxRTHp5Zks?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQSkk1RllPQzdqMkRTT0tRU1VsZ05ldTdrNE1GNnF3RVhsajlrbjhTQ1BXU2hNRnFDU0ZqMkt6bHdBRm5pYkhEOUxQOEMwVm9aM1dRMzFZZWtqZWlRRENqRTBlX0gwTU1pU29EVDlXSTdWYXRYS0Q1R0lSaElWeHNQU05FdThyV2xSbUxRTHp5Zks?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9PamhJZFJGLTc5T29TYUxvTExBdUxEUEk4ejhfaHBXakNiQkQtaEF3VUZlZUhqVU5KcGZGRm54V2phTVlDc1NhenlLZEZJbjJTcUlYM2k3M0VacXlfMEU4?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9PamhJZFJGLTc5T29TYUxvTExBdUxEUEk4ejhfaHBXakNiQkQtaEF3VUZlZUhqVU5KcGZGRm54V2phTVlDc1NhenlLZEZJbjJTcUlYM2k3M0VacXlfMEU4?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "What I run on my $10 USD OpenStick homelab",
+        "status_code": 200,
+        "latency_ms": 283.99,
+        "items_count": 7,
+        "trusted_count": 7,
+        "items": [
+          {
+            "title": "missuo/awesome-stars - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1aODRoeWVLRmxPdUlpb1hLLUtJdjFKZXFvbERfdHdxU2RWaGt2cS1ISlFaSmZIdjl2cDM4QVd1UlEwYjJRMjJWVWpDWlR4S2dn?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 08 Dec 2023 13:48:59 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "starred/README.md at master \u00b7 gaahrdner/starred - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBxdXZoVHpCaFprcmdGU2JIalhSZW5FR0I0V0xqWExtMnpZeVc3bmpvdm0zdC1yVjJlX0ZOekNpUDNrZ3NhMkt2NXFVZTZKdmRzd1dVODZlcDdsZ2xuNlpVV2Exd1o2M3lhUUE?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 13 Mar 2018 04:30:02 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "golang-trending-archive/README.md at main \u00b7 zengzzzzz/golang-trending-archive - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE8xUVZUTVVBLVBvMVBqbTFPcDFRWkx3VmxRUVpMUHhxdTJHN0E2SWxBRFhiZEZoT2hTVzM2MXVMNnEzdy1DaVc4aHhtczE3cm5EZ0RYT1R5ajExZXFjemtOOHlhQ182Wjk5UEZUQWxfeGlKZmVPRUlKZExHZjE?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 15 Dec 2023 01:18:40 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "wickes1/awesome-stars: Curated, auto-generated list of my GitHub stars - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBZdVhLTFdOTzJhT28xMDRiY2ROUUJxT1YyT0pKb1hEOU5NZG5leGFJQVlzQ0hWclZqRVc1TGNUc1hlLVZyMWVyTXJ5YVQ3NU9SZnc?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 08 Dec 2023 10:26:46 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "felixlu/awesome-stars - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE95MmtCNkJwLXdTcDRqVnpyZExab1BhNWw2aDB5OTlyb2NYZ1gwSjFQZTJ4alJmWDNtSFAxVE9vLWctRUFPTFZ4NjdNeGh0WmdwNkE?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 14 Apr 2026 11:29:15 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1aODRoeWVLRmxPdUlpb1hLLUtJdjFKZXFvbERfdHdxU2RWaGt2cS1ISlFaSmZIdjl2cDM4QVd1UlEwYjJRMjJWVWpDWlR4S2dn?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1aODRoeWVLRmxPdUlpb1hLLUtJdjFKZXFvbERfdHdxU2RWaGt2cS1ISlFaSmZIdjl2cDM4QVd1UlEwYjJRMjJWVWpDWlR4S2dn?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBxdXZoVHpCaFprcmdGU2JIalhSZW5FR0I0V0xqWExtMnpZeVc3bmpvdm0zdC1yVjJlX0ZOekNpUDNrZ3NhMkt2NXFVZTZKdmRzd1dVODZlcDdsZ2xuNlpVV2Exd1o2M3lhUUE?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBxdXZoVHpCaFprcmdGU2JIalhSZW5FR0I0V0xqWExtMnpZeVc3bmpvdm0zdC1yVjJlX0ZOekNpUDNrZ3NhMkt2NXFVZTZKdmRzd1dVODZlcDdsZ2xuNlpVV2Exd1o2M3lhUUE?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE8xUVZUTVVBLVBvMVBqbTFPcDFRWkx3VmxRUVpMUHhxdTJHN0E2SWxBRFhiZEZoT2hTVzM2MXVMNnEzdy1DaVc4aHhtczE3cm5EZ0RYT1R5ajExZXFjemtOOHlhQ182Wjk5UEZUQWxfeGlKZmVPRUlKZExHZjE?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE8xUVZUTVVBLVBvMVBqbTFPcDFRWkx3VmxRUVpMUHhxdTJHN0E2SWxBRFhiZEZoT2hTVzM2MXVMNnEzdy1DaVc4aHhtczE3cm5EZ0RYT1R5ajExZXFjemtOOHlhQ182Wjk5UEZUQWxfeGlKZmVPRUlKZExHZjE?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "Claude Code's \"Don't Ask Again\" exposes passwords in 1,122 public GitHub files",
+        "status_code": 200,
+        "latency_ms": 263.4,
+        "items_count": 2,
+        "trusted_count": 2,
+        "items": [
+          {
+            "title": "agent-deck/CHANGELOG.md at main \u00b7 asheshgoplani/agent-deck - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBDRzY5LUhWNFBCVDJRNUJqaFhwN2RhTUVaMzFzVzR6NmxwaThQVFpKZXFnUDJxVldLS0tHWEZ0ODRyTFZaNUgyTDNHMVI0bUcxQm1iN3J1ZHdlZHF6U3drMUdJVFVyZTMxbzZET2ZNSFpGbUkw?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Sun, 28 Dec 2025 23:29:06 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "the-archive/asp/radlohead/scripts/stuff.txt at master \u00b7 rodnaph/the-archive - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPRkRvWDJaVk1oYjUzUjR3TUhKNFNNdGp3cGFNMDlXRWswa001N040NDlpQlRNaVdoc0pTSGliUGtmbWFsUGY2Q2F6OWVUVUVLSXM2VzhVVjk3WEpVZGtmRXhhQmN4RFhwdEoyd0R0VTd5YVFxMWppT2dMYTVFUUZhZmhKeHE0aW44VWc?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Wed, 30 Sep 2015 00:43:00 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBDRzY5LUhWNFBCVDJRNUJqaFhwN2RhTUVaMzFzVzR6NmxwaThQVFpKZXFnUDJxVldLS0tHWEZ0ODRyTFZaNUgyTDNHMVI0bUcxQm1iN3J1ZHdlZHF6U3drMUdJVFVyZTMxbzZET2ZNSFpGbUkw?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBDRzY5LUhWNFBCVDJRNUJqaFhwN2RhTUVaMzFzVzR6NmxwaThQVFpKZXFnUDJxVldLS0tHWEZ0ODRyTFZaNUgyTDNHMVI0bUcxQm1iN3J1ZHdlZHF6U3drMUdJVFVyZTMxbzZET2ZNSFpGbUkw?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPRkRvWDJaVk1oYjUzUjR3TUhKNFNNdGp3cGFNMDlXRWswa001N040NDlpQlRNaVdoc0pTSGliUGtmbWFsUGY2Q2F6OWVUVUVLSXM2VzhVVjk3WEpVZGtmRXhhQmN4RFhwdEoyd0R0VTd5YVFxMWppT2dMYTVFUUZhZmhKeHE0aW44VWc?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPRkRvWDJaVk1oYjUzUjR3TUhKNFNNdGp3cGFNMDlXRWswa001N040NDlpQlRNaVdoc0pTSGliUGtmbWFsUGY2Q2F6OWVUVUVLSXM2VzhVVjk3WEpVZGtmRXhhQmN4RFhwdEoyd0R0VTd5YVFxMWppT2dMYTVFUUZhZmhKeHE0aW44VWc?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "ZapFast: A fast, native WhatsApp client in Rust and egui",
+        "status_code": 200,
+        "latency_ms": 272.3,
+        "items_count": 11,
+        "trusted_count": 11,
+        "items": [
+          {
+            "title": "ZapFast: a fast, native WhatsApp client in Rust and egui - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE9fbVBzZFZ1M0gwQmdMbEZmYVBaNDUxVTlTNE95Q1hmaWpNSjgxLXFteV93cWNTTExBOC02bThWUkN3bkpkemJv?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 15 Sep 2026 02:09:38 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "crmne/spotifast: Spotify, native and fast. One lightweight Rust app for your whole library, local playback, and Spotify Connect on Linux, macOS, and Windows. - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE1kQ2NlM3dWenFFZTQ3dmVwX2JtVUV5cEl0Z19YZjYyd09MUVMtWmJyeHZCZVV5VE9POWxvbVRPLVB5ZHk4ZkQ0Z1hR?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Mon, 14 Sep 2026 09:25:25 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "Build software better, together - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5WYTFkZGEwNndYRXA4Rmp0Tk1EUDB1ckFUTWNaQmJQVEVFck5ySTFXNXByemtmc2Z1MmN6TkNmOHQzaTIxbWZ1NDI4QThrSHJvS3Yw?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Sun, 15 Oct 2017 23:58:11 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "Build software better, together - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiREFVX3lxTE52WWZOb2RIbk1JcGRELVgzbTllclpBcUp3UlNaSHFCMmN0QlBySGNWSnNpN1p5ZnI3T1M3STJaQ2JINHlW?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Mon, 23 Apr 2018 05:22:01 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "crmne (Carmine Paolino) - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiPEFVX3lxTFBIYjhMSWoyWm10Z3V4V2FuakRhblFROFlhNGFTRHhqWGhBUlozcjJ4MnpIYkdXeXk0TU5Xeg?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Mon, 20 May 2013 00:31:35 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE9fbVBzZFZ1M0gwQmdMbEZmYVBaNDUxVTlTNE95Q1hmaWpNSjgxLXFteV93cWNTTExBOC02bThWUkN3bkpkemJv?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE9fbVBzZFZ1M0gwQmdMbEZmYVBaNDUxVTlTNE95Q1hmaWpNSjgxLXFteV93cWNTTExBOC02bThWUkN3bkpkemJv?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE1kQ2NlM3dWenFFZTQ3dmVwX2JtVUV5cEl0Z19YZjYyd09MUVMtWmJyeHZCZVV5VE9POWxvbVRPLVB5ZHk4ZkQ0Z1hR?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE1kQ2NlM3dWenFFZTQ3dmVwX2JtVUV5cEl0Z19YZjYyd09MUVMtWmJyeHZCZVV5VE9POWxvbVRPLVB5ZHk4ZkQ0Z1hR?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5WYTFkZGEwNndYRXA4Rmp0Tk1EUDB1ckFUTWNaQmJQVEVFck5ySTFXNXByemtmc2Z1MmN6TkNmOHQzaTIxbWZ1NDI4QThrSHJvS3Yw?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5WYTFkZGEwNndYRXA4Rmp0Tk1EUDB1ckFUTWNaQmJQVEVFck5ySTFXNXByemtmc2Z1MmN6TkNmOHQzaTIxbWZ1NDI4QThrSHJvS3Yw?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "Making any integer with four 2s (2025)",
+        "status_code": 200,
+        "latency_ms": 497.76,
+        "items_count": 100,
+        "trusted_count": 100,
+        "items": [
+          {
+            "title": "AP Top 25 Poll - AP News",
+            "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5OYllVd284SGVJbHo5QXVQempkaGlYeHlzWEZxOU5jZTktTnItaDg1X21NaEJZbHpYTUM5RXczMm5PS21YaktpREY1TU1WMzV1aXR6TkRpRmxjQVZpNkpMODQxWEM?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Thu, 05 Nov 2026 07:06:39 GMT",
+            "publisher_domain": "apnews.com",
+            "publisher_name": "AP News",
+            "is_trusted": true
+          },
+          {
+            "title": "Meta is earning a fortune on a deluge of fraudulent ads, documents show - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPenUtY2FUdk02ZHd6WW5rVnVsVFZ2cm1Jd0ZhbGZNOFZIcllNLVprMFZsOXF2dVFoQ1BSWjV0WGtiVjNWWFJESUJoa3V2eHVDTXY4MVNMaFE2LWw5VG9xZ2lHR3ZFM3JvbzRWbUR3THUxX1U0N3JFYVp2QTRuNTlOMk5uTWZYTzl6UzJwTVkwQVZQUWhoYmUxcl9NZ0JfczFCVDRNT092S0lVVDAxVHJPLQ?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Thu, 06 Nov 2025 08:00:00 GMT",
+            "publisher_domain": "www.reuters.com",
+            "publisher_name": "Reuters",
+            "is_trusted": true
+          },
+          {
+            "title": "Trump makes hardliner Stephen Miller his chief of staff after midterm defeat - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPRW9VOFJHVC05elRKeHJYaUVfalhSNTJYS0dhNkJobGVIaGU1ZVlLaUNlakI2SURhTHNqc2c2ODFYcWpVaE5uUXpoNEI1d1h3MjFxbTlqNHQwVVJmNEFyUl9uRWktTWdRMGs1Z05GUXRxU2FwVC0wV19JSExCbi1DM1pPNHZVUzFZcVB3ak93TWM4MUk?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 06 Nov 2026 19:01:00 GMT",
+            "publisher_domain": "www.reuters.com",
+            "publisher_name": "Reuters",
+            "is_trusted": true
+          },
+          {
+            "title": "Four things to note from Friday's US jobs report - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQcl9IZFVuS00zSjQyMTVpYjM4TldkamZJUDF5LWlKWkQ3NFE4VWtXbmFrVVhORkdKckRRcXU4cU5HQW5HQkF6NDNEYXJoXzR5eEFGV25aS1o4ZUlQQkwwRHV5M2ZSTVVTZG0zZnN2VUdyN1UwcnhtUC1HeERRQTBZVGlXNVhUUWUtWmFxWg?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 06 Nov 2026 19:21:00 GMT",
+            "publisher_domain": "www.reuters.com",
+            "publisher_name": "Reuters",
+            "is_trusted": true
+          },
+          {
+            "title": "Training-free language model modification: Remove censorship, suppress slop, reduce sycophancy, and more - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE5tR1FtRTJGcFVBZ3FySlJtMVp4eUxnUkJaamlYTmlQZHNfb0YzcXdDRHBMYVVudmwxM28zU2tGa1hKY2pFcjFR?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Sun, 16 Nov 2025 15:07:07 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5OYllVd284SGVJbHo5QXVQempkaGlYeHlzWEZxOU5jZTktTnItaDg1X21NaEJZbHpYTUM5RXczMm5PS21YaktpREY1TU1WMzV1aXR6TkRpRmxjQVZpNkpMODQxWEM?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5OYllVd284SGVJbHo5QXVQempkaGlYeHlzWEZxOU5jZTktTnItaDg1X21NaEJZbHpYTUM5RXczMm5PS21YaktpREY1TU1WMzV1aXR6TkRpRmxjQVZpNkpMODQxWEM?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPenUtY2FUdk02ZHd6WW5rVnVsVFZ2cm1Jd0ZhbGZNOFZIcllNLVprMFZsOXF2dVFoQ1BSWjV0WGtiVjNWWFJESUJoa3V2eHVDTXY4MVNMaFE2LWw5VG9xZ2lHR3ZFM3JvbzRWbUR3THUxX1U0N3JFYVp2QTRuNTlOMk5uTWZYTzl6UzJwTVkwQVZQUWhoYmUxcl9NZ0JfczFCVDRNT092S0lVVDAxVHJPLQ?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPenUtY2FUdk02ZHd6WW5rVnVsVFZ2cm1Jd0ZhbGZNOFZIcllNLVprMFZsOXF2dVFoQ1BSWjV0WGtiVjNWWFJESUJoa3V2eHVDTXY4MVNMaFE2LWw5VG9xZ2lHR3ZFM3JvbzRWbUR3THUxX1U0N3JFYVp2QTRuNTlOMk5uTWZYTzl6UzJwTVkwQVZQUWhoYmUxcl9NZ0JfczFCVDRNT092S0lVVDAxVHJPLQ?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPRW9VOFJHVC05elRKeHJYaUVfalhSNTJYS0dhNkJobGVIaGU1ZVlLaUNlakI2SURhTHNqc2c2ODFYcWpVaE5uUXpoNEI1d1h3MjFxbTlqNHQwVVJmNEFyUl9uRWktTWdRMGs1Z05GUXRxU2FwVC0wV19JSExCbi1DM1pPNHZVUzFZcVB3ak93TWM4MUk?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPRW9VOFJHVC05elRKeHJYaUVfalhSNTJYS0dhNkJobGVIaGU1ZVlLaUNlakI2SURhTHNqc2c2ODFYcWpVaE5uUXpoNEI1d1h3MjFxbTlqNHQwVVJmNEFyUl9uRWktTWdRMGs1Z05GUXRxU2FwVC0wV19JSExCbi1DM1pPNHZVUzFZcVB3ak93TWM4MUk?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "NIST post-quantum cryptography standards",
+        "status_code": 200,
+        "latency_ms": 566.58,
+        "items_count": 63,
+        "trusted_count": 63,
+        "items": [
+          {
+            "title": "National Institute of Standards and Technology - National Institute of Standards and Technology (.gov)",
+            "link": "https://news.google.com/rss/articles/CBMiOEFVX3lxTE9hbGZ4a01KdmF6M3pkS1A0MHNLQ1V4bVpIVXNfeldSaU91RnZ4cmdtS2xKZEEtWmU1?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Sun, 30 Sep 2012 09:44:16 GMT",
+            "publisher_domain": "www.nist.gov",
+            "publisher_name": "National Institute of Standards and Technology (.gov)",
+            "is_trusted": true
+          },
+          {
+            "title": "NIST Releases First 3 Finalized Post-Quantum Encryption Standards - National Institute of Standards and Technology (.gov)",
+            "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxON3ZUYVh0dmhaN3pNZ0tubEQxNHhVNHR6YmpPVG1fZ3NwZ28xRGN3TUpaZ0RaNE94U0ZnMHJKU280WjV6UGVob0RDemdra1VHWmpwQUZXU1BDT1JJM2dTai1CaDNuTllnZERaZ1MxektmR2dwWlRXS3BSX2hvRmtMdHE4YVllMWFQNEdfRURFTlgtbWhPaEhzNFRkcHk1bkNma0VISnUxMGJJTTA0WHFOQQ?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 13 Aug 2024 07:00:00 GMT",
+            "publisher_domain": "www.nist.gov",
+            "publisher_name": "National Institute of Standards and Technology (.gov)",
+            "is_trusted": true
+          },
+          {
+            "title": "Awesome Reverse Engineering - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9qLVMxLS1iQWN1SkVfbjlmQnNLcU9JLUtBNGEtSFQ5S05QWkp3LUhNaVZMNUxBQ2JSeTU2cVRiMUZuUEF3M1o4dW5BMERoNDVXUTd5T21WVDVPbUx3X3VaZXVCc3E?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 09 Oct 2026 16:23:00 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "NIST Internal or Interagency Report (NISTIR) 8547, Transition to Post-Quantum Cryptography Standards - NIST Computer Security Resource Center | CSRC (.gov)",
+            "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9VVDNZejZFcF9iN1A0TGxid2owNWZnc1I0M19sNVlMNVh2WGNRNjJfampIbUR5ellUUnM3cXlsMDdxdjRiYmJ3R3kteUhIZ2d1M2c?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 27 Oct 2026 07:00:00 GMT",
+            "publisher_domain": "csrc.nist.gov",
+            "publisher_name": "NIST Computer Security Resource Center | CSRC (.gov)",
+            "is_trusted": true
+          },
+          {
+            "title": "NIST Report Provides Guidelines for Transition to Post-Quantum Cryptography Standards - National Institute of Standards and Technology (.gov)",
+            "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPRW9WMFZWb3RfQlZpQUlMRHhvU1R6ai1Nei1wdlYwbE56MWlDRDRIRFNTRHhTSGx4Sm9wN0RmUFgyUlY0OXdrZ21LUVJIODNsdkF2a1dsRGtndTBQWjktWlA3Rmo0V3N3cS1vSHJuVUI3VGljTWpOWUxTVEZYX3Utb3BMeEdHUVBidW5kc3k4VjhibnFZQUpRQjFUMGFXUWNKXzU0dE9Fa3Jfa0ZEZmpkM0RBeko?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 27 Oct 2026 07:00:00 GMT",
+            "publisher_domain": "www.nist.gov",
+            "publisher_name": "National Institute of Standards and Technology (.gov)",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiOEFVX3lxTE9hbGZ4a01KdmF6M3pkS1A0MHNLQ1V4bVpIVXNfeldSaU91RnZ4cmdtS2xKZEEtWmU1?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiOEFVX3lxTE9hbGZ4a01KdmF6M3pkS1A0MHNLQ1V4bVpIVXNfeldSaU91RnZ4cmdtS2xKZEEtWmU1?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxON3ZUYVh0dmhaN3pNZ0tubEQxNHhVNHR6YmpPVG1fZ3NwZ28xRGN3TUpaZ0RaNE94U0ZnMHJKU280WjV6UGVob0RDemdra1VHWmpwQUZXU1BDT1JJM2dTai1CaDNuTllnZERaZ1MxektmR2dwWlRXS3BSX2hvRmtMdHE4YVllMWFQNEdfRURFTlgtbWhPaEhzNFRkcHk1bkNma0VISnUxMGJJTTA0WHFOQQ?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxON3ZUYVh0dmhaN3pNZ0tubEQxNHhVNHR6YmpPVG1fZ3NwZ28xRGN3TUpaZ0RaNE94U0ZnMHJKU280WjV6UGVob0RDemdra1VHWmpwQUZXU1BDT1JJM2dTai1CaDNuTllnZERaZ1MxektmR2dwWlRXS3BSX2hvRmtMdHE4YVllMWFQNEdfRURFTlgtbWhPaEhzNFRkcHk1bkNma0VISnUxMGJJTTA0WHFOQQ?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9qLVMxLS1iQWN1SkVfbjlmQnNLcU9JLUtBNGEtSFQ5S05QWkp3LUhNaVZMNUxBQ2JSeTU2cVRiMUZuUEF3M1o4dW5BMERoNDVXUTd5T21WVDVPbUx3X3VaZXVCc3E?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9qLVMxLS1iQWN1SkVfbjlmQnNLcU9JLUtBNGEtSFQ5S05QWkp3LUhNaVZMNUxBQ2JSeTU2cVRiMUZuUEF3M1o4dW5BMERoNDVXUTd5T21WVDVPbUx3X3VaZXVCc3E?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "US midterm elections 2026 House results",
+        "status_code": 200,
+        "latency_ms": 576.44,
+        "items_count": 100,
+        "trusted_count": 100,
+        "items": [
+          {
+            "title": "US midterm results in maps and charts - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9mYlFQMWJNR3dHZEQ1QVZ5TEo4QnRWOHYwTE9UMGh2X2x4TV8xTk1VbWNJSWZzdkdjclZFdjBNZmE5UFhhQnU4dGh0eXloOVhCeTBkekRwQUUyTzVZNV96Uml0ZXZDbHB1RHExMkphQUtLRnl3cWNMYmwyYVE?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 06 Nov 2026 17:00:00 GMT",
+            "publisher_domain": "www.reuters.com",
+            "publisher_name": "Reuters",
+            "is_trusted": true
+          },
+          {
+            "title": "North Carolina U.S. House Election Live Results 2026 - AP News",
+            "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQZUNJT0NlakJ5a2JfTF96OEhsQWQ2Vk9tVWY4Mk9mbXJaR0hKb1JUSlJFeWxCck4xTko5cGU2LXBlRDhja25qUE5ZUEpkMWN5QnVJcFBkcmpYV1VYUE5GQllrdnZzZ2FtNjVEakZJQlk5bDM5VmhWS1I2SzctaEtGYg?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Thu, 05 Nov 2026 08:00:00 GMT",
+            "publisher_domain": "apnews.com",
+            "publisher_name": "AP News",
+            "is_trusted": true
+          },
+          {
+            "title": "Tennessee U.S. House Election Live Results 2026 - AP News",
+            "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE81Wk9Pd3EzbFdLZld2QzV6bGFyWHFZOU9Ba1N2OFVxWEM4cXZBMVhYTmZtTU1lWkhSU0E2X2hIWEdfN0xlUW55VGxCTThWNHdWTnlCOGttZnVtbVdCU2tsOGYydF8yczkxWUw5YXNMMXVyMFpGaDNTZjlB?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 06 Nov 2026 08:00:00 GMT",
+            "publisher_domain": "apnews.com",
+            "publisher_name": "AP News",
+            "is_trusted": true
+          },
+          {
+            "title": "Alaska U.S. House Election Live Results 2026 - AP News",
+            "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBxYWJ3QjV6Q29LQmxMZDlBWjFwc240aFBSWVpZcUp0X2JIRVREcXlGeGg0SVI2R25nU1ZfSFRTWjJWVC12OVM3QVBkOFpBY0t2TmU5c2xrQV85d18wSDhZYjk3WXdja09xSGZ3X3prazZKMEQxY0E?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Thu, 05 Nov 2026 08:00:00 GMT",
+            "publisher_domain": "apnews.com",
+            "publisher_name": "AP News",
+            "is_trusted": true
+          },
+          {
+            "title": "Montana U.S. House Election Live Results 2026 - AP News",
+            "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE43clo2ZTVKX2dpVkltUnlmZ1R6dnlfQzdtdlNsVWJiTnVuZXV1RjBDLWF0emNtYW1yRzcwdmZlQkN1VVNmQkxOOTFWc1BiWS13WUM4WUNiNDB4MXpacldvZmpjNVkxSTF3T05vMVVRSkY4UG8wMHlF?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Thu, 05 Nov 2026 08:00:00 GMT",
+            "publisher_domain": "apnews.com",
+            "publisher_name": "AP News",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9mYlFQMWJNR3dHZEQ1QVZ5TEo4QnRWOHYwTE9UMGh2X2x4TV8xTk1VbWNJSWZzdkdjclZFdjBNZmE5UFhhQnU4dGh0eXloOVhCeTBkekRwQUUyTzVZNV96Uml0ZXZDbHB1RHExMkphQUtLRnl3cWNMYmwyYVE?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9mYlFQMWJNR3dHZEQ1QVZ5TEo4QnRWOHYwTE9UMGh2X2x4TV8xTk1VbWNJSWZzdkdjclZFdjBNZmE5UFhhQnU4dGh0eXloOVhCeTBkekRwQUUyTzVZNV96Uml0ZXZDbHB1RHExMkphQUtLRnl3cWNMYmwyYVE?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQZUNJT0NlakJ5a2JfTF96OEhsQWQ2Vk9tVWY4Mk9mbXJaR0hKb1JUSlJFeWxCck4xTko5cGU2LXBlRDhja25qUE5ZUEpkMWN5QnVJcFBkcmpYV1VYUE5GQllrdnZzZ2FtNjVEakZJQlk5bDM5VmhWS1I2SzctaEtGYg?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQZUNJT0NlakJ5a2JfTF96OEhsQWQ2Vk9tVWY4Mk9mbXJaR0hKb1JUSlJFeWxCck4xTko5cGU2LXBlRDhja25qUE5ZUEpkMWN5QnVJcFBkcmpYV1VYUE5GQllrdnZzZ2FtNjVEakZJQlk5bDM5VmhWS1I2SzctaEtGYg?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE81Wk9Pd3EzbFdLZld2QzV6bGFyWHFZOU9Ba1N2OFVxWEM4cXZBMVhYTmZtTU1lWkhSU0E2X2hIWEdfN0xlUW55VGxCTThWNHdWTnlCOGttZnVtbVdCU2tsOGYydF8yczkxWUw5YXNMMXVyMFpGaDNTZjlB?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE81Wk9Pd3EzbFdLZld2QzV6bGFyWHFZOU9Ba1N2OFVxWEM4cXZBMVhYTmZtTU1lWkhSU0E2X2hIWEdfN0xlUW55VGxCTThWNHdWTnlCOGttZnVtbVdCU2tsOGYydF8yczkxWUw5YXNMMXVyMFpGaDNTZjlB?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "FactCheck.org viral claim",
+        "status_code": 200,
+        "latency_ms": 529.51,
+        "items_count": 100,
+        "trusted_count": 100,
+        "items": [
+          {
+            "title": "Wright\u2019s Misleading Claims About Electricity Prices in Red vs. Blue States - FactCheck.org",
+            "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOejNfQWlLX19kZHFmdzdnY3ZjeGRTOGJsaU9jZ1hsMjgxa0NYY05VYXdNNTdUdE1kdDNFV01adFFDTUdrS3QzSDVnazVva20wNFNpQ0JFZ2kwbDlaQjUtRXpMVTZ0ekQyZ1lacmF0SXlfVWhBbGRfbzNEeE1JdmxsSUQ3R0NTSjlua2E5RWVoZnVleEx6Q0V2ekVRMGJodmxhcTNFcGczbXR2eGM?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 06 Nov 2026 21:26:45 GMT",
+            "publisher_domain": "www.factcheck.org",
+            "publisher_name": "FactCheck.org",
+            "is_trusted": true
+          },
+          {
+            "title": "Common Themes in the 2026 Midterms - FactCheck.org",
+            "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9tSm5RWTdSOVNyREZIWFc1ejUxcG4wSkVHTWpESm8wWWtLTHg4cHdlYUdJTmVqWUVrTjg2Wld6MUk3Q2tDOWZpR2pBdjJVd0dIaXVTMWVObW5teHVCOF9aSVBZYXo5cTBqN0lOeHBoQ0ZsSTlUVkRwXw?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Mon, 02 Nov 2026 22:58:17 GMT",
+            "publisher_domain": "www.factcheck.org",
+            "publisher_name": "FactCheck.org",
+            "is_trusted": true
+          },
+          {
+            "title": "In Kansas, Both Sides Twist the Facts in Accusations of Protecting Pedophiles - FactCheck.org",
+            "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPdHBKd0JfNFVnWmV2QjJ5VUxpTV9MQ1MydWp2MmQxUDVJa2dOMkh3WFZiOUUwWURUT1BwUFRxanZHMWR2ZFNmcUdHNGlmbnpneDZ2cTRyWjd1X0lFdEI4eXduNEZ5emIxeldwYUZ5UERRck0tNm1Ub0lycHp6UUt1WDgwWDlpYnRJeDlFQ2EzMFdna2pOVXRmZ1RTZ0xEWEJlLS05Y3VOX0dvX3N6TDg3Mg?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Mon, 02 Nov 2026 20:53:49 GMT",
+            "publisher_domain": "www.factcheck.org",
+            "publisher_name": "FactCheck.org",
+            "is_trusted": true
+          },
+          {
+            "title": "The 2026 FactCheck Awards - FactCheck.org",
+            "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBkMEQteU4wczJGOVNZN0N4VXQtNWswN0lMYVl5QWIzYVliclExTF96YXhFS3k3ZjVxUVZ3c3QyWUpOT19qc2MxblJVNGdGNTFxNTRUdzJEMnV6dGZOVEdWRmZJTnhvWGFPT0FnaQ?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 03 Nov 2026 16:58:12 GMT",
+            "publisher_domain": "www.factcheck.org",
+            "publisher_name": "FactCheck.org",
+            "is_trusted": true
+          },
+          {
+            "title": "Moderna pressed by US judges on billion-dollar COVID patent defense - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQUDJuaEJRSEJpRkdkS2lOM2lzUDhyZ3VpN0dPdU5FVWpmWkh4Vm9BNDFLTERLV25PLTNpMXdYczJPUmN0NTgxUURDWUZLWG11QWVsZDl4dWFheVFCY3oteFd4ek9EQUltYkNydkdCNzFGZWxOTlVVNjBoakFIbDNyMEs1b0JRUlZRbXNacGpIMDFGOHM3MmNtbGY1NW1NVDBJWlJFb2paU2ZOZkVaMkVqRjdWalpmeDg2?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Thu, 05 Nov 2026 19:28:24 GMT",
+            "publisher_domain": "www.reuters.com",
+            "publisher_name": "Reuters",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOejNfQWlLX19kZHFmdzdnY3ZjeGRTOGJsaU9jZ1hsMjgxa0NYY05VYXdNNTdUdE1kdDNFV01adFFDTUdrS3QzSDVnazVva20wNFNpQ0JFZ2kwbDlaQjUtRXpMVTZ0ekQyZ1lacmF0SXlfVWhBbGRfbzNEeE1JdmxsSUQ3R0NTSjlua2E5RWVoZnVleEx6Q0V2ekVRMGJodmxhcTNFcGczbXR2eGM?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOejNfQWlLX19kZHFmdzdnY3ZjeGRTOGJsaU9jZ1hsMjgxa0NYY05VYXdNNTdUdE1kdDNFV01adFFDTUdrS3QzSDVnazVva20wNFNpQ0JFZ2kwbDlaQjUtRXpMVTZ0ekQyZ1lacmF0SXlfVWhBbGRfbzNEeE1JdmxsSUQ3R0NTSjlua2E5RWVoZnVleEx6Q0V2ekVRMGJodmxhcTNFcGczbXR2eGM?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9tSm5RWTdSOVNyREZIWFc1ejUxcG4wSkVHTWpESm8wWWtLTHg4cHdlYUdJTmVqWUVrTjg2Wld6MUk3Q2tDOWZpR2pBdjJVd0dIaXVTMWVObW5teHVCOF9aSVBZYXo5cTBqN0lOeHBoQ0ZsSTlUVkRwXw?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9tSm5RWTdSOVNyREZIWFc1ejUxcG4wSkVHTWpESm8wWWtLTHg4cHdlYUdJTmVqWUVrTjg2Wld6MUk3Q2tDOWZpR2pBdjJVd0dIaXVTMWVObW5teHVCOF9aSVBZYXo5cTBqN0lOeHBoQ0ZsSTlUVkRwXw?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPdHBKd0JfNFVnWmV2QjJ5VUxpTV9MQ1MydWp2MmQxUDVJa2dOMkh3WFZiOUUwWURUT1BwUFRxanZHMWR2ZFNmcUdHNGlmbnpneDZ2cTRyWjd1X0lFdEI4eXduNEZ5emIxeldwYUZ5UERRck0tNm1Ub0lycHp6UUt1WDgwWDlpYnRJeDlFQ2EzMFdna2pOVXRmZ1RTZ0xEWEJlLS05Y3VOX0dvX3N6TDg3Mg?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPdHBKd0JfNFVnWmV2QjJ5VUxpTV9MQ1MydWp2MmQxUDVJa2dOMkh3WFZiOUUwWURUT1BwUFRxanZHMWR2ZFNmcUdHNGlmbnpneDZ2cTRyWjd1X0lFdEI4eXduNEZ5emIxeldwYUZ5UERRck0tNm1Ub0lycHp6UUt1WDgwWDlpYnRJeDlFQ2EzMFdna2pOVXRmZ1RTZ0xEWEJlLS05Y3VOX0dvX3N6TDg3Mg?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "Linux kernel Rust drivers",
+        "status_code": 200,
+        "latency_ms": 376.99,
+        "items_count": 100,
+        "trusted_count": 100,
+        "items": [
+          {
+            "title": "Asahi Linux - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiQ0FVX3lxTE9pb1F3RmJCUTRYOEJBUWJFa1VjMEttbUtXVzVIZFpjYTJxZDJQSVJicW55Qnl0dWVXWU1Wdk53YXZKU0U?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Sat, 06 Feb 2021 17:04:28 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "microsoft/WSL2-Linux-Kernel: The source for the Linux kernel used in Windows Subsystem for Linux 2 (WSL2) - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE44UVFIcXotcGJEbFF5djV2ci1VT1NhQTF6c051TnhOME1CMTBmMk1nNEx1Q1VDekI5dG10X3NIeDUyR0YzeFJwU2FMQThlZzVnNkVaRHU4UTVOdw?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 05 Jul 2019 23:30:55 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "trycua/cua: Scale computer-use 2.0 with open-source drivers, cross-OS sandboxes, and benchmarks for training, evaluation, and data generation. - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiQ0FVX3lxTE5CZ0JNSEExYXFKc0dRRm1tOFhXNXZGZEgzMUNpRm5ERTFiNzJzeWRLMFU1NFVrdVB4WDVuRjJmVWgyeXc?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Wed, 19 Mar 2025 04:55:41 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "linuxkid473/gbos-x86: gbOS86: Googlebook OS on ordinary Intel laptops (6th gen+): CPU-instruction emulation, patched libs, boot-time hardware detection, live/installer USB. - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB6X0pHSm5zRy1Fd1llbVhZOFdDcDV2X3E4UnNCb19VaDgxNWZZQVB0Ykdtc2R0RXllS2JsZmFiZ3VKQndDU1hIdXI1a3hna29w?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Thu, 05 Nov 2026 09:49:11 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "libracoder/kiri: A small, fast container runtime for macOS, Windows and Linux - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE1Fb21lSFg2SWVOOE9JaVVwc08zenJnZnRnUWkwemRORWloemVHZTZCRGFlbldpaUtnOHRINWptMTRFZ1Y1LWtQbzVn?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 06 Nov 2026 05:57:44 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiQ0FVX3lxTE9pb1F3RmJCUTRYOEJBUWJFa1VjMEttbUtXVzVIZFpjYTJxZDJQSVJicW55Qnl0dWVXWU1Wdk53YXZKU0U?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiQ0FVX3lxTE9pb1F3RmJCUTRYOEJBUWJFa1VjMEttbUtXVzVIZFpjYTJxZDJQSVJicW55Qnl0dWVXWU1Wdk53YXZKU0U?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE44UVFIcXotcGJEbFF5djV2ci1VT1NhQTF6c051TnhOME1CMTBmMk1nNEx1Q1VDekI5dG10X3NIeDUyR0YzeFJwU2FMQThlZzVnNkVaRHU4UTVOdw?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE44UVFIcXotcGJEbFF5djV2ci1VT1NhQTF6c051TnhOME1CMTBmMk1nNEx1Q1VDekI5dG10X3NIeDUyR0YzeFJwU2FMQThlZzVnNkVaRHU4UTVOdw?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiQ0FVX3lxTE5CZ0JNSEExYXFKc0dRRm1tOFhXNXZGZEgzMUNpRm5ERTFiNzJzeWRLMFU1NFVrdVB4WDVuRjJmVWgyeXc?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiQ0FVX3lxTE5CZ0JNSEExYXFKc0dRRm1tOFhXNXZGZEgzMUNpRm5ERTFiNzJzeWRLMFU1NFVrdVB4WDVuRjJmVWgyeXc?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "MiniCheck fact-checking model",
+        "status_code": 200,
+        "latency_ms": 332.9,
+        "items_count": 56,
+        "trusted_count": 56,
+        "items": [
+          {
+            "title": "arXiv:2404.10774v2 [cs.CL] 1 Oct 2024 - arXiv",
+            "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE1KY0dJLWNpYTNzWmhlaE1VbUJwQkplNHkzeTdzRjNWeXdpM183S1lYZkd6YXRVVHRDa2ZhU0dXNWZNMXVHdUJv?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 01 Oct 2024 07:00:00 GMT",
+            "publisher_domain": "arxiv.org",
+            "publisher_name": "arXiv",
+            "is_trusted": true
+          },
+          {
+            "title": "[2404.10774] MiniCheck: Efficient Fact-Checking of LLMs on Grounding Documents - arXiv",
+            "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE11RklIQ2U4cm9QOVlRaUxOcnZvSUNaTDVSd0tROUdyVnZXYTUwSzRrWVFhXzZUSURET0gwOG1HQXoxYjB5dTFr?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 16 Apr 2024 07:00:00 GMT",
+            "publisher_domain": "arxiv.org",
+            "publisher_name": "arXiv",
+            "is_trusted": true
+          },
+          {
+            "title": "MiniCheck: Efficient Fact-Checking of LLMs on Grounding Documents - arXiv",
+            "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1zU2RKOV9jVkRYSXJfVjVOS1lpcTlrVC1XUEhXaHF5VUQ3a3Etd3BXQzV2MU9SbjV3NGNjbXhzNERfM0F3alZ3Sl9mRQ?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 01 Oct 2024 07:00:00 GMT",
+            "publisher_domain": "arxiv.org",
+            "publisher_name": "arXiv",
+            "is_trusted": true
+          },
+          {
+            "title": "MiniCheck: Efficient Fact-Checking of LLMs on Grounding Documents [EMNLP 2024] - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE1majB6bWlPeGlydTV5ZnB0R3hMaFZQR2ZuRmNHMndvMkd0OGc2b0FLSEIyX2EzRU1KaWtfSGRtX216Y0t4c2xFek9uQ3Q?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Wed, 17 Apr 2024 14:20:51 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "Hallucination to Truth: A Review of Fact-Checking and Factuality Evaluation in Large Language Models - arXiv",
+            "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5ZdFh6ZEtzTTdRSFRTdUkzMzVTVjFrMWFDd2hjaUxfUFpRX1dEekhLdmV5eHlZbm9udDBfSHRTYkNOZlNHZFNNaVdOMA?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 26 Sep 2025 07:00:00 GMT",
+            "publisher_domain": "arxiv.org",
+            "publisher_name": "arXiv",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE1KY0dJLWNpYTNzWmhlaE1VbUJwQkplNHkzeTdzRjNWeXdpM183S1lYZkd6YXRVVHRDa2ZhU0dXNWZNMXVHdUJv?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE1KY0dJLWNpYTNzWmhlaE1VbUJwQkplNHkzeTdzRjNWeXdpM183S1lYZkd6YXRVVHRDa2ZhU0dXNWZNMXVHdUJv?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE11RklIQ2U4cm9QOVlRaUxOcnZvSUNaTDVSd0tROUdyVnZXYTUwSzRrWVFhXzZUSURET0gwOG1HQXoxYjB5dTFr?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE11RklIQ2U4cm9QOVlRaUxOcnZvSUNaTDVSd0tROUdyVnZXYTUwSzRrWVFhXzZUSURET0gwOG1HQXoxYjB5dTFr?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1zU2RKOV9jVkRYSXJfVjVOS1lpcTlrVC1XUEhXaHF5VUQ3a3Etd3BXQzV2MU9SbjV3NGNjbXhzNERfM0F3alZ3Sl9mRQ?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1zU2RKOV9jVkRYSXJfVjVOS1lpcTlrVC1XUEhXaHF5VUQ3a3Etd3BXQzV2MU9SbjV3NGNjbXhzNERfM0F3alZ3Sl9mRQ?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "Reuters Commerce Department export rules chips",
+        "status_code": 200,
+        "latency_ms": 414.97,
+        "items_count": 72,
+        "trusted_count": 72,
+        "items": [
+          {
+            "title": "EXCLUSIVE: SK Hynix's New York chip plans hit snag over US restrictions on China, sources say - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOdlpsRXVkdXRtR00xTmR6NndmaHV0RE55OEVwcHQ2YzhwdXIxQlo0Z2dOYnpBeHZhRjhSQXlRcUt2TURXbUZZczlQaVlNc2EtWWhtODU2enpxaVM4ZXk3d0FJT0g3VHRMN1VfRlB0MThZU21UNFBYQXhKMWlXcUwwa0hlajJQb1c2Q1ZHczNRX1Y0dTNveE4zV0Jpb0JhQjhOVzNGU3RwU1gyTU56b29OeEFyT2tuenlBb2RfcnZIVW5Pa00?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 03 Nov 2026 18:50:00 GMT",
+            "publisher_domain": "www.reuters.com",
+            "publisher_name": "Reuters",
+            "is_trusted": true
+          },
+          {
+            "title": "EXCLUSIVE: China's top flash memory chipmaker targets more homegrown tools for new factory, sources say - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOX2pDd1BuOVZzeGl6Q0RiSzR3MzVBTnhnQUJOMXRUZk1PSF9HZTk5YVhzVjJZVVpaMFlKV0hhMVZNeXpOTHpxZkxvSVZKclYtMWwzUGc5N0dxQlZuS0NURFJBcUloOU9rVGJQbmprb2E4N1JRaGpjNi04OFgxUTdXVFY4OGFBWVQ4OHVkOFpoY1B4ZmhoNFJySWhfdXFBYTZSUGlVeG1KWW1XVUI3c3FfMjF0bXlNVUZNdHlSdktSaw?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 06 Nov 2026 04:03:00 GMT",
+            "publisher_domain": "www.reuters.com",
+            "publisher_name": "Reuters",
+            "is_trusted": true
+          },
+          {
+            "title": "Reuters | Breaking International News & Views - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMiPEFVX3lxTE8tZ2hNa2FhcURvbGFUZGY4clA5d1FnWlJWbnIzV2dfOFVDdDRNQ25lY2s2dzFLV2ZYRHBldA?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Sat, 10 Sep 2005 07:49:43 GMT",
+            "publisher_domain": "www.reuters.com",
+            "publisher_name": "Reuters",
+            "is_trusted": true
+          },
+          {
+            "title": "Qatar surges, bucking Gulf market slide on Iran war concerns - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQU3lNbXVYLVNtdGZwSDFpT0ZvTHVaWmp3bi1abjBPelhQbDQ4bmNST1VyRGktWHRJXy1yTnhMMGREWUVPdjRJS3BxXzJYOGVGSkZvdk5YYTJpbU5JM215MUxWTE12R01nTldxbnpETXliMExhV3g5eHB2dFdEb1dYd3ZnTkNULTdoWXk0Y2dHOWNPTVJ4MldXUU5xMkxNeU8yQnhiVlRma1RBN2NUbElR?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Sun, 01 Nov 2026 14:03:04 GMT",
+            "publisher_domain": "www.reuters.com",
+            "publisher_name": "Reuters",
+            "is_trusted": true
+          },
+          {
+            "title": "US makes it easier to export Nvidia AI chips and military equipment to the UAE - Reuters",
+            "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPd0RpM0tkVDY3RXZ5NzBYZnZKR1hkME1NSVE2TVdNYUJCSjY5VWk1LUhfUFd3NTlMdktER1MtOHhEUjVVOHRhSHcxTGh2TFlFMTNsZmt2dzk0WTdFbHUxZm5SNExFX3JyNldDWHpYcHg1dFRGWGdoX2Y5QU1UUGR1TmpodmktT3lXenhad3JqOTMtUERoZmpFX0dMTFh1VEtQdEp5ZERMRGJYNjloTG94X05Ka2pYQWFlU1NENjFTd0tTN002dFBOb3g0d0QxUQ?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Fri, 10 Jul 2026 07:00:00 GMT",
+            "publisher_domain": "www.reuters.com",
+            "publisher_name": "Reuters",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOdlpsRXVkdXRtR00xTmR6NndmaHV0RE55OEVwcHQ2YzhwdXIxQlo0Z2dOYnpBeHZhRjhSQXlRcUt2TURXbUZZczlQaVlNc2EtWWhtODU2enpxaVM4ZXk3d0FJT0g3VHRMN1VfRlB0MThZU21UNFBYQXhKMWlXcUwwa0hlajJQb1c2Q1ZHczNRX1Y0dTNveE4zV0Jpb0JhQjhOVzNGU3RwU1gyTU56b29OeEFyT2tuenlBb2RfcnZIVW5Pa00?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOdlpsRXVkdXRtR00xTmR6NndmaHV0RE55OEVwcHQ2YzhwdXIxQlo0Z2dOYnpBeHZhRjhSQXlRcUt2TURXbUZZczlQaVlNc2EtWWhtODU2enpxaVM4ZXk3d0FJT0g3VHRMN1VfRlB0MThZU21UNFBYQXhKMWlXcUwwa0hlajJQb1c2Q1ZHczNRX1Y0dTNveE4zV0Jpb0JhQjhOVzNGU3RwU1gyTU56b29OeEFyT2tuenlBb2RfcnZIVW5Pa00?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOX2pDd1BuOVZzeGl6Q0RiSzR3MzVBTnhnQUJOMXRUZk1PSF9HZTk5YVhzVjJZVVpaMFlKV0hhMVZNeXpOTHpxZkxvSVZKclYtMWwzUGc5N0dxQlZuS0NURFJBcUloOU9rVGJQbmprb2E4N1JRaGpjNi04OFgxUTdXVFY4OGFBWVQ4OHVkOFpoY1B4ZmhoNFJySWhfdXFBYTZSUGlVeG1KWW1XVUI3c3FfMjF0bXlNVUZNdHlSdktSaw?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOX2pDd1BuOVZzeGl6Q0RiSzR3MzVBTnhnQUJOMXRUZk1PSF9HZTk5YVhzVjJZVVpaMFlKV0hhMVZNeXpOTHpxZkxvSVZKclYtMWwzUGc5N0dxQlZuS0NURFJBcUloOU9rVGJQbmprb2E4N1JRaGpjNi04OFgxUTdXVFY4OGFBWVQ4OHVkOFpoY1B4ZmhoNFJySWhfdXFBYTZSUGlVeG1KWW1XVUI3c3FfMjF0bXlNVUZNdHlSdktSaw?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiPEFVX3lxTE8tZ2hNa2FhcURvbGFUZGY4clA5d1FnWlJWbnIzV2dfOFVDdDRNQ25lY2s2dzFLV2ZYRHBldA?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiPEFVX3lxTE8tZ2hNa2FhcURvbGFUZGY4clA5d1FnWlJWbnIzV2dfOFVDdDRNQ25lY2s2dzFLV2ZYRHBldA?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      },
+      {
+        "query": "claude code security leak github",
+        "status_code": 200,
+        "latency_ms": 471.83,
+        "items_count": 100,
+        "trusted_count": 100,
+        "items": [
+          {
+            "title": "Bug Report: Privacy violation in User-Agent header \u00b7 Issue #107757 \u00b7 anthropics/claude-code - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9tc29LVExieDJobzFYeElhbWxrYjBSZFgtWF9rcG1BdDZMeXJneXNaUHdfMm9UOEhjVHRjR3ktUF9ySDlmSmVYVDNvUElxUjVCZzEwT3daMW1jY3lLVUtHTlJBdjhEdw?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Thu, 05 Nov 2026 22:13:15 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "asgeirtj/system_prompts_leaks: Leaked system prompts of ChatGPT, Claude, Gemini and more. The hidden system prompt of every popular chatbot, in full, every version since May 2025. Also Anthropic Claude Code, OpenAI Codex, Google Antigravity, xAI Gr - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HZ3pJTWFZdWxPUWVyZ00xUXRyU2RsMlV2RDZQRWM5cFdtTldQQ0JwQ1R3TUhhTk5fOVl3b1pVeEV3YkZUS0Zwd1JBZVZidnNjM0xTOHNxRWMzWEpD?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 06 May 2025 16:36:12 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "An AI-powered security review GitHub Action using Claude to analyze code changes for security vulnerabilities. - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1QdmlMc09fMXlTaThKOUFnRkJmaTJ1THN1TFR2Zy0tRnd3QUMtTWM0Vm5NQ09ac0V6SFhVeFQ4TWlSZ09OeHZyV2c5M2dqeGl3aF9pS0NZSEZ6aGMxU2ZXbzFtVXZjWkpa?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Wed, 06 Aug 2025 16:07:25 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "alirezarezvani/claude-skills: 410 Claude Code skills & agent skills & plugins (120+ Agents, custom commands, 410+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents \u2014 engineering, marketing, pro - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE55M0pPTGlvV2ZSN293YUZGSHNCOEp0MDdnTGpMN3hRS2txbXk1X3BuVS1PRURINmg4RW4zTm4xOWY0dWNIREhjNkEtZ3hGTHJ3dG9qTjhtTGpBS0U?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Mon, 20 Oct 2025 01:27:39 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          },
+          {
+            "title": "hesreallyhim/awesome-claude-code: A hand-picked collection of the finest of resources for the most awesome of agents, Claude Code, the undisputed champion of coding companions, from the unstoppable team at Anthropic PBC (no affiliation). A delectable - GitHub",
+            "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5GckE0RjdOVFIwMm1fWnBsbjNYT1YxTGJKbVJORVFoSFpQTnNpaXJtMkdCaThncVBGVzZiSVpmSEhtdmpyWUNXZzl4eXVJUFpVRmJQZ1I0V0RKUjVVX1JUOQ?oc=5",
+            "link_host": "news.google.com",
+            "pub_date": "Tue, 22 Apr 2025 05:46:06 GMT",
+            "publisher_domain": "github.com",
+            "publisher_name": "GitHub",
+            "is_trusted": true
+          }
+        ],
+        "resolves": [
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9tc29LVExieDJobzFYeElhbWxrYjBSZFgtWF9rcG1BdDZMeXJneXNaUHdfMm9UOEhjVHRjR3ktUF9ySDlmSmVYVDNvUElxUjVCZzEwT3daMW1jY3lLVUtHTlJBdjhEdw?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9tc29LVExieDJobzFYeElhbWxrYjBSZFgtWF9rcG1BdDZMeXJneXNaUHdfMm9UOEhjVHRjR3ktUF9ySDlmSmVYVDNvUElxUjVCZzEwT3daMW1jY3lLVUtHTlJBdjhEdw?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HZ3pJTWFZdWxPUWVyZ00xUXRyU2RsMlV2RDZQRWM5cFdtTldQQ0JwQ1R3TUhhTk5fOVl3b1pVeEV3YkZUS0Zwd1JBZVZidnNjM0xTOHNxRWMzWEpD?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HZ3pJTWFZdWxPUWVyZ00xUXRyU2RsMlV2RDZQRWM5cFdtTldQQ0JwQ1R3TUhhTk5fOVl3b1pVeEV3YkZUS0Zwd1JBZVZidnNjM0xTOHNxRWMzWEpD?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          },
+          {
+            "initial_url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1QdmlMc09fMXlTaThKOUFnRkJmaTJ1THN1TFR2Zy0tRnd3QUMtTWM0Vm5NQ09ac0V6SFhVeFQ4TWlSZ09OeHZyV2c5M2dqeGl3aF9pS0NZSEZ6aGMxU2ZXbzFtVXZjWkpa?oc=5",
+            "final_url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1QdmlMc09fMXlTaThKOUFnRkJmaTJ1THN1TFR2Zy0tRnd3QUMtTWM0Vm5NQ09ac0V6SFhVeFQ4TWlSZ09OeHZyV2c5M2dqeGl3aF9pS0NZSEZ6aGMxU2ZXbzFtVXZjWkpa?oc=5&hl=en-IN&gl=IN&ceid=IN:en",
+            "final_host": "news.google.com",
+            "http_status": 200,
+            "left_google": false,
+            "extraction_status": "no_text",
+            "word_count": 0,
+            "note": "Link never left news.google.com"
+          }
+        ],
+        "error": null
+      }
+    ],
+    "gdelt": [
+      {
+        "query": "Goodbye Claude, Hello Pi",
+        "status_code": 429,
+        "latency_ms": 10577.78,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "What I run on my $10 USD OpenStick homelab",
+        "status_code": 429,
+        "latency_ms": 10374.8,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "Claude Code's \"Don't Ask Again\" exposes passwords in 1,122 public GitHub files",
+        "status_code": 429,
+        "latency_ms": 9104.57,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "ZapFast: A fast, native WhatsApp client in Rust and egui",
+        "status_code": 429,
+        "latency_ms": 9006.26,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "Making any integer with four 2s (2025)",
+        "status_code": 429,
+        "latency_ms": 9270.89,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "NIST post-quantum cryptography standards",
+        "status_code": 429,
+        "latency_ms": 10025.62,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "US midterm elections 2026 House results",
+        "status_code": 429,
+        "latency_ms": 8620.05,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "FactCheck.org viral claim",
+        "status_code": 429,
+        "latency_ms": 8998.61,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "Linux kernel Rust drivers",
+        "status_code": 429,
+        "latency_ms": 8858.6,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "MiniCheck fact-checking model",
+        "status_code": 429,
+        "latency_ms": 9156.31,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "Reuters Commerce Department export rules chips",
+        "status_code": 429,
+        "latency_ms": 9012.48,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": "HTTP 429: Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic users should switch to our ngrams dataset: https://blog.gdeltproject.org/using-the"
+      },
+      {
+        "query": "claude code security leak github",
+        "status_code": 200,
+        "latency_ms": 10502.51,
+        "items_count": 0,
+        "trusted_count": 0,
+        "items": [],
+        "resolves": [],
+        "error": null
+      }
+    ]
+  }
+}

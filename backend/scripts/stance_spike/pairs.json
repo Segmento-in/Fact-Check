@@ -1,0 +1,102 @@
+{
+  "_note": "TEST DATA ONLY. NOT REAL EVIDENCE. Never import from app.",
+  "pairs": [
+    {
+      "id": "pair_01",
+      "claim": "Plants produce glucose through photosynthesis.",
+      "evidence": "Plants absorb sunlight through chlorophyll inside their leaves. Photosynthesis converts carbon dioxide and water into glucose and oxygen.",
+      "expected": "supports"
+    },
+    {
+      "id": "pair_02",
+      "claim": "Mount Everest summit stands over 8,800 meters above sea level.",
+      "evidence": "Survey teams measured the Himalayan peak using satellite positioning gear. The summit of Mount Everest stands at 8,848 meters above sea level.",
+      "expected": "supports"
+    },
+    {
+      "id": "pair_03",
+      "claim": "Regular aerobic workouts are beneficial for heart health.",
+      "evidence": "Clinical trials monitored participants over a six-month cardio routine. Regular aerobic exercise improves cardiovascular endurance and lowers resting heart rate.",
+      "expected": "supports"
+    },
+    {
+      "id": "pair_04",
+      "claim": "Quarterly revenue rose by 15 percent compared to the prior year.",
+      "evidence": "The board reviewed financial statements during the annual shareholder briefing. The company reported quarterly net revenue reflecting a 15 percent increase over last year.",
+      "expected": "supports"
+    },
+    {
+      "id": "pair_05",
+      "claim": "Water transitions to solid ice at 0 degrees Celsius under standard conditions.",
+      "evidence": "Phase changes occur when thermal energy leaves liquid molecules. Water freezes into solid ice at zero degrees Celsius under standard atmospheric pressure.",
+      "expected": "supports"
+    },
+    {
+      "id": "pair_06",
+      "claim": "Lidar sensors help robotic vacuums detect obstacles while navigating.",
+      "evidence": "Modern smart home cleaners map indoor floorplans automatically. Autonomous vacuum cleaners navigate rooms using lidar sensors to map surrounding obstacles.",
+      "expected": "supports"
+    },
+    {
+      "id": "pair_07",
+      "claim": "A sitting US president is on the ballot in US midterm elections.",
+      "evidence": "Midterm elections fill seats in the House of Representatives and part of the Senate. The presidency is not on the ballot.",
+      "expected": "refutes"
+    },
+    {
+      "id": "pair_08",
+      "claim": "The regulatory commission approved the proposed merger between the two telecom providers.",
+      "evidence": "The regulatory commission reviewed the deal thoroughly. After months of deliberation, officials did not approve the proposed merger.",
+      "expected": "refutes"
+    },
+    {
+      "id": "pair_09",
+      "claim": "The backup power generator restored electricity to the emergency ward in 9 seconds.",
+      "evidence": "Technicians monitored the electrical failure closely. The backup power generator restored electricity to the emergency ward in 9 minutes.",
+      "expected": "refutes"
+    },
+    {
+      "id": "pair_10",
+      "claim": "The newly published deep learning architecture achieved accuracy 40x higher on the benchmark.",
+      "evidence": "The research team tested the model against standard benchmarks. The newly published deep learning architecture achieved operational cost 40x lower on the benchmark.",
+      "expected": "refutes"
+    },
+    {
+      "id": "pair_11",
+      "claim": "The orbital observation probe launched successfully in October 2023.",
+      "evidence": "The space agency completed rocket integration ahead of schedule. The orbital observation probe launched successfully in June 2021.",
+      "expected": "refutes"
+    },
+    {
+      "id": "pair_12",
+      "claim": "Monocrystalline solar panels degrade faster in high humidity climates.",
+      "evidence": "Solar installations require routine inspection of wiring and mounting brackets. Technicians inspect roof surfaces to ensure brackets remain firmly attached.",
+      "expected": "neutral"
+    },
+    {
+      "id": "pair_13",
+      "claim": "Drinking dark roast coffee causes higher blood pressure spikes than light roast coffee.",
+      "evidence": "Coffee beans undergo chemical changes during roasting that alter flavor notes. Dark roast beans display an oily surface with rich smoky notes.",
+      "expected": "neutral"
+    },
+    {
+      "id": "pair_14",
+      "claim": "The city subway extension project finished six months ahead of schedule.",
+      "evidence": "The municipal transit agency operates subway lines across five busy districts. Ridership grew by eight percent during morning peak commute hours.",
+      "expected": "neutral"
+    },
+    {
+      "id": "pair_15",
+      "claim": "The open source database library switched its license to AGPLv3.",
+      "evidence": "Database maintainers published release notes for version 4.2 yesterday. The update resolved three memory allocation issues reported by community users.",
+      "expected": "neutral"
+    },
+    {
+      "id": "pair_16",
+      "claim": "Electric cargo bicycles reduce downtown delivery times by thirty percent.",
+      "evidence": "Urban courier companies manage fleets of cargo bicycles and electric vans. Fleet mechanics perform tire and brake checks every Monday morning.",
+      "expected": "neutral"
+    }
+  ]
+}
+

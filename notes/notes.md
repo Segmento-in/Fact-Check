@@ -1,0 +1,1 @@
+What works: Google News gives us the headline, publisher name (like Reuters or AP News), and publication date. That part is working great.

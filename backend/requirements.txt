@@ -1,0 +1,8 @@
+fastapi==0.162.0
+uvicorn==0.54.0
+httpx==0.28.1
+pydantic==2.14.3
+pydantic-settings==2.16.2
+trafilatura==2.3.1
+lxml_html_clean==0.4.6
+

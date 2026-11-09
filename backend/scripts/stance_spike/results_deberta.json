@@ -1,0 +1,224 @@
+{
+  "model_arg": "deberta",
+  "model_name": "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
+  "load_time_seconds": 106.27,
+  "ram_after_load_mb": 682.7,
+  "peak_ram_mb": 708.4,
+  "mean_latency_ms": 1762.99,
+  "max_latency_ms": 1901.85,
+  "summary": {
+    "total_pairs": 16,
+    "mean_latency_ms": 1762.99,
+    "max_latency_ms": 1901.85,
+    "peak_ram_mb": 708.4,
+    "class_breakdown": {
+      "supports": {
+        "correct": 6,
+        "total": 6
+      },
+      "refutes": {
+        "correct": 4,
+        "total": 5
+      },
+      "neutral": {
+        "correct": 5,
+        "total": 5
+      }
+    },
+    "overall_accuracy_pct": 93.75
+  },
+  "results": [
+    {
+      "id": "pair_01",
+      "expected": "supports",
+      "predicted": "supports",
+      "probabilities": {
+        "supports": 0.9946,
+        "neutral": 0.0033,
+        "refutes": 0.0018
+      },
+      "latency_ms": 1700.98,
+      "error": null
+    },
+    {
+      "id": "pair_02",
+      "expected": "supports",
+      "predicted": "supports",
+      "probabilities": {
+        "supports": 0.9976,
+        "neutral": 0.0017,
+        "refutes": 0.0007
+      },
+      "latency_ms": 1801.63,
+      "error": null
+    },
+    {
+      "id": "pair_03",
+      "expected": "supports",
+      "predicted": "supports",
+      "probabilities": {
+        "supports": 0.9937,
+        "neutral": 0.0061,
+        "refutes": 0.0005
+      },
+      "latency_ms": 1596.67,
+      "error": null
+    },
+    {
+      "id": "pair_04",
+      "expected": "supports",
+      "predicted": "supports",
+      "probabilities": {
+        "supports": 0.9985,
+        "neutral": 0.0012,
+        "refutes": 0.0004
+      },
+      "latency_ms": 1734.05,
+      "error": null
+    },
+    {
+      "id": "pair_05",
+      "expected": "supports",
+      "predicted": "supports",
+      "probabilities": {
+        "supports": 0.9927,
+        "neutral": 0.0062,
+        "refutes": 0.0011
+      },
+      "latency_ms": 1695.04,
+      "error": null
+    },
+    {
+      "id": "pair_06",
+      "expected": "supports",
+      "predicted": "supports",
+      "probabilities": {
+        "supports": 0.9858,
+        "neutral": 0.0111,
+        "refutes": 0.0033
+      },
+      "latency_ms": 1721.09,
+      "error": null
+    },
+    {
+      "id": "pair_07",
+      "expected": "refutes",
+      "predicted": "refutes",
+      "probabilities": {
+        "supports": 0.0006,
+        "neutral": 0.0033,
+        "refutes": 0.9961
+      },
+      "latency_ms": 1788.18,
+      "error": null
+    },
+    {
+      "id": "pair_08",
+      "expected": "refutes",
+      "predicted": "refutes",
+      "probabilities": {
+        "supports": 0.0001,
+        "neutral": 0.0062,
+        "refutes": 0.9937
+      },
+      "latency_ms": 1710.9,
+      "error": null
+    },
+    {
+      "id": "pair_09",
+      "expected": "refutes",
+      "predicted": "refutes",
+      "probabilities": {
+        "supports": 0.0035,
+        "neutral": 0.0026,
+        "refutes": 0.9937
+      },
+      "latency_ms": 1725.83,
+      "error": null
+    },
+    {
+      "id": "pair_10",
+      "expected": "refutes",
+      "predicted": "neutral",
+      "probabilities": {
+        "supports": 0.0062,
+        "neutral": 0.8882,
+        "refutes": 0.1057
+      },
+      "latency_ms": 1901.85,
+      "error": null
+    },
+    {
+      "id": "pair_11",
+      "expected": "refutes",
+      "predicted": "refutes",
+      "probabilities": {
+        "supports": 0.0001,
+        "neutral": 0.0006,
+        "refutes": 0.999
+      },
+      "latency_ms": 1718.63,
+      "error": null
+    },
+    {
+      "id": "pair_12",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "probabilities": {
+        "supports": 0.0005,
+        "neutral": 0.999,
+        "refutes": 0.0005
+      },
+      "latency_ms": 1757.33,
+      "error": null
+    },
+    {
+      "id": "pair_13",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "probabilities": {
+        "supports": 0.0003,
+        "neutral": 0.999,
+        "refutes": 0.0008
+      },
+      "latency_ms": 1877.93,
+      "error": null
+    },
+    {
+      "id": "pair_14",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "probabilities": {
+        "supports": 0.0005,
+        "neutral": 0.9985,
+        "refutes": 0.0007
+      },
+      "latency_ms": 1822.37,
+      "error": null
+    },
+    {
+      "id": "pair_15",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "probabilities": {
+        "supports": 0.0003,
+        "neutral": 0.9985,
+        "refutes": 0.0011
+      },
+      "latency_ms": 1878.66,
+      "error": null
+    },
+    {
+      "id": "pair_16",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "probabilities": {
+        "supports": 0.0001,
+        "neutral": 0.999,
+        "refutes": 0.0007
+      },
+      "latency_ms": 1776.66,
+      "error": null
+    }
+  ]
+}
