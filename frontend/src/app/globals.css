@@ -21,6 +21,11 @@
   --color-lemon: #9b6829;
   --color-verified: #0f7b55;
 
+  --color-verified-tint: #e7f2ee;
+  --color-ruby-tint: #fde9ef;
+  --color-lemon-tint: #f5f0ea;
+  --color-ink-mute-tint: #f0f1f4;
+
   --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 8px;

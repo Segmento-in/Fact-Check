@@ -1,6 +1,6 @@
 # Ubiquitous Language — Fact Checker (Frontend)
 
-Status: **v2** (2026-11-19). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
+Status: **v2.1** (2026-11-20). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
 
 - **Shared terms** (first section) are word-for-word identical in both files. Change one, change both.
 - Terms marked *(open)* are not decided yet.
@@ -36,8 +36,9 @@ Status: **v2** (2026-11-19). Split from the single v1 file. This file holds the 
 | **Check Page** | The `/` screen: one box for text or a link, the "I wrote this" switch and one button. | Home, chatbot, analyzer |
 | **Report Dashboard** | The `/report/[id]` screen that shows one Verification Report. Its own route, never shown below the Check Box. | Result page, results panel |
 | **Live Feed Page** | The `/feed` screen: Articles the platform checks by itself. The User only reads and cannot control it. | News page, ticker |
-| **Feed Card** | One Article on the Live Feed Page: headline, Publisher, Feed Score, time and its check state. | Article tile, news card |
+| **Feed Card** | One Article on the Live Feed Page: headline, Publisher, Feed Score, time and its Feed Card State. | Article tile, news card |
 | **Feed Score** | The Feed's own popularity number for an Article (a Hacker News score). It says nothing about truth. | Score (alone), truth score, rank |
+| **Claim Tally** | On a Feed Card: how many Claims got each Verdict, shown as small Verdict Chips with counts. Never one Verdict for the whole Article. | Article verdict, overall verdict, score |
 | **Check Box** | The one input on the Check Page. It takes pasted text or a link. | Chat box, textarea, search bar |
 | **"I wrote this" Switch** | Tells the app the User wrote the Content, so the Report adds a Fix List. | Author mode |
 | **Fix List** | In a Report on the User's own writing: the places where the writing disagrees with Evidence. | Corrections, suggestions |
@@ -65,7 +66,7 @@ Status: **v2** (2026-11-19). Split from the single v1 file. This file holds the 
 | **Loading Skeleton** | Grey shapes in the final layout's shape, shown while a check or the Feed loads. | Spinner |
 | **Empty State** | A screen with nothing yet, with a clear next action. | Blank page, no data |
 | **Could-Not-Finish Screen** | The screen for a Could Not Finish: a plain reason and a Try again button. | Error page |
-| **Feed Card State** | What a Feed Card says about its check: Not checked yet, Checking, a Verdict Chip, No checkable claims, or Could Not Finish. | Status |
+| **Feed Card State** | What a Feed Card says about its check: Not checked yet, Checking, a Claim Tally, No checkable claims, or Could Not Finish. | Status |
 
 ## What the User sees for each Verdict
 
@@ -83,7 +84,7 @@ Rules: say "false", never "fake". Colour is never the only signal: always icon p
 | Term | Definition | Aliases to avoid |
 | --- | --- | --- |
 | **Sample Data** | Hand-made reports and Feed Articles used while the backend is aside. Marked as sample in code, never presented as real Evidence. | Mock, fake, seeded evidence |
-| **Data Source** | The one seam through which screens get Reports and Feed Articles: Sample Data now, the real API later. | API layer, service |
+| **Data Source** | The one seam through which screens get Reports and Feed Articles: Sample Data now, the real API later. A single setting picks Sample Data (default) or live. No button on screen and no silent fallback. Live mode is for the Feed only, for now. | API layer, service |
 
 ## Look
 
@@ -108,6 +109,7 @@ Rules: say "false", never "fake". Colour is never the only signal: always icon p
 - A **Verification Report** lists one **Verdict** per **Claim**, never one per Article.
 - A **Claim** shows one **Verdict Chip**, one **Confidence Line** and zero or more **Proof Cards**, in two **Proof Groups**.
 - A **Feed Card** opens the same **Report Dashboard** that the Check Page opens.
+- A **Feed Card** shows a **Claim Tally**, never one **Verdict** for the **Article**.
 - **Warning Signs** are shown beside a Report. They never change a **Verdict**.
 - **Triage** is never shown to the User.
 
@@ -132,5 +134,6 @@ Rules: say "false", never "fake". Colour is never the only signal: always icon p
 - **"proof"**: allowed in words the User reads (Proof Card, "show the proof"). In code and data, say **Evidence**.
 - **Feed vs Live Feed Page**: **Feed** is the stream (backend). **Live Feed Page** is the screen.
 - **Judge**: in v1 this meant Claude's role. Now **Judge** is the Groq LLM step. Claude's role is **Captain**.
-- **Verdict on a Feed Card** *(open)*: the reused Live Feed look has one label per Article card, but a Verdict belongs to a Claim. Decide which Claim the card label comes from, or show a Claim tally instead.
+- **Verdict on a Feed Card**: decided 2026-11-20. A Verdict belongs to a Claim, so a Feed Card shows a **Claim Tally**.
+- **Claim Record / Evidence Record / Copy Group**: defined in the backend UL. The frontend contract types use the same names.
 - **Icon library** *(open, default lucide-react per the PRD)*: one family only.
