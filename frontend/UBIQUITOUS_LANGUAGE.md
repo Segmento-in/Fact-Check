@@ -1,6 +1,6 @@
 # Ubiquitous Language — Fact Checker (Frontend)
 
-Status: **v2.1** (2026-11-20). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
+Status: **v2.2** (2026-11-20). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
 
 - **Shared terms** (first section) are word-for-word identical in both files. Change one, change both.
 - Terms marked *(open)* are not decided yet.
@@ -34,7 +34,7 @@ Status: **v2.1** (2026-11-20). Split from the single v1 file. This file holds th
 | Term | Definition | Aliases to avoid |
 | --- | --- | --- |
 | **Check Page** | The `/` screen: one box for text or a link, the "I wrote this" switch and one button. | Home, chatbot, analyzer |
-| **Report Dashboard** | The `/report/[id]` screen that shows one Verification Report. Its own route, never shown below the Check Box. | Result page, results panel |
+| **Report Dashboard** | The `/report/[id]` screen that shows one Verification Report. Its own route, never shown below the Check Box. Try again re-loads the report. | Result page, results panel |
 | **Live Feed Page** | The `/feed` screen: Articles the platform checks by itself. The User only reads and cannot control it. | News page, ticker |
 | **Feed Card** | One Article on the Live Feed Page: headline, Publisher, Feed Score, time and its Feed Card State. | Article tile, news card |
 | **Feed Score** | The Feed's own popularity number for an Article (a Hacker News score). It says nothing about truth. | Score (alone), truth score, rank |
@@ -53,7 +53,7 @@ Status: **v2.1** (2026-11-20). Split from the single v1 file. This file holds th
 | **Verdict Chip** | A small label showing one Verdict as an icon plus words. Never colour alone. | Badge, tag, status pill |
 | **Confidence Line** | The words Very sure / Fairly sure / Not very sure shown beside a Verdict Chip. | Confidence bar, sureness tag, percent |
 | **Proof Card** | One piece of Evidence on screen: exact quote, link, page date, Stance. | Evidence card, source card, snippet |
-| **Proof Groups** | The two groups of Proof Cards: Supports and Challenges. | Pros and cons, credibility factors |
+| **Proof Groups** | The two groups of Proof Cards: Supports (supports and supports only part) and Challenges (opposes). Says nothing is a count only. | Pros and cons, credibility factors |
 | **Next Steps** | The "what to do next" text in a Report. | Recommendation |
 | **How We Checked** | One line saying how the check was done. | Methodology, analysis |
 | **Checked by a Person** | A label shown after an Editor confirms or changes a Claim. | Verified by human, moderated |
@@ -66,7 +66,7 @@ Status: **v2.1** (2026-11-20). Split from the single v1 file. This file holds th
 | **Loading Skeleton** | Grey shapes in the final layout's shape, shown while a check or the Feed loads. | Spinner |
 | **Empty State** | A screen with nothing yet, with a clear next action. | Blank page, no data |
 | **Could-Not-Finish Screen** | The screen for a Could Not Finish: a plain reason and a Try again button. | Error page |
-| **Feed Card State** | What a Feed Card says about its check: Not checked yet, Checking, a Claim Tally, No checkable claims, or Could Not Finish. | Status |
+| **Feed Card State** | What a Feed Card says about its check: Not checked yet, Checking, a Claim Tally, No checkable claims, or Could Not Finish. A Feed Card State other than a Claim Tally uses a neutral label, never a Verdict Chip. | Status |
 
 ## What the User sees for each Verdict
 

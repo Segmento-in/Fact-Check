@@ -5,7 +5,10 @@ import {
   VERDICT_ICON,
   VERDICT_STYLE,
   CONFIDENCE_LABEL,
+  STANCE_LABEL,
+  WARNING_SIGN_LABEL,
   ICON_SIZE,
+  ICON_SIZE_SM,
   ICON_STROKE,
   tallyVerdicts,
 } from './vocabulary';
@@ -53,9 +56,32 @@ describe('vocabulary module', () => {
     });
   });
 
-  it('defines standard icon size (16) and stroke width (2)', () => {
+  it('defines standard icon size (16), small icon size (14) and stroke width (2)', () => {
     expect(ICON_SIZE).toBe(16);
+    expect(ICON_SIZE_SM).toBe(14);
     expect(ICON_STROKE).toBe(2);
+  });
+
+  it('provides exact labels for Stances and Warning Signs with no percent or emoji', () => {
+    expect(STANCE_LABEL.supports).toBe('Supports');
+    expect(STANCE_LABEL.supports_only_part).toBe('Supports only part');
+    expect(STANCE_LABEL.opposes).toBe('Opposes');
+    expect(STANCE_LABEL.says_nothing).toBe('Says nothing');
+
+    expect(WARNING_SIGN_LABEL.urgency).toBe('Urgency');
+    expect(WARNING_SIGN_LABEL.shouting).toBe('SHOUTING');
+    expect(WARNING_SIGN_LABEL.unsourced_number).toBe('Number with no source');
+    expect(WARNING_SIGN_LABEL.clickbait).toBe('Clickbait');
+
+    Object.values(STANCE_LABEL).forEach((label) => {
+      expect(hasPercent(label)).toBe(false);
+      expect(hasEmoji(label)).toBe(false);
+    });
+
+    Object.values(WARNING_SIGN_LABEL).forEach((label) => {
+      expect(hasPercent(label)).toBe(false);
+      expect(hasEmoji(label)).toBe(false);
+    });
   });
 
   it('VERDICT_STYLE provides full static tint and icon class names', () => {

@@ -1,8 +1,8 @@
 import type { LucideIcon } from 'lucide-react';
 import { CircleCheck, CircleX, TriangleAlert, CircleHelp } from 'lucide-react';
-import type { Verdict, Confidence, ClaimTally } from './contract';
+import type { Verdict, Confidence, ClaimTally, Stance, WarningSign } from './contract';
 
-export type { Verdict, Confidence };
+export type { Verdict, Confidence, Stance, WarningSign };
 
 export const VERDICTS: readonly [
   'supported',
@@ -56,6 +56,20 @@ export const CONFIDENCE_LABEL: Record<Confidence, string> = {
   very_sure: 'Very sure',
   fairly_sure: 'Fairly sure',
   not_very_sure: 'Not very sure',
+};
+
+export const STANCE_LABEL: Record<Stance, string> = {
+  supports: 'Supports',
+  supports_only_part: 'Supports only part',
+  opposes: 'Opposes',
+  says_nothing: 'Says nothing',
+};
+
+export const WARNING_SIGN_LABEL: Record<WarningSign['kind'], string> = {
+  urgency: 'Urgency',
+  shouting: 'SHOUTING',
+  unsourced_number: 'Number with no source',
+  clickbait: 'Clickbait',
 };
 
 export const ICON_SIZE = 16;

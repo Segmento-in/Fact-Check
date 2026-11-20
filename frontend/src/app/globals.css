@@ -55,3 +55,11 @@ h1, h2, .display-text {
   font-weight: 300;
   letter-spacing: -0.025em;
 }
+
+.mesh {
+  background-color: var(--color-canvas-soft);
+  background-image:
+    radial-gradient(at 15% 15%, color-mix(in srgb, var(--color-primary-subdued) 45%, transparent) 0px, transparent 55%),
+    radial-gradient(at 85% 20%, color-mix(in srgb, var(--color-magenta) 25%, transparent) 0px, transparent 50%),
+    radial-gradient(at 50% 85%, color-mix(in srgb, var(--color-canvas-cream) 90%, transparent) 0px, transparent 65%);
+}
