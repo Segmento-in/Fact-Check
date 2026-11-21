@@ -4,20 +4,33 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { validateCheckInput } from '@/lib/check-input';
 import { getDataSource } from '@/lib/data-source';
+import { ContentKindSelector } from '@/components/ContentKindSelector';
+import {
+  CONTENT_KIND_FIELD_LABEL,
+  CONTENT_KIND_PLACEHOLDER,
+  CONTENT_KIND_HELP,
+} from '@/lib/vocabulary';
+import type { ContentKind } from '@/lib/contract';
 
 export default function CheckPage() {
   const router = useRouter();
+  const [kind, setKind] = useState<ContentKind>('claim_or_text');
   const [text, setText] = useState('');
   const [iWroteThis, setIWroteThis] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(false);
 
+  const handleKindChange = (newKind: ContentKind) => {
+    setKind(newKind);
+    if (errorMessage) setErrorMessage(null);
+  };
+
   const handleSubmit = async () => {
     setErrorMessage(null);
     setSubmitError(false);
 
-    const validation = validateCheckInput(text);
+    const validation = validateCheckInput(text, kind);
     if (!validation.ok) {
       setErrorMessage(validation.message);
       return;
@@ -29,6 +42,7 @@ export default function CheckPage() {
       const result = await dataSource.submitCheck({
         text: validation.value,
         iWroteThis,
+        contentKind: kind,
       });
       router.push(`/report/${result.reportId}`);
     } catch {
@@ -45,6 +59,11 @@ export default function CheckPage() {
     }
   };
 
+  const minHeightClass =
+    kind === 'claim_or_text' || kind === 'social_post'
+      ? 'min-h-[160px]'
+      : 'min-h-[96px]';
+
   return (
     <div className="mesh min-h-[calc(100vh-64px)] py-12 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto">
@@ -58,8 +77,14 @@ export default function CheckPage() {
         </div>
 
         <div className="bg-canvas rounded-xl shadow-float border border-hairline p-6 sm:p-8 mt-8">
+          <ContentKindSelector
+            value={kind}
+            onChange={handleKindChange}
+            disabled={isSubmitting}
+          />
+
           <label htmlFor="check-input" className="text-sm font-medium text-ink mb-2 block">
-            Text or link
+            {CONTENT_KIND_FIELD_LABEL[kind]}
           </label>
           <textarea
             id="check-input"
@@ -70,11 +95,15 @@ export default function CheckPage() {
               if (submitError) setSubmitError(false);
             }}
             onKeyDown={handleKeyDown}
-            placeholder="Paste a post, a headline, an article or a link"
+            placeholder={CONTENT_KIND_PLACEHOLDER[kind]}
             aria-invalid={Boolean(errorMessage)}
-            aria-describedby={errorMessage ? 'check-error' : undefined}
-            className="min-h-[160px] w-full rounded-lg border border-hairline-input p-4 text-ink placeholder:text-ink-mute focus:outline-none focus:ring-2 focus:ring-primary-soft bg-canvas resize-y font-normal"
+            aria-describedby={errorMessage ? 'check-error check-help' : 'check-help'}
+            className={`${minHeightClass} w-full rounded-lg border border-hairline-input p-4 text-ink placeholder:text-ink-mute focus:outline-none focus:ring-2 focus:ring-primary-soft bg-canvas resize-y font-normal`}
           />
+
+          <p id="check-help" className="text-xs text-ink-mute mt-2">
+            {CONTENT_KIND_HELP[kind]}
+          </p>
 
           {errorMessage && (
             <p id="check-error" role="alert" className="text-ink text-sm mt-2 font-medium">

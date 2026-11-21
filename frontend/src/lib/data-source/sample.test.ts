@@ -41,12 +41,12 @@ describe('sample data source and sample data set', () => {
     });
 
     it('submitCheck with iWroteThis=true returns sample-i-wrote-this', async () => {
-      const result = await ds.submitCheck({ text: 'Some text', iWroteThis: true });
+      const result = await ds.submitCheck({ text: 'Some text', iWroteThis: true, contentKind: 'claim_or_text' });
       expect(result).toEqual({ reportId: 'sample-i-wrote-this' });
     });
 
     it('submitCheck with iWroteThis=false returns sample-all-verdicts', async () => {
-      const result = await ds.submitCheck({ text: 'Some text', iWroteThis: false });
+      const result = await ds.submitCheck({ text: 'Some text', iWroteThis: false, contentKind: 'claim_or_text' });
       expect(result).toEqual({ reportId: 'sample-all-verdicts' });
     });
 

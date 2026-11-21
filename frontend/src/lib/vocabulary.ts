@@ -1,8 +1,48 @@
 import type { LucideIcon } from 'lucide-react';
 import { CircleCheck, CircleX, TriangleAlert, CircleHelp } from 'lucide-react';
-import type { Verdict, Confidence, ClaimTally, Stance, WarningSign } from './contract';
+import type { Verdict, Confidence, ClaimTally, Stance, WarningSign, ContentKind } from './contract';
 
-export type { Verdict, Confidence, Stance, WarningSign };
+export type { Verdict, Confidence, Stance, WarningSign, ContentKind };
+
+export const CONTENT_KIND_ORDER: readonly [
+  'claim_or_text',
+  'article_link',
+  'social_post',
+  'headline',
+] = [
+  'claim_or_text',
+  'article_link',
+  'social_post',
+  'headline',
+] as const;
+
+export const CONTENT_KIND_LABEL: Record<ContentKind, string> = {
+  claim_or_text: 'Claim or text',
+  article_link: 'Article link',
+  social_post: 'Social post',
+  headline: 'Headline',
+};
+
+export const CONTENT_KIND_FIELD_LABEL: Record<ContentKind, string> = {
+  claim_or_text: 'Text or link',
+  article_link: 'Link',
+  social_post: 'Post',
+  headline: 'Headline',
+};
+
+export const CONTENT_KIND_PLACEHOLDER: Record<ContentKind, string> = {
+  claim_or_text: 'Paste a claim, a few sentences, or a text',
+  article_link: 'Paste the link to a news page',
+  social_post: 'Paste the post text, or its link',
+  headline: 'Paste the headline',
+};
+
+export const CONTENT_KIND_HELP: Record<ContentKind, string> = {
+  claim_or_text: 'One or more sentences. We find the claims inside.',
+  article_link: 'Starts with http:// or https://. If a site blocks us, switch to Claim or text and paste the text.',
+  social_post: 'From X, Reddit, LinkedIn or a forwarded message. Pasting the text works best, because some sites block links.',
+  headline: 'One short line, 10 to 300 characters.',
+};
 
 export const VERDICTS: readonly [
   'supported',

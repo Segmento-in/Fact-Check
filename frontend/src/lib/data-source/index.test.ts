@@ -24,7 +24,7 @@ describe('data-source selector (getDataSource)', () => {
     vi.stubEnv('NEXT_PUBLIC_DATA_SOURCE', 'live');
     const ds = getDataSource();
 
-    await expect(ds.submitCheck({ text: 'test', iWroteThis: false })).rejects.toThrow(
+    await expect(ds.submitCheck({ text: 'test', iWroteThis: false, contentKind: 'claim_or_text' })).rejects.toThrow(
       /Submit is not available in live mode yet/i
     );
     await expect(ds.getReport('sample-all-verdicts')).rejects.toThrow(

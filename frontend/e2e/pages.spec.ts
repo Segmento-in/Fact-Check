@@ -81,12 +81,18 @@ test.describe('Pages E2E Flow and Behavior', () => {
   test('Keyboard only submission journey', async ({ page }) => {
     await page.goto('/');
 
-    // Skip link -> Check -> Live Feed -> textarea
+    // Focus order:
+    // Skip link -> Check -> Live Feed -> ContentKindSelector (Claim or text radio) -> textarea -> Switch -> Button
     await page.keyboard.press('Tab'); // skip link
     await page.keyboard.press('Tab'); // Check
     await page.keyboard.press('Tab'); // Live Feed
-    await page.keyboard.press('Tab'); // textarea
+    await page.keyboard.press('Tab'); // ContentKindSelector radio group
 
+    const radioFocused = page.locator(':focus');
+    await expect(radioFocused).toHaveAttribute('name', 'content-kind');
+    await expect(radioFocused).toHaveAttribute('value', 'claim_or_text');
+
+    await page.keyboard.press('Tab'); // textarea
     const focused = page.locator(':focus');
     await expect(focused).toHaveAttribute('id', 'check-input');
 
@@ -106,7 +112,58 @@ test.describe('Pages E2E Flow and Behavior', () => {
     await expect(page).toHaveURL(/\/report\/sample-i-wrote-this$/);
   });
 
-  test('Phone 360x740 on all three routes: no sideways scroll, and dashboard sections stack in order', async ({
+  test('Arrow keys inside the kind group change the kind and keyboard journey with non-default reaches a report', async ({
+    page,
+  }) => {
+    await page.goto('/');
+
+    await page.keyboard.press('Tab'); // skip link
+    await page.keyboard.press('Tab'); // Check
+    await page.keyboard.press('Tab'); // Live Feed
+    await page.keyboard.press('Tab'); // ContentKindSelector (Claim or text)
+
+    // Press ArrowRight to move to Article link
+    await page.keyboard.press('ArrowRight');
+    const focusedRadio = page.locator(':focus');
+    await expect(focusedRadio).toHaveAttribute('value', 'article_link');
+
+    // Press Tab to enter textarea
+    await page.keyboard.press('Tab');
+    const textarea = page.locator(':focus');
+    await expect(textarea).toHaveAttribute('id', 'check-input');
+
+    // Enter a valid URL
+    await page.keyboard.type('https://apnews.com/article/harbor-levy-vote-approved');
+
+    // Tab past author switch to button
+    await page.keyboard.press('Tab'); // switch
+    await page.keyboard.press('Tab'); // submit button
+    await page.keyboard.press('Enter');
+
+    await expect(page).toHaveURL(/\/report\/sample-all-verdicts$/);
+  });
+
+  test('Headline too long shows its message and stays on /', async ({ page }) => {
+    await page.goto('/');
+
+    // Select Headline via its visible label
+    await page.locator('label[for="content-kind-headline"]').click();
+
+    const textarea = page.locator('textarea#check-input');
+    await expect(textarea).toHaveAttribute('placeholder', 'Paste the headline');
+
+    const longHeadline = 'H'.repeat(301);
+    await textarea.fill(longHeadline);
+    await page.getByRole('button', { name: 'Check this' }).click();
+
+    const alert = page.locator('#check-error');
+    await expect(alert).toHaveText(
+      'That is too long for a headline. Choose Claim or text for longer pieces.'
+    );
+    expect(page.url()).toMatch(/\/$/);
+  });
+
+  test('Phone 360x740 on all three routes: no sideways scroll with the selector, and dashboard sections stack in order', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 360, height: 740 });
@@ -155,7 +212,6 @@ test.describe('Pages E2E Flow and Behavior', () => {
       await page.setViewportSize(vp);
       for (const route of routes) {
         await page.goto(route);
-        // Wait for page ready
         await page.waitForLoadState('networkidle');
 
         const axeResults = await new AxeBuilder({ page })
@@ -170,6 +226,36 @@ test.describe('Pages E2E Flow and Behavior', () => {
     }
   });
 
+  test('Accessibility: axe checks on / with Social post selected and in error state at 1280 and 360', async ({
+    page,
+  }) => {
+    const viewports = [
+      { width: 1280, height: 800 },
+      { width: 360, height: 740 },
+    ];
+
+    for (const vp of viewports) {
+      await page.setViewportSize(vp);
+      await page.goto('/');
+
+      // 1. Social post selected via its visible label
+      await page.locator('label[for="content-kind-social_post"]').click();
+      let axeResults = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+        .analyze();
+      expect(axeResults.violations).toEqual([]);
+
+      // 2. Error state (empty submit)
+      await page.getByRole('button', { name: 'Check this' }).click();
+      await expect(page.locator('#check-error')).toBeVisible();
+
+      axeResults = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+        .analyze();
+      expect(axeResults.violations).toEqual([]);
+    }
+  });
+
   test('/feed and /report/sample-verified have no .mesh element', async ({ page }) => {
     await page.goto('/feed');
     expect(await page.locator('.mesh').count()).toBe(0);
@@ -181,4 +267,3 @@ test.describe('Pages E2E Flow and Behavior', () => {
     expect(await page.locator('.mesh').count()).toBeGreaterThan(0);
   });
 });
-

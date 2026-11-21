@@ -104,7 +104,7 @@ describe('createLiveDataSource', () => {
 
   it('submitCheck rejects with "Submit is not available in live mode yet."', async () => {
     const ds = createLiveDataSource();
-    await expect(ds.submitCheck({ text: 'Some text exceeding twenty characters', iWroteThis: false })).rejects.toThrow(
+    await expect(ds.submitCheck({ text: 'Some text exceeding twenty characters', iWroteThis: false, contentKind: 'claim_or_text' })).rejects.toThrow(
       /Submit is not available in live mode yet/i
     );
   });

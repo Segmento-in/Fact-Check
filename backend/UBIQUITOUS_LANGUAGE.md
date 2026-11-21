@@ -12,6 +12,7 @@ Status: **v2** (2026-11-19). Split from the single v1 file and rebuilt from the 
 | Term | Definition | Aliases to avoid |
 | --- | --- | --- |
 | **Content** | Any text, post, article or link that enters the system to be checked, either submitted by a User or delivered by a Feed. | News, post, info, AI content |
+| **Content Kind** | What sort of Content the User says they are giving: Claim or text, Article link, Social post, or Headline. A hint that helps the pipeline. It never changes a Verdict, and the pipeline still checks the Content itself. | Tab, Mode, Tool, Type |
 | **Claim** | One single, checkable statement about the world, pulled out of Content. | Fact, news, statement, info |
 | **Source** | A site on the Trusted Source List that can give Evidence. | Blogs, news, website |
 | **Trusted Source List** | The hand-picked list of 8 Sources allowed to give Evidence. Nothing else ever counts as proof. | Whitelist, allowlist, source pool |

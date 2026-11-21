@@ -104,8 +104,11 @@ export interface Article {
 }
 
 // CheckSubmission: From UL term "Check Page" / "Check Box" - The input from the Check Page: text or link, and the "I wrote this" switch.
+export type ContentKind = "claim_or_text" | "article_link" | "social_post" | "headline";
+
 export interface CheckSubmission {
   text: string;
   iWroteThis: boolean;
+  contentKind: ContentKind;
 }
 
