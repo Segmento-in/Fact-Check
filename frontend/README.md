@@ -1,11 +1,10 @@
 # Fact Checker Frontend
 
-A Next.js fact-checking interface grounded in evidence from trusted sources.
-
-- Install: npm install
-- Dev: npm run dev
-- Unit Tests: npm test
-- E2E Tests: npm run test:e2e
-
-The setting NEXT_PUBLIC_DATA_SOURCE picks sample or live data source.
-Default is sample; set it in .env.local when testing live mode.
+- Install: `npm install`
+- Run: `npm run dev` (http://localhost:3000)
+- Test: `npm test` (unit) | `npm run test:e2e` (Playwright)
+- Build & Lint: `npm run build` | `npm run lint`
+- Settings:
+  - `NEXT_PUBLIC_DATA_SOURCE`: `sample` (default) or `live`
+  - `NEXT_PUBLIC_API_BASE_URL`: backend API URL (default `http://localhost:8000`)
+- Live mode run: `$env:NEXT_PUBLIC_DATA_SOURCE="live"; npm run dev`

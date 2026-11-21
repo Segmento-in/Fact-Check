@@ -38,6 +38,18 @@ describe('WCAG Contrast Ratios from globals.css tokens', () => {
         expect(ratio).toBeGreaterThanOrEqual(3.0);
       });
     });
+
+    it('switch off track (ink-mute) on white card (canvas) is at least 3.0:1', () => {
+      const ratio = getContrastBetweenTokens('ink-mute', 'canvas');
+      console.info(`[Switch Track Contrast] ink-mute on canvas: ${ratio.toFixed(2)}:1`);
+      expect(ratio).toBeGreaterThanOrEqual(3.0);
+    });
+
+    it('switch knob (canvas) visible against off track (ink-mute) is at least 3.0:1', () => {
+      const ratio = getContrastBetweenTokens('canvas', 'ink-mute');
+      console.info(`[Switch Knob Contrast] canvas on ink-mute: ${ratio.toFixed(2)}:1`);
+      expect(ratio).toBeGreaterThanOrEqual(3.0);
+    });
   });
 
   describe('BANNED PAIRS (do not use as text)', () => {

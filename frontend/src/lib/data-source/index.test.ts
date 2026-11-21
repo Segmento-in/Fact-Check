@@ -25,10 +25,11 @@ describe('data-source selector (getDataSource)', () => {
     const ds = getDataSource();
 
     await expect(ds.submitCheck({ text: 'test', iWroteThis: false })).rejects.toThrow(
-      /Ticket 6/
+      /Submit is not available in live mode yet/i
     );
-    await expect(ds.getReport('sample-all-verdicts')).rejects.toThrow(/Ticket 6/);
-    await expect(ds.listFeedArticles()).rejects.toThrow(/Ticket 6/);
+    await expect(ds.getReport('sample-all-verdicts')).rejects.toThrow(
+      /Report is not available in live mode yet/i
+    );
   });
 
   it('throws an Error naming allowed values "sample" and "live" for invalid setting', () => {

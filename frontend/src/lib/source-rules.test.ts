@@ -42,6 +42,16 @@ describe('source-rules check', () => {
     });
   });
 
+  it('no dangerouslySetInnerHTML in any source file under src', () => {
+    nonTestFiles.forEach((file) => {
+      const content = fs.readFileSync(file, 'utf-8');
+      expect(
+        content.includes('dangerouslySetInnerHTML'),
+        `Found dangerouslySetInnerHTML in ${file}`
+      ).toBe(false);
+    });
+  });
+
   it('verdict colour class names: positive control matches vocabulary.ts (>= 4 hits), and 0 hits in other source files', () => {
     // Colour class names with any utility prefix: text-verified, bg-verified, bg-verified-tint, text-ruby, bg-ruby-tint, etc.
     const verdictColorClassRegex = /\b[a-z]+-(?:verified|ruby|lemon)(?:-tint)?\b/g;

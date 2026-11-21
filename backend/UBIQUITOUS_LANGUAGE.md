@@ -7,7 +7,7 @@ Status: **v2** (2026-11-19). Split from the single v1 file and rebuilt from the 
 - Coding Agent: read both files before touching code. Update your own side when understanding changes. Never rename a term in code without updating this file.
 - Backend is paused for now (frontend first). This file still guides the old backend clean-up and the later rebuild.
 
-## Shared terms (identical in the backend file)
+## Shared terms (identical in both files)
 
 | Term | Definition | Aliases to avoid |
 | --- | --- | --- |
