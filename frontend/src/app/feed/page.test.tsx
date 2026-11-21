@@ -79,6 +79,22 @@ describe('LiveFeedPage', () => {
     });
   });
 
+  it('all tally count elements share the text-ink class and none use blue or primary colors', async () => {
+    const { container } = render(<LiveFeedPage />);
+
+    await waitFor(() => {
+      expect(screen.getAllByRole('article').length).toBe(8);
+    });
+
+    const tallyCounts = container.querySelectorAll('article div.pt-4 span.font-mono');
+    expect(tallyCounts.length).toBeGreaterThan(0);
+    tallyCounts.forEach((span) => {
+      expect(span.className).toContain('text-ink');
+      expect(span.className).not.toContain('text-primary');
+      expect(span.className).not.toContain('text-blue');
+    });
+  });
+
   it('shows Could-Not-Finish block and Try again when listing fails', async () => {
     const mockList = vi.fn().mockRejectedValueOnce(new Error('Network failure')).mockResolvedValueOnce([]);
     vi.spyOn(dataSourceModule, 'getDataSource').mockReturnValue({

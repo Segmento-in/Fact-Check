@@ -1,12 +1,12 @@
 # Ubiquitous Language — Fact Checker (Frontend)
 
-Status: **v2.2** (2026-11-20). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
+Status: **v2.3** (2026-11-20). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
 
 - **Shared terms** (first section) are word-for-word identical in both files. Change one, change both.
 - Terms marked *(open)* are not decided yet.
 - Coding Agent: read both files before touching code. Update your own side when understanding changes. Never rename a term in code without updating this file.
 
-## Shared terms (identical in the backend file)
+## Shared terms (identical in both files)
 
 | Term | Definition | Aliases to avoid |
 | --- | --- | --- |
@@ -84,7 +84,7 @@ Rules: say "false", never "fake". Colour is never the only signal: always icon p
 | Term | Definition | Aliases to avoid |
 | --- | --- | --- |
 | **Sample Data** | Hand-made reports and Feed Articles used while the backend is aside. Marked as sample in code, never presented as real Evidence. | Mock, fake, seeded evidence |
-| **Data Source** | The one seam through which screens get Reports and Feed Articles: Sample Data now, the real API later. A single setting picks Sample Data (default) or live. No button on screen and no silent fallback. Live mode is for the Feed only, for now. | API layer, service |
+| **Data Source** | The one seam through which screens get Reports and Feed Articles: Sample Data now, the real API later. A single setting picks Sample Data (default) or live. No button on screen and no silent fallback. Live mode now works for the Feed (connecting to the backend Articles endpoint). Submit and Report in live mode remain pending the backend Verification Pipeline. | API layer, service |
 
 ## Look
 
