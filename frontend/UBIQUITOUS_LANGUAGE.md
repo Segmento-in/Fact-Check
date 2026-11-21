@@ -1,6 +1,6 @@
 # Ubiquitous Language — Fact Checker (Frontend)
 
-Status: **v2.3** (2026-11-20). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
+Status: **v2.4** (2026-11-21). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
 
 - **Shared terms** (first section) are word-for-word identical in both files. Change one, change both.
 - Terms marked *(open)* are not decided yet.
@@ -11,6 +11,7 @@ Status: **v2.3** (2026-11-20). Split from the single v1 file. This file holds th
 | Term | Definition | Aliases to avoid |
 | --- | --- | --- |
 | **Content** | Any text, post, article or link that enters the system to be checked, either submitted by a User or delivered by a Feed. | News, post, info, AI content |
+| **Content Kind** | What sort of Content the User says they are giving: Claim or text, Article link, Social post, or Headline. A hint that helps the pipeline. It never changes a Verdict, and the pipeline still checks the Content itself. | Tab, Mode, Tool, Type |
 | **Claim** | One single, checkable statement about the world, pulled out of Content. | Fact, news, statement, info |
 | **Source** | A site on the Trusted Source List that can give Evidence. | Blogs, news, website |
 | **Trusted Source List** | The hand-picked list of 8 Sources allowed to give Evidence. Nothing else ever counts as proof. | Whitelist, allowlist, source pool |
@@ -33,13 +34,14 @@ Status: **v2.3** (2026-11-20). Split from the single v1 file. This file holds th
 
 | Term | Definition | Aliases to avoid |
 | --- | --- | --- |
-| **Check Page** | The `/` screen: one box for text or a link, the "I wrote this" switch and one button. | Home, chatbot, analyzer |
+| **Content Kind Selector** | The group of four options above the Check Box where the User picks a Content Kind. Not tabs: every kind uses the same pipeline and shows the same Report. | Tabs, Tool picker |
+| **Check Page** | The `/` screen: a Content Kind Selector, one box for text or a link, the "I wrote this" switch and one button. | Home, chatbot, analyzer |
 | **Report Dashboard** | The `/report/[id]` screen that shows one Verification Report. Its own route, never shown below the Check Box. Try again re-loads the report. | Result page, results panel |
 | **Live Feed Page** | The `/feed` screen: Articles the platform checks by itself. The User only reads and cannot control it. | News page, ticker |
 | **Feed Card** | One Article on the Live Feed Page: headline, Publisher, Feed Score, time and its Feed Card State. | Article tile, news card |
 | **Feed Score** | The Feed's own popularity number for an Article (a Hacker News score). It says nothing about truth. | Score (alone), truth score, rank |
 | **Claim Tally** | On a Feed Card: how many Claims got each Verdict, shown as small Verdict Chips with counts. Never one Verdict for the whole Article. | Article verdict, overall verdict, score |
-| **Check Box** | The one input on the Check Page. It takes pasted text or a link. | Chat box, textarea, search bar |
+| **Check Box** | The one input on the Check Page. It takes pasted text or a link, as the Content Kind says. | Chat box, textarea, search bar |
 | **"I wrote this" Switch** | Tells the app the User wrote the Content, so the Report adds a Fix List. | Author mode |
 | **Fix List** | In a Report on the User's own writing: the places where the writing disagrees with Evidence. | Corrections, suggestions |
 
@@ -105,6 +107,7 @@ Rules: say "false", never "fake". Colour is never the only signal: always icon p
 ## Relationships
 
 - The app has two routes for getting Content in: the **Check Page** (the User submits) and the **Live Feed Page** (the platform submits).
+- The Check Page sends a Content Kind with the Content. The Content Kind is a hint, never a Verdict.
 - A **Report Dashboard** shows exactly one **Verification Report**.
 - A **Verification Report** lists one **Verdict** per **Claim**, never one per Article.
 - A **Claim** shows one **Verdict Chip**, one **Confidence Line** and zero or more **Proof Cards**, in two **Proof Groups**.
@@ -126,6 +129,8 @@ Rules: say "false", never "fake". Colour is never the only signal: always icon p
 
 ## Flagged ambiguities
 
+- **Content Kind Selector vs tabs**: the old "five tabs" idea is replaced by the Content Kind Selector with four kinds; AI Text Detector and Compare Stories stay dropped (opinions without Evidence).
+- **"Article link" vs Article**: "Article link" is a Content Kind label for a link to a news page. The Content is not an Article (an Article is a Feed item).
 - **"result page" / "results"**: use **Verification Report** for the content and **Report Dashboard** for the screen.
 - **"Score"**: the Hacker News number on a Feed Card is the **Feed Score**. Never call it a truth score, never put it next to a Verdict as if related. The old prototype printed "Score 642 (Rank 0.006)" beside the Verdict; that confusion is why.
 - **"sureness" / "highly sure"** (old prototype): use **Confidence** with Very sure / Fairly sure / Not very sure.

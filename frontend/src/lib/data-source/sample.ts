@@ -20,7 +20,7 @@ export function createSampleDataSource(): DataSource {
     async submitCheck(input: CheckSubmission): Promise<{ reportId: string }> {
       const delay = getSampleDelayMs();
       if (delay > 0) await sleep(delay);
-      // ponytail: the sample submit ignores the text and picks by the switch only; revisit when the real API replaces it.
+      // ponytail: the sample submit ignores the text and content kind and picks by the switch only; revisit when the real API replaces it.
       if (input.iWroteThis) {
         return { reportId: 'sample-i-wrote-this' };
       }
