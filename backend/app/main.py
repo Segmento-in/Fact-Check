@@ -1,6 +1,6 @@
 import asyncio
 import time
-from typing import Callable, List, Optional
+from typing import Callable, List, Literal, Optional
 from fastapi import Depends, FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -33,7 +33,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# In-memory cache for GET /api/articles: (limit, source) -> (timestamp, list[ArticleReport])
+# In-memory cache for GET /api/articles: (limit, source, extract_text) -> reports.
 _articles_cache: dict[tuple, tuple[float, List[ArticleReport]]] = {}
 
 
@@ -76,14 +76,18 @@ def get_trusted_sources() -> TrustedSourcesResponse:
 @app.get("/api/articles", response_model=ArticlesResponse)
 async def get_articles(
     limit: int = Query(
-        default=default_settings.HN_TOP_STORIES_LIMIT,
+        default=default_settings.FEED_DEFAULT_LIMIT,
         ge=1,
-        le=default_settings.HN_MAX_LIMIT,
+        le=default_settings.FEED_MAX_LIMIT,
         description="Number of articles to fetch",
     ),
-    source: Optional[str] = Query(
+    source: Optional[Literal["hackernews", "medium", "all"]] = Query(
         default=None,
-        description="Optional filter by source ('hackernews', 'medium', or None for all)",
+        description="Feed: hackernews, medium, all, or the configured default when omitted",
+    ),
+    extract_text: bool = Query(
+        default=True,
+        description="False returns Feed Card metadata without downloading every Article page",
     ),
     ingestion: IngestionService = Depends(get_ingestion_service),
     extractor: ArticleTextExtractor = Depends(get_article_extractor),
@@ -95,10 +99,11 @@ async def get_articles(
     Fetch news articles across ingestion sources (Hacker News, Medium) with extracted text status.
 
     Returns reports with checked=False (not fact-checked yet).
-    Responses are cached in-memory per (limit, source) for ARTICLES_CACHE_TTL_SECONDS.
+    Responses are cached per (limit, effective source, extract_text).
+    Feed Card requests can skip text extraction; this never creates a Verdict.
     """
     now = clock()
-    cache_key = (limit, source)
+    cache_key = (limit, source or settings.DEFAULT_FEED, extract_text)
 
     # Check cache for this key
     if cache_key in cache:
@@ -126,17 +131,20 @@ async def get_articles(
         async with sem:
             return await extractor.extract(art.url)
 
-    tasks = [_extract_single(art) for art in raw_articles]
-    extraction_results = await asyncio.gather(*tasks)
+    if extract_text:
+        tasks = [_extract_single(art) for art in raw_articles]
+        extraction_results = await asyncio.gather(*tasks)
+    else:
+        extraction_results = [None] * len(raw_articles)
 
     reports: List[ArticleReport] = []
     for art, res in zip(raw_articles, extraction_results):
-        text_preview = res.text[:600] if res.status == "ok" and res.text else ""
+        text_preview = res.text[:600] if res and res.status == "ok" and res.text else ""
         summary = ExtractionSummary(
-            status=res.status,
-            word_count=res.word_count,
+            status=res.status if res else "not_requested",
+            word_count=res.word_count if res else 0,
             text_preview=text_preview,
-            final_url=res.final_url,
+            final_url=res.final_url if res else None,
         )
         report = ArticleReport(
             article=art,
@@ -150,7 +158,7 @@ async def get_articles(
         reports.append(report)
 
     # Store in memory cache
-    cache[cache_key] = (now, reports)
+    cache[cache_key] = (clock(), reports)
 
     return ArticlesResponse(
         articles=reports,

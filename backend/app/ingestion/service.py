@@ -34,7 +34,7 @@ class IngestionService:
 
     async def fetch_articles(
         self,
-        limit: int = 20,
+        limit: Optional[int] = None,
         source: Optional[str] = None,
     ) -> List[Article]:
         """
@@ -42,10 +42,19 @@ class IngestionService:
 
         Args:
             limit: Total maximum number of articles to return.
-            source: Optional specific source name ('hackernews', 'medium', or None for all).
+            source: 'hackernews', 'medium', 'all', or None for the configured default.
         """
-        if source and source.lower() in self.sources:
-            return await self.sources[source.lower()].fetch_articles(limit=limit)
+        limit = min(
+            limit if limit is not None else self.settings.FEED_DEFAULT_LIMIT,
+            self.settings.FEED_MAX_LIMIT,
+        )
+        if limit <= 0:
+            return []
+        target_source = (source if source is not None else self.settings.DEFAULT_FEED).lower()
+        if target_source in self.sources:
+            return await self.sources[target_source].fetch_articles(limit=limit)
+        if target_source != "all":
+            raise ValueError(f"Unknown Feed: {target_source}")
 
         # Multi-source parallel ingestion
         tasks = [src.fetch_articles(limit=limit) for src in self.sources.values()]

@@ -1,6 +1,6 @@
 # Ubiquitous Language — Fact Checker (Frontend)
 
-Status: **v2.4** (2026-11-21). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
+Status: **v2.6** (2026-11-23). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
 
 - **Shared terms** (first section) are word-for-word identical in both files. Change one, change both.
 - Terms marked *(open)* are not decided yet.
@@ -23,7 +23,7 @@ Status: **v2.4** (2026-11-21). Split from the single v1 file. This file holds th
 | **Verification Report** | The result for one Content: its Claims, each with a Verdict, a Confidence and its proof. | Output, result page, analysis |
 | **Warning Sign** | A pattern found by code (urgency, SHOUTING, a big number with no source, clickbait). It is not a Verdict. | Red flag, risk score, manipulation score |
 | **Sensitive Domain** | A subject area (health, elections, money, safety) where a wrong Verdict can cause serious harm. | Sensitive area, risky topic |
-| **Feed** | A stream of new Articles the platform watches by itself (Hacker News now, Google News next). | News platform, RSS, API |
+| **Feed** | A stream of new Articles the platform watches by itself (Hacker News and Medium now, Google News next). | News platform, RSS, API |
 | **Article** | One item that arrives from a Feed. It is a kind of Content. | News, story, post |
 | **Publisher** | The organisation whose site an Article's link points to. It is not the Feed. | Source, outlet, aggregator |
 | **Triage** | An internal priority (High, Medium, Low) that sorts the editor queue. The User never sees it. | Risk score, severity |
@@ -38,8 +38,11 @@ Status: **v2.4** (2026-11-21). Split from the single v1 file. This file holds th
 | **Check Page** | The `/` screen: a Content Kind Selector, one box for text or a link, the "I wrote this" switch and one button. | Home, chatbot, analyzer |
 | **Report Dashboard** | The `/report/[id]` screen that shows one Verification Report. Its own route, never shown below the Check Box. Try again re-loads the report. | Result page, results panel |
 | **Live Feed Page** | The `/feed` screen: Articles the platform checks by itself. The User only reads and cannot control it. | News page, ticker |
-| **Feed Card** | One Article on the Live Feed Page: headline, Publisher, Feed Score, time and its Feed Card State. | Article tile, news card |
-| **Feed Score** | The Feed's own popularity number for an Article (a Hacker News score). It says nothing about truth. | Score (alone), truth score, rank |
+| **Feed Card** | One Article on the Live Feed Page: a Cover Image or Cover Tile, a Feed Pill and date, a headline, a Feed Card State area pinned at the bottom, and a byline with Publisher and Feed Score when available. Cards in a row have equal height. | Article tile, news card |
+| **Feed Score** | The Feed's own popularity number for an Article, shown only for a Feed that has one. It says nothing about truth. | Score (alone), truth score, rank |
+| **Cover Image** | The decorative image at the top of a Feed Card. Live image links use HTTPS only. It is never Evidence. | Thumbnail, proof image |
+| **Cover Tile** | The icon-only replacement for a missing or broken Cover Image. It has no text and is hidden from assistive technology. | Placeholder image |
+| **Feed Pill** | The pill on a Feed Card that shows the Feed name. It is not the Publisher and not a category. | Publisher badge, category tag |
 | **Claim Tally** | On a Feed Card: how many Claims got each Verdict, shown as small Verdict Chips with counts. Never one Verdict for the whole Article. | Article verdict, overall verdict, score |
 | **Check Box** | The one input on the Check Page. It takes pasted text or a link, as the Content Kind says. | Chat box, textarea, search bar |
 | **"I wrote this" Switch** | Tells the app the User wrote the Content, so the Report adds a Fix List. | Author mode |
@@ -129,6 +132,8 @@ Rules: say "false", never "fake". Colour is never the only signal: always icon p
 
 ## Flagged ambiguities
 
+- Feed Pill is the Feed name, not the Publisher and not a category.
+
 - **Content Kind Selector vs tabs**: the old "five tabs" idea is replaced by the Content Kind Selector with four kinds; AI Text Detector and Compare Stories stay dropped (opinions without Evidence).
 - **"Article link" vs Article**: "Article link" is a Content Kind label for a link to a news page. The Content is not an Article (an Article is a Feed item).
 - **"result page" / "results"**: use **Verification Report** for the content and **Report Dashboard** for the screen.
@@ -142,3 +147,9 @@ Rules: say "false", never "fake". Colour is never the only signal: always icon p
 - **Verdict on a Feed Card**: decided 2026-11-20. A Verdict belongs to a Claim, so a Feed Card shows a **Claim Tally**.
 - **Claim Record / Evidence Record / Copy Group**: defined in the backend UL. The frontend contract types use the same names.
 - **Icon library** *(open, default lucide-react per the PRD)*: one family only.
+
+## Live Feed quantity
+
+- Live mode requests up to 60 Articles with `source=all` and `extract_text=false`, so both Feeds are requested even when the backend default selects one.
+- Feed Cards retain the current Cover Image or Cover Tile, Feed Pill, Publisher, date, Feed Score and Feed Card State. An Article awaiting verification stays Not checked yet.
+- The request timeout is 30 seconds. Sample Data stays at eight Articles; use `NEXT_PUBLIC_DATA_SOURCE=live` to load real Articles.

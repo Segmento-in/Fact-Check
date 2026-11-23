@@ -285,7 +285,7 @@ def test_failed_extraction_statuses_passed_through_and_article_preserved():
 
 
 # ---------------------------------------------------------------------------
-# Test 9: Limit bounds validation (0 and 31 return 422, valid works)
+# Test 9: Limit bounds validation (0 and 101 return 422, valid works)
 # ---------------------------------------------------------------------------
 def test_limit_query_parameter_validation():
     client = TestClient(app)
@@ -294,9 +294,9 @@ def test_limit_query_parameter_validation():
     res_0 = client.get("/api/articles?limit=0")
     assert res_0.status_code == 422
 
-    # Above maximum (30)
-    res_31 = client.get("/api/articles?limit=31")
-    assert res_31.status_code == 422
+    # Above maximum (100)
+    res_101 = client.get("/api/articles?limit=101")
+    assert res_101.status_code == 422
 
     # Valid limits work and reach service
     fake_service = FakeIngestionService([])
@@ -524,12 +524,8 @@ def test_articles_source_medium_returns_articles_checked_false():
 
 
 # ---------------------------------------------------------------------------
-# Test 16: source=bogus returns clean 4xx (currently 200 due to unvalidated source)
+# Test 16: source=bogus returns clean 4xx
 # ---------------------------------------------------------------------------
-@pytest.mark.xfail(
-    strict=True,
-    reason="source=bogus currently returns 200 instead of clean 4xx (unvalidated source query param)",
-)
 def test_articles_source_bogus_clean_4xx():
     class MockIngestion:
         async def fetch_articles(self, limit: int = 20, source: Optional[str] = None):

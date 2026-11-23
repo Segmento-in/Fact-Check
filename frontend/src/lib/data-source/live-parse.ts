@@ -36,6 +36,11 @@ export function parseArticlesResponse(raw: unknown): Article[] {
       throw new Error(`Invalid article at index ${index}: missing or empty 'url'`);
     }
 
+    if (typeof artRaw.source !== 'string' || !artRaw.source.trim()) {
+      throw new Error(`Invalid article at index ${index}: missing or empty 'source'`);
+    }
+
+    const feed = artRaw.source.trim();
     const url = artRaw.url.trim();
 
     let publisher = '';
@@ -60,7 +65,21 @@ export function parseArticlesResponse(raw: unknown): Article[] {
           ? `hn_${artRaw.hn_id}`
           : `art_${index}`;
 
-    const feedScore = typeof artRaw.hn_score === 'number' ? artRaw.hn_score : 0;
+    let imageUrl: string | null = null;
+    if (typeof artRaw.image_url === 'string') {
+      try {
+        if (new URL(artRaw.image_url).protocol === 'https:') {
+          imageUrl = artRaw.image_url;
+        }
+      } catch {
+        // An invalid Cover Image URL uses the Cover Tile.
+      }
+    }
+
+    const feedScore =
+      feed === 'Hacker News' && typeof artRaw.hn_score === 'number'
+        ? artRaw.hn_score
+        : null;
     const publishedAt = typeof artRaw.published_at === 'string' ? artRaw.published_at : '';
 
     return {
@@ -68,6 +87,8 @@ export function parseArticlesResponse(raw: unknown): Article[] {
       isSample: false,
       headline: artRaw.title.trim(),
       publisher,
+      feed,
+      imageUrl,
       feedScore,
       publishedAt,
       url,

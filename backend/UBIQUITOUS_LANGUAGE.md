@@ -1,6 +1,6 @@
 # Ubiquitous Language — Fact Checker (Backend)
 
-Status: **v2** (2026-11-19). Split from the single v1 file and rebuilt from the 6-stage architecture ("factcheck architecture_v1.drawio"). This file holds the **pipeline terms**. Screen terms live in the frontend file.
+Status: **v2.2** (2026-11-23). Split from the single v1 file and rebuilt from the 6-stage architecture ("factcheck architecture_v1.drawio"). This file holds the **pipeline terms**. Screen terms live in the frontend file.
 
 - **Shared terms** (first section) are word-for-word identical in both files. Change one, change both.
 - Terms marked *(open)* are not decided yet.
@@ -24,13 +24,12 @@ Status: **v2** (2026-11-19). Split from the single v1 file and rebuilt from the 
 | **Verification Report** | The result for one Content: its Claims, each with a Verdict, a Confidence and its proof. | Output, result page, analysis |
 | **Warning Sign** | A pattern found by code (urgency, SHOUTING, a big number with no source, clickbait). It is not a Verdict. | Red flag, risk score, manipulation score |
 | **Sensitive Domain** | A subject area (health, elections, money, safety) where a wrong Verdict can cause serious harm. | Sensitive area, risky topic |
-| **Feed** | A stream of new Articles the platform watches by itself (Hacker News now, Google News next). | News platform, RSS, API |
+| **Feed** | A stream of new Articles the platform watches by itself (Hacker News and Medium now, Google News next). | News platform, RSS, API |
 | **Article** | One item that arrives from a Feed. It is a kind of Content. | News, story, post |
 | **Publisher** | The organisation whose site an Article's link points to. It is not the Feed. | Source, outlet, aggregator |
 | **Triage** | An internal priority (High, Medium, Low) that sorts the editor queue. The User never sees it. | Risk score, severity |
 | **Editor** | A person who reviews risky Claims. After they confirm or change one, the User sees "checked by a person". | Admin, moderator |
 | **Could Not Finish** | A check that stopped. The User sees a plain reason and a Try again button. Never a Verdict. | Error, failed verdict |
-
 
 ## The six stages (Verification Pipeline)
 
@@ -174,3 +173,11 @@ Status: **v2** (2026-11-19). Split from the single v1 file and rebuilt from the 
 - **Self-published Sources**: `github.com` and `arxiv.org` are on the list, but anyone can publish there. A random README or preprint is weak Evidence. *(open: primary-source-only, or a lower Confidence cap)*
 - **Hacker News is not news**: many items are blogs, opinions and "Show HN" launches. Many Articles will have no check-worthy Claim. That is normal, not a bug.
 - **Repeat Claims**: only an exact match counts. A word-overlap hint may come later. *(try and compare)*
+
+## Feed quantity and delivery
+
+- Ingestion uses both Hacker News and Medium by default (`DEFAULT_FEED=all`). An explicit Feed filter still selects one provider.
+- The default total is 60 Articles, capped at 100. Available Articles are interleaved and duplicate URLs count once; one healthy Feed can fill unused places. Quantity depends on provider availability.
+- Hacker News preserves its ranking and scans past skipped stories and duplicate URLs, within `HN_MAX_LIMIT`.
+- Medium uses Pulse's topic tags (artificial-intelligence, technology, data-science, programming, cloud-computing, law) plus cybersecurity. Topics are interleaved with bounded concurrent requests. RSS content supplies Cover Images.
+- `extract_text=false` returns Feed Card metadata without fetching Article Text. Its extraction status is `not_requested`, never `fetch_failed`. Text extraction remains enabled by default for existing callers. Cache entries separate both request types. Articles remain Not checked yet.

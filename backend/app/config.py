@@ -6,10 +6,24 @@ class Settings(BaseSettings):
     """Application settings loaded from environment or .env with safe defaults."""
 
     # Hacker News Feed Settings
-    HN_TOP_STORIES_LIMIT: int = 10
-    HN_MAX_LIMIT: int = 30
+    HN_TOP_STORIES_LIMIT: int = 30
+    HN_MAX_LIMIT: int = 100
     HTTP_TIMEOUT_SECONDS: float = 10.0
     MAX_CONCURRENT_REQUESTS: int = 10
+
+    # Ingestion Feed Settings
+    DEFAULT_FEED: str = "all"
+    FEED_DEFAULT_LIMIT: int = 60
+    FEED_MAX_LIMIT: int = 100
+    MEDIUM_TAGS: List[str] = [
+        "artificial-intelligence",
+        "technology",
+        "data-science",
+        "cybersecurity",
+        "programming",
+        "cloud-computing",
+        "law",
+    ]
 
     # CORS Settings
     CORS_ORIGINS: List[str] = ["http://localhost:3000"]

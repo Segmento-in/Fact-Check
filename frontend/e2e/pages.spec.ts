@@ -1,3 +1,4 @@
+
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
@@ -265,5 +266,97 @@ test.describe('Pages E2E Flow and Behavior', () => {
 
     await page.goto('/');
     expect(await page.locator('.mesh').count()).toBeGreaterThan(0);
+  });
+});
+
+test.describe('Ticket 6 Feed Card', () => {
+  test('shows eight cards, three loaded Cover Images and five Cover Tiles', async ({ page }) => {
+    await page.goto('/feed');
+    const cards = page.locator('article');
+    await expect(cards).toHaveCount(8);
+    const images = cards.locator('img[src^="/sample-covers/"]');
+    await expect(images).toHaveCount(3);
+    await expect(cards.locator('[data-cover-tile]')).toHaveCount(5);
+    await expect.poll(() =>
+      images.evaluateAll((nodes) =>
+        nodes.every((node) => {
+          const image = node as HTMLImageElement;
+          return image.complete && image.naturalWidth > 0;
+        })
+      )
+    ).toBe(true);
+  });
+
+  test('keeps every card in each desktop row the same height', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/feed');
+    const cards = page.locator('article');
+    await expect(cards).toHaveCount(8);
+    await page.evaluate(() => document.fonts.ready.then(() => undefined));
+    const boxes = await cards.evaluateAll((nodes) =>
+      nodes.map((node) => {
+        const box = node.getBoundingClientRect();
+        return { top: box.top, height: box.height };
+      })
+    );
+    const rows: Array<typeof boxes> = [];
+    for (const box of boxes) {
+      const row = rows.find((items) => Math.abs(items[0].top - box.top) <= 1);
+      if (row) row.push(box);
+      else rows.push([box]);
+    }
+    expect(rows.map((row) => row.length)).toEqual([3, 3, 2]);
+    for (const row of rows) {
+      const heights = row.map((box) => box.height);
+      expect(Math.max(...heights) - Math.min(...heights)).toBeLessThanOrEqual(1);
+    }
+  });
+
+  for (const width of [1280, 360]) {
+    test(`passes axe with loaded Feed Cards at width ${width}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto('/feed');
+      await expect(page.locator('article')).toHaveCount(8);
+      const results = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+        .analyze();
+      expect(results.violations).toEqual([]);
+      expect(await page.evaluate(() =>
+        document.documentElement.scrollWidth <= window.innerWidth
+      )).toBe(true);
+    });
+  }
+
+  test('Tab reaches a headline and shows the card focus ring', async ({ page }) => {
+    await page.goto('/feed');
+    await expect(page.locator('article')).toHaveCount(8);
+    const headline = page.locator('article h2 a').first();
+    await expect(headline).toBeVisible();
+
+    let reached = false;
+    for (let step = 0; step < 20; step++) {
+      await page.keyboard.press('Tab');
+      if (await headline.evaluate((node) => node === document.activeElement)) {
+        reached = true;
+        break;
+      }
+    }
+    expect(reached).toBe(true);
+
+    const styles = await headline.evaluate((node) => {
+      const card = node.closest('article')!;
+      const style = getComputedStyle(card);
+      return {
+        focusWithin: card.matches(':focus-within'),
+        shadow: style.boxShadow,
+        ringColor: style.getPropertyValue('--tw-ring-color').trim(),
+        primarySoft: getComputedStyle(document.documentElement)
+          .getPropertyValue('--color-primary-soft').trim(),
+      };
+    });
+    expect(styles.focusWithin).toBe(true);
+    expect(styles.shadow).not.toBe('none');
+    expect(styles.shadow).toContain('2px');
+    expect(styles.ringColor).toBe(styles.primarySoft);
   });
 });

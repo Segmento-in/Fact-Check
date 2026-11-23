@@ -1,3 +1,5 @@
+import { existsSync, readFileSync, statSync } from 'node:fs';
+import path from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { createSampleDataSource } from './sample';
 import { SAMPLE_REPORTS, SAMPLE_ARTICLES } from './sample-data';
@@ -247,3 +249,44 @@ describe('sample data source and sample data set', () => {
   });
 });
 
+
+describe('Ticket 6: magazine Feed Card Sample Data', () => {
+  it('has eight samples, three Medium without a score and five Hacker News with scores', async () => {
+    const articles = await createSampleDataSource().listFeedArticles();
+    expect(articles).toHaveLength(8);
+    const medium = articles.filter((article) => article.feed === 'Medium');
+    const hackerNews = articles.filter((article) => article.feed === 'Hacker News');
+    expect(medium).toHaveLength(3);
+    expect(hackerNews).toHaveLength(5);
+    medium.forEach((article) => expect(article.feedScore).toBeNull());
+    hackerNews.forEach((article) => expect(typeof article.feedScore).toBe('number'));
+    articles.forEach((article) => expect(article.isSample).toBe(true));
+  });
+
+  it('has three own-origin Cover Images, including both Feed names, with null for the rest', async () => {
+    const articles = await createSampleDataSource().listFeedArticles();
+    expect(articles).toHaveLength(8);
+    const covered = articles.filter((article) => typeof article.imageUrl === 'string');
+    expect(covered).toHaveLength(3);
+    expect(articles.filter((article) => article.imageUrl === null)).toHaveLength(5);
+    expect(covered.map((article) => article.imageUrl).sort()).toEqual([
+      '/sample-covers/cover-1.svg',
+      '/sample-covers/cover-2.svg',
+      '/sample-covers/cover-3.svg',
+    ]);
+    for (const feed of ['Medium', 'Hacker News']) {
+      expect(covered.some((article) => article.feed === feed)).toBe(true);
+    }
+  });
+
+  it('has three small SVG cover files on disk with no text elements', () => {
+    for (const name of ['cover-1.svg', 'cover-2.svg', 'cover-3.svg']) {
+      const file = path.resolve(import.meta.dirname, '../../../public/sample-covers', name);
+      expect(existsSync(file), `Missing sample cover: ${name}`).toBe(true);
+      expect(statSync(file).size).toBeLessThan(1500);
+      const svg = readFileSync(file, 'utf8');
+      expect(svg).toContain('<svg');
+      expect(svg).not.toMatch(/<text\b/i);
+    }
+  });
+});

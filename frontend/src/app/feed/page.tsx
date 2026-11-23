@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import {
   RefreshCw,
-  TrendingUp,
+  Newspaper,
   Clock,
   Hourglass,
   CircleMinus,
@@ -40,12 +40,11 @@ export default function LiveFeedPage() {
             type="button"
             disabled={status === 'loading'}
             onClick={retry}
-            className="inline-flex items-center justify-center gap-2 rounded-pill bg-canvas text-ink border border-hairline-input hover:border-primary-soft px-5 py-2 font-medium text-sm transition-colors disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-primary-soft"
+            className="inline-flex items-center justify-center gap-2 rounded-pill bg-canvas text-ink border border-hairline-input hover:border-primary-soft px-5 py-2 font-medium text-sm transition-colors motion-reduce:transition-none disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-primary-soft"
           >
             <RefreshCw
               size={14}
               strokeWidth={ICON_STROKE}
-              className={status === 'loading' ? 'animate-spin' : ''}
               aria-hidden="true"
             />
             <span>Refresh Feed</span>
@@ -61,13 +60,27 @@ export default function LiveFeedPage() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-canvas rounded-lg p-5 border border-hairline h-48 flex flex-col justify-between"
+                aria-hidden="true"
+                className="flex h-full flex-col overflow-hidden rounded-lg border border-hairline bg-canvas"
               >
-                <div className="space-y-3">
-                  <div className="h-4 bg-hairline rounded w-1/3" />
-                  <div className="h-5 bg-hairline rounded w-5/6" />
+                <div data-part="cover" className="aspect-video bg-hairline" />
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="flex items-center justify-between">
+                    <div className="h-6 w-20 rounded-pill bg-hairline" />
+                    <div className="h-3 w-16 rounded bg-hairline" />
+                  </div>
+                  <div className="mt-4 space-y-2">
+                    <div className="h-5 w-full rounded bg-hairline" />
+                    <div className="h-5 w-4/5 rounded bg-hairline" />
+                  </div>
+                  <div data-part="state" className="mt-auto pt-6">
+                    <div className="h-6 w-3/4 rounded-pill bg-hairline" />
+                  </div>
+                  <div className="mt-4 flex items-center gap-2 border-t border-hairline pt-3">
+                    <div className="h-6 w-6 rounded-full bg-hairline" />
+                    <div className="h-3 w-1/2 rounded bg-hairline" />
+                  </div>
                 </div>
-                <div className="h-6 bg-hairline rounded w-1/2" />
               </div>
             ))}
           </div>
@@ -84,7 +97,7 @@ export default function LiveFeedPage() {
             <button
               type="button"
               onClick={retry}
-              className="mt-4 rounded-pill border border-hairline-input bg-canvas px-5 py-2 text-sm font-medium text-ink hover:border-primary-soft transition-colors focus:outline-none focus:ring-2 focus:ring-primary-soft"
+              className="mt-4 rounded-pill border border-hairline-input bg-canvas px-5 py-2 text-sm font-medium text-ink hover:border-primary-soft transition-colors motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-primary-soft"
             >
               Try again
             </button>
@@ -114,51 +127,119 @@ export default function LiveFeedPage() {
 function FeedCard({ article }: { article: Article }) {
   const { state } = article;
   const reportId = 'reportId' in state ? state.reportId : null;
+  const [failedImageUrl, setFailedImageUrl] = React.useState<string | null>(null);
+  const imageUrl =
+    article.imageUrl && article.imageUrl !== failedImageUrl
+      ? article.imageUrl
+      : null;
+  const publishedDate = formatDate(article.publishedAt);
 
   return (
-    <article className="bg-canvas rounded-lg shadow-card border border-hairline p-5 flex flex-col justify-between text-left">
-      <div>
-        <div className="flex items-center justify-between text-xs text-ink-mute mb-3">
-          <span className="font-normal truncate max-w-[65%]">
-            {article.publisher} · {formatDate(article.publishedAt)}
+    <article
+      className={`relative isolate flex h-full flex-col overflow-hidden rounded-lg border border-hairline bg-canvas text-left shadow-card transition-colors motion-reduce:transition-none focus-within:ring-2 focus-within:ring-primary-soft ${reportId ? 'hover:border-primary-soft' : ''}`}
+    >
+      <div
+        data-part="cover"
+        className="aspect-video w-full shrink-0 overflow-hidden bg-canvas-soft"
+      >
+        {imageUrl ? (
+          // ponytail: cover images are hotlinked from the Publisher or Feed host, so that host sees the reader's IP. Revisit before any public deploy (proxy or cache images).
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={imageUrl}
+            alt=""
+            width={640}
+            height={360}
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            decoding="async"
+            onError={() => setFailedImageUrl(imageUrl)}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div
+            data-cover-tile
+            aria-hidden="true"
+            className="flex h-full w-full items-center justify-center text-primary-soft"
+          >
+            <Newspaper size={40} strokeWidth={ICON_STROKE} aria-hidden="true" />
+          </div>
+        )}
+      </div>
+
+      <div className="flex min-w-0 flex-1 flex-col p-5">
+        <div
+          data-part="meta"
+          className="flex min-w-0 items-center justify-between gap-3 text-xs"
+        >
+          <span className="min-w-0 truncate rounded-pill bg-canvas-soft px-3 py-1 font-medium text-ink-secondary">
+            {article.feed}
           </span>
-          <span className="font-mono flex items-center gap-1 shrink-0">
-            <TrendingUp size={12} strokeWidth={ICON_STROKE} aria-hidden="true" />
-            <span>Feed Score {article.feedScore}</span>
-          </span>
+          {publishedDate ? (
+            <time
+              dateTime={article.publishedAt}
+              className="shrink-0 tabular-nums text-ink-mute"
+            >
+              {publishedDate}
+            </time>
+          ) : null}
         </div>
 
-        <h2 className="text-lg font-light text-ink tracking-tight leading-snug">
+        <h2 className="mt-4 line-clamp-3 text-lg font-medium leading-snug text-ink">
           {reportId ? (
             <Link
               href={`/report/${reportId}`}
-              className="hover:underline focus:outline-none focus:ring-2 focus:ring-primary-soft rounded-sm"
+              className="font-medium after:absolute after:inset-0 after:content-[''] hover:underline focus:outline-none"
             >
               {article.headline}
             </Link>
           ) : (
-            <span>{article.headline}</span>
+            <span className="font-medium">{article.headline}</span>
           )}
         </h2>
-      </div>
 
-      <div className="pt-4 mt-4 border-t border-hairline flex flex-wrap items-center gap-2">
-        {state.kind === 'checked' ? (
-          <div className="flex flex-wrap items-center gap-2">
-            {VERDICTS.map((v) => {
-              const count = state.tally[v];
-              if (!count || count <= 0) return null;
-              return (
-                <span key={v} className="inline-flex items-center gap-1.5">
-                  <VerdictChip verdict={v} size="sm" />
-                  <span className="font-mono text-sm text-ink">{count}</span>
-                </span>
-              );
-            })}
+        <div data-part="state" className="mt-auto pt-4">
+          {state.kind === 'checked' ? (
+            <div className="flex flex-wrap items-center gap-2">
+              {VERDICTS.map((verdict) => {
+                const count = state.tally[verdict];
+                if (!count || count <= 0) return null;
+                return (
+                  <span key={verdict} className="inline-flex items-center gap-1.5">
+                    <VerdictChip verdict={verdict} size="sm" />
+                    <span className="font-mono text-sm tabular-nums text-ink">
+                      {count}
+                    </span>
+                  </span>
+                );
+              })}
+            </div>
+          ) : (
+            <FeedStateLabel stateKind={state.kind} />
+          )}
+        </div>
+
+        <div
+          data-part="byline"
+          className="mt-4 flex min-w-0 items-center justify-between gap-3 border-t border-hairline pt-3"
+        >
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <span
+              aria-hidden="true"
+              className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-canvas-soft text-xs font-medium text-ink-secondary"
+            >
+              {article.publisher.trim().charAt(0).toUpperCase()}
+            </span>
+            <span className="truncate text-xs text-ink-secondary">
+              By {article.publisher}
+            </span>
           </div>
-        ) : (
-          <FeedStateLabel stateKind={state.kind} />
-        )}
+          {typeof article.feedScore === 'number' ? (
+            <span className="shrink-0 font-mono text-xs tabular-nums text-ink-mute">
+              Feed Score {article.feedScore}
+            </span>
+          ) : null}
+        </div>
       </div>
     </article>
   );

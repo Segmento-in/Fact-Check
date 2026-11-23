@@ -1,3 +1,4 @@
+from typing import List, Optional
 import pytest
 import httpx
 from datetime import datetime, timezone
@@ -7,6 +8,7 @@ from app.ingestion.hackernews.client import HackerNewsIngestionSource
 from app.ingestion.medium.client import MediumIngestionSource
 from app.ingestion.service import IngestionService
 from app.config import Settings
+from app.models import Article
 
 SAMPLE_MEDIUM_XML = """<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
@@ -106,3 +108,107 @@ async def test_ingestion_service_orchestration():
     assert "Hacker News" in sources
     assert "Medium" in sources
 
+
+class FakeSource(BaseIngestionSource):
+    def __init__(self, name: str, articles: List[Article]):
+        super().__init__()
+        self._name = name
+        self.articles = articles
+        self.call_count = 0
+
+    @property
+    def source_name(self) -> str:
+        return self._name
+
+    async def fetch_articles(self, limit: Optional[int] = None) -> List[Article]:
+        self.call_count += 1
+        effective_limit = limit if limit is not None else 20
+        return self.articles[:effective_limit]
+
+
+SAMPLE_HN_ARTICLES = [
+    Article(
+        id="hn_101",
+        hn_id=101,
+        title="HN Story",
+        url="https://news.ycombinator.com/item?id=101",
+        source="Hacker News",
+    )
+]
+
+SAMPLE_MED_ARTICLES = [
+    Article(
+        id="med_202",
+        hn_id=0,
+        title="Medium Story",
+        url="https://medium.com/@user/story",
+        source="Medium",
+    )
+]
+
+
+@pytest.mark.asyncio
+async def test_ingestion_service_source_none_calls_both_feeds():
+    """source=None calls both Feeds and interleaves their Articles."""
+    hn_fake = FakeSource("Hacker News", SAMPLE_HN_ARTICLES)
+    med_fake = FakeSource("Medium", SAMPLE_MED_ARTICLES)
+
+    service = IngestionService()
+    service.sources = {"hackernews": hn_fake, "medium": med_fake}
+
+    articles = await service.fetch_articles(limit=10, source=None)
+
+    assert hn_fake.call_count == 1
+    assert med_fake.call_count == 1
+    assert articles == SAMPLE_HN_ARTICLES + SAMPLE_MED_ARTICLES
+
+
+@pytest.mark.asyncio
+async def test_ingestion_service_source_medium_calls_only_medium():
+    """source='medium' calls only the Medium fake."""
+    hn_fake = FakeSource("Hacker News", SAMPLE_HN_ARTICLES)
+    med_fake = FakeSource("Medium", SAMPLE_MED_ARTICLES)
+
+    service = IngestionService()
+    service.sources = {"hackernews": hn_fake, "medium": med_fake}
+
+    articles = await service.fetch_articles(limit=10, source="medium")
+
+    assert med_fake.call_count == 1
+    assert hn_fake.call_count == 0
+    assert articles == SAMPLE_MED_ARTICLES
+
+
+@pytest.mark.asyncio
+async def test_ingestion_service_explicit_hackernews_filters_mixed_default():
+    """source='hackernews' returns only Hacker News even with a mixed default."""
+    hn_fake = FakeSource("Hacker News", SAMPLE_HN_ARTICLES)
+    med_fake = FakeSource("Medium", SAMPLE_MED_ARTICLES)
+
+    service = IngestionService()
+    service.sources = {"hackernews": hn_fake, "medium": med_fake}
+
+    articles_none = await service.fetch_articles(limit=10, source=None)
+    articles_hn = await service.fetch_articles(limit=10, source="hackernews")
+
+    assert articles_none == SAMPLE_HN_ARTICLES + SAMPLE_MED_ARTICLES
+    assert articles_hn == SAMPLE_HN_ARTICLES
+    assert hn_fake.call_count == 2
+    assert med_fake.call_count == 1
+
+
+@pytest.mark.asyncio
+async def test_ingestion_service_default_feed_setting_override():
+    """DEFAULT_FEED set to 'medium' via settings makes source=None call Medium only."""
+    hn_fake = FakeSource("Hacker News", SAMPLE_HN_ARTICLES)
+    med_fake = FakeSource("Medium", SAMPLE_MED_ARTICLES)
+
+    custom_settings = Settings(_env_file=None, DEFAULT_FEED="medium")
+    service = IngestionService(settings=custom_settings)
+    service.sources = {"hackernews": hn_fake, "medium": med_fake}
+
+    articles = await service.fetch_articles(limit=10, source=None)
+
+    assert med_fake.call_count == 1
+    assert hn_fake.call_count == 0
+    assert articles == SAMPLE_MED_ARTICLES

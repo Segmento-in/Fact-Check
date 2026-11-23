@@ -2,7 +2,7 @@ import type { DataSource } from './types';
 import type { VerificationReport, Article } from '../contract';
 import { parseArticlesResponse } from './live-parse';
 
-export const LIVE_REQUEST_TIMEOUT_MS = 8000;
+export const LIVE_REQUEST_TIMEOUT_MS = 30000;
 
 export function createLiveDataSource(): DataSource {
   const rawBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
@@ -24,7 +24,7 @@ export function createLiveDataSource(): DataSource {
       const timer = setTimeout(() => controller.abort(), LIVE_REQUEST_TIMEOUT_MS);
 
       try {
-        const url = `${baseUrl}/api/articles?limit=20`;
+        const url = `${baseUrl}/api/articles?limit=60&source=all&extract_text=false`;
         const response = await fetch(url, {
           method: 'GET',
           headers: { Accept: 'application/json' },

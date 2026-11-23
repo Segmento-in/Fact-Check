@@ -92,12 +92,16 @@ export type FeedCardState =
   | { kind: "could_not_finish"; reportId: string };
 
 // Article: From UL term "Article" - One item that arrives from a Feed. It is a kind of Content.
+// Feed names the stream; Publisher names the organisation. A Cover Image may be absent.
+// Feed Score is shown only for a Feed that has one. It says nothing about truth.
 export interface Article {
   id: string;
   isSample: boolean;
   headline: string;
   publisher: string;
-  feedScore: number;
+  feed: string;
+  imageUrl: string | null;
+  feedScore: number | null;
   publishedAt: string;
   url: string;
   state: FeedCardState;
