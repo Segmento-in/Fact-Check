@@ -23,6 +23,8 @@ DEFAULT_MEDIUM_TAGS = [
     "data-science",
     "cybersecurity",
     "programming",
+    "cloud-computing",
+    "law",
 ]
 
 
@@ -40,7 +42,8 @@ class MediumIngestionSource(BaseIngestionSource):
         tags: Optional[List[str]] = None,
     ) -> None:
         super().__init__(client=client, settings=settings)
-        self.tags = tags or DEFAULT_MEDIUM_TAGS
+        # Reuse Pulse's category-to-tag coverage, plus the existing security tag.
+        self.tags = list(dict.fromkeys(tags if tags is not None else self.settings.MEDIUM_TAGS))
 
     @property
     def source_name(self) -> str:
@@ -53,7 +56,10 @@ class MediumIngestionSource(BaseIngestionSource):
         Args:
             limit: Maximum total articles to return across all tags.
         """
-        effective_limit = limit if limit is not None else 20
+        effective_limit = min(
+            limit if limit is not None else self.settings.FEED_DEFAULT_LIMIT,
+            self.settings.FEED_MAX_LIMIT,
+        )
         if effective_limit <= 0:
             return []
 
@@ -71,15 +77,24 @@ class MediumIngestionSource(BaseIngestionSource):
             return []
 
     async def _fetch_all_tags(self, client: httpx.AsyncClient, limit: int) -> List[Article]:
-        tasks = [self._fetch_single_tag(client, tag) for tag in self.tags]
+        sem = asyncio.Semaphore(self.settings.MAX_CONCURRENT_REQUESTS)
+
+        async def fetch_tag(tag: str) -> List[Article]:
+            async with sem:
+                return await self._fetch_single_tag(client, tag)
+
+        tasks = [fetch_tag(tag) for tag in self.tags]
         results_per_tag = await asyncio.gather(*tasks, return_exceptions=True)
 
         combined: List[Article] = []
         seen_urls = set()
 
-        for res in results_per_tag:
-            if isinstance(res, list):
-                for art in res:
+        # Give every topic a turn before taking another item from the first topic.
+        batches = [res for res in results_per_tag if isinstance(res, list)]
+        for index in range(max((len(batch) for batch in batches), default=0)):
+            for batch in batches:
+                if index < len(batch):
+                    art = batch[index]
                     if art.url not in seen_urls:
                         seen_urls.add(art.url)
                         combined.append(art)
@@ -91,7 +106,9 @@ class MediumIngestionSource(BaseIngestionSource):
     async def _fetch_single_tag(self, client: httpx.AsyncClient, tag: str) -> List[Article]:
         url = f"{MEDIUM_FEED_BASE_URL}/{tag}"
         try:
-            response = await client.get(url, timeout=self.settings.HTTP_TIMEOUT_SECONDS)
+            response = await client.get(
+                url, timeout=self.settings.HTTP_TIMEOUT_SECONDS, follow_redirects=True
+            )
             if response.status_code == 429:
                 logger.warning("[Medium Ingestion] Rate-limited (HTTP 429) on tag '%s'", tag)
                 return []

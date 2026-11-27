@@ -59,7 +59,10 @@ class HackerNewsIngestionSource(BaseIngestionSource):
             logger.warning("Failed to fetch top stories ID list: %s", e)
             return []
 
-        target_ids = ids[:limit]
+        # Scan past removed items and duplicate links, within the configured cap.
+        target_ids = list(dict.fromkeys(
+            item_id for item_id in ids if type(item_id) is int and item_id > 0
+        ))[:self.settings.HN_MAX_LIMIT]
         if not target_ids:
             return []
 
@@ -81,9 +84,25 @@ class HackerNewsIngestionSource(BaseIngestionSource):
                 logger.warning("Failed to fetch Hacker News item %d: %s", item_id, item_err)
                 return None
 
-        tasks = [fetch_single_item(item_id) for item_id in target_ids]
-        raw_items = await asyncio.gather(*tasks, return_exceptions=True)
+        articles: List[Article] = []
+        seen_urls = set()
+        offset = 0
+        while offset < len(target_ids) and len(articles) < limit:
+            batch_size = min(limit - len(articles), self.settings.MAX_CONCURRENT_REQUESTS)
+            batch_ids = target_ids[offset:offset + batch_size]
+            offset += len(batch_ids)
+            raw_items = await asyncio.gather(
+                *(fetch_single_item(item_id) for item_id in batch_ids),
+                return_exceptions=True,
+            )
+            for article in self._map_items_to_articles(raw_items):
+                if article.url not in seen_urls:
+                    seen_urls.add(article.url)
+                    articles.append(article)
 
+        return articles
+
+    def _map_items_to_articles(self, raw_items: list) -> List[Article]:
         articles: List[Article] = []
         for item in raw_items:
             if item is None or isinstance(item, Exception):

@@ -1,10 +1,11 @@
 import asyncio
 import time
+from functools import lru_cache
 from typing import Callable, List, Optional
 from fastapi import Depends, FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.config import Settings, settings as default_settings
+from app.config import FeedSelection, Settings, settings as default_settings
 from app.extraction.article_text import ArticleTextExtractor
 from app.feeds.hackernews import HackerNewsFeed
 from app.ingestion.service import IngestionService
@@ -33,7 +34,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# In-memory cache for GET /api/articles: (limit, source) -> (timestamp, list[ArticleReport])
+# In-memory cache for GET /api/articles: (limit, source, extract_text) -> reports.
 _articles_cache: dict[tuple, tuple[float, List[ArticleReport]]] = {}
 
 
@@ -45,7 +46,9 @@ def get_hn_feed() -> HackerNewsFeed:
     return HackerNewsFeed()
 
 
+@lru_cache(maxsize=1)
 def get_ingestion_service() -> IngestionService:
+    # Retain provider cooldowns across requests; HTTP clients remain per-call.
     return IngestionService()
 
 
@@ -76,14 +79,18 @@ def get_trusted_sources() -> TrustedSourcesResponse:
 @app.get("/api/articles", response_model=ArticlesResponse)
 async def get_articles(
     limit: int = Query(
-        default=default_settings.HN_TOP_STORIES_LIMIT,
+        default=default_settings.FEED_DEFAULT_LIMIT,
         ge=1,
-        le=default_settings.HN_MAX_LIMIT,
+        le=default_settings.FEED_MAX_LIMIT,
         description="Number of articles to fetch",
     ),
-    source: Optional[str] = Query(
+    source: Optional[FeedSelection] = Query(
         default=None,
-        description="Optional filter by source ('hackernews', 'medium', or None for all)",
+        description="Feed: hackernews, medium, google_news, newsdata, newsapi, all, or the configured default",
+    ),
+    extract_text: bool = Query(
+        default=True,
+        description="False returns Feed Card metadata without downloading every Article page",
     ),
     ingestion: IngestionService = Depends(get_ingestion_service),
     extractor: ArticleTextExtractor = Depends(get_article_extractor),
@@ -92,13 +99,14 @@ async def get_articles(
     settings: Settings = Depends(get_settings),
 ) -> ArticlesResponse:
     """
-    Fetch news articles across ingestion sources (Hacker News, Medium) with extracted text status.
+    Fetch Articles across configured Feeds with extracted text status.
 
     Returns reports with checked=False (not fact-checked yet).
-    Responses are cached in-memory per (limit, source) for ARTICLES_CACHE_TTL_SECONDS.
+    Responses are cached per (limit, effective source, extract_text).
+    Feed Card requests can skip text extraction; this never creates a Verdict.
     """
     now = clock()
-    cache_key = (limit, source)
+    cache_key = (limit, source or settings.DEFAULT_FEED, extract_text)
 
     # Check cache for this key
     if cache_key in cache:
@@ -126,17 +134,20 @@ async def get_articles(
         async with sem:
             return await extractor.extract(art.url)
 
-    tasks = [_extract_single(art) for art in raw_articles]
-    extraction_results = await asyncio.gather(*tasks)
+    if extract_text:
+        tasks = [_extract_single(art) for art in raw_articles]
+        extraction_results = await asyncio.gather(*tasks)
+    else:
+        extraction_results = [None] * len(raw_articles)
 
     reports: List[ArticleReport] = []
     for art, res in zip(raw_articles, extraction_results):
-        text_preview = res.text[:600] if res.status == "ok" and res.text else ""
+        text_preview = res.text[:600] if res and res.status == "ok" and res.text else ""
         summary = ExtractionSummary(
-            status=res.status,
-            word_count=res.word_count,
+            status=res.status if res else "not_requested",
+            word_count=res.word_count if res else 0,
             text_preview=text_preview,
-            final_url=res.final_url,
+            final_url=res.final_url if res else None,
         )
         report = ArticleReport(
             article=art,
@@ -150,7 +161,7 @@ async def get_articles(
         reports.append(report)
 
     # Store in memory cache
-    cache[cache_key] = (now, reports)
+    cache[cache_key] = (clock(), reports)
 
     return ArticlesResponse(
         articles=reports,

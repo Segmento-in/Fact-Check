@@ -13,7 +13,7 @@ describe('createLiveDataSource', () => {
     vi.restoreAllMocks();
   });
 
-  it('listFeedArticles calls fetch at default http://localhost:8000/api/articles?limit=20 and maps articles', async () => {
+  it('listFeedArticles calls fetch at default http://localhost:8000/api/articles?limit=60&source=all&extract_text=false and maps articles', async () => {
     const mockFixture = {
       articles: [
         {
@@ -24,6 +24,7 @@ describe('createLiveDataSource', () => {
             url: 'https://example.org/news/101',
             published_at: '2026-11-20T12:00:00Z',
             hn_score: 95,
+            source: 'Hacker News',
             site: 'example.org',
           },
         },
@@ -44,7 +45,7 @@ describe('createLiveDataSource', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     const calledUrl = fetchMock.mock.calls[0][0];
-    expect(calledUrl).toBe('http://localhost:8000/api/articles?limit=20');
+    expect(calledUrl).toBe('http://localhost:8000/api/articles?limit=60&source=all&extract_text=false');
 
     expect(articles).toHaveLength(1);
     expect(articles[0].headline).toBe('Live News Headline');
@@ -65,7 +66,7 @@ describe('createLiveDataSource', () => {
     const ds = createLiveDataSource();
     await ds.listFeedArticles();
 
-    expect(fetchMock.mock.calls[0][0]).toBe('https://api.factchecker.internal/api/articles?limit=20');
+    expect(fetchMock.mock.calls[0][0]).toBe('https://api.factchecker.internal/api/articles?limit=60&source=all&extract_text=false');
   });
 
   it('rejects on HTTP 500 status', async () => {
@@ -116,8 +117,36 @@ describe('createLiveDataSource', () => {
     );
   });
 
-  it('defines timeout constant as 8000 ms', () => {
-    expect(LIVE_REQUEST_TIMEOUT_MS).toBe(8000);
+  it('defines timeout constant as 30000 ms', () => {
+    expect(LIVE_REQUEST_TIMEOUT_MS).toBe(30000);
   });
+  it('keeps sixty mixed-provider articles with their images, scores and unchecked state', async () => {
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        articles: Array.from({ length: 60 }, (_, i) => ({
+          article: {
+            id: `article_${i}`,
+            title: `Article ${i}`,
+            url: `https://publisher.example/${i}`,
+            source: i % 2 === 0 ? 'Hacker News' : 'Medium',
+            hn_score: i,
+            image_url: i % 2 === 0 ? null : `https://miro.medium.com/${i}.jpg`,
+          },
+          extraction: { status: 'not_requested', word_count: 0, text_preview: '' },
+          checked: false,
+        })),
+      }),
+    });
+    const articles = await createLiveDataSource().listFeedArticles();
+    expect(articles).toHaveLength(60);
+    expect(articles.filter((article) => article.feed === 'Hacker News')).toHaveLength(30);
+    expect(articles.filter((article) => article.feed === 'Medium')).toHaveLength(30);
+    expect(articles[0].feedScore).toBe(0);
+    expect(articles[1].feedScore).toBeNull();
+    expect(articles[1].imageUrl).toBe('https://miro.medium.com/1.jpg');
+    expect(articles.every((article) => article.state.kind === 'not_checked_yet')).toBe(true);
+  });
+
 });
 

@@ -7,6 +7,9 @@ from app.config import Settings, settings as default_settings
 from app.ingestion.base import BaseIngestionSource
 from app.ingestion.hackernews.client import HackerNewsIngestionSource
 from app.ingestion.medium.client import MediumIngestionSource
+from app.ingestion.google_news.client import GoogleNewsIngestionSource
+from app.ingestion.newsdata.client import NewsDataIngestionSource
+from app.ingestion.newsapi.client import NewsAPIIngestionSource
 from app.models import Article
 
 logger = logging.getLogger(__name__)
@@ -30,11 +33,14 @@ class IngestionService:
         self.sources: Dict[str, BaseIngestionSource] = {
             "hackernews": HackerNewsIngestionSource(client=client, settings=self.settings),
             "medium": MediumIngestionSource(client=client, settings=self.settings),
+            "google_news": GoogleNewsIngestionSource(client=client, settings=self.settings),
+            "newsdata": NewsDataIngestionSource(client=client, settings=self.settings),
+            "newsapi": NewsAPIIngestionSource(client=client, settings=self.settings),
         }
 
     async def fetch_articles(
         self,
-        limit: int = 20,
+        limit: Optional[int] = None,
         source: Optional[str] = None,
     ) -> List[Article]:
         """
@@ -42,13 +48,25 @@ class IngestionService:
 
         Args:
             limit: Total maximum number of articles to return.
-            source: Optional specific source name ('hackernews', 'medium', or None for all).
+            source: A registered Feed, 'all', or None for the configured default.
         """
-        if source and source.lower() in self.sources:
-            return await self.sources[source.lower()].fetch_articles(limit=limit)
+        limit = min(
+            limit if limit is not None else self.settings.FEED_DEFAULT_LIMIT,
+            self.settings.FEED_MAX_LIMIT,
+        )
+        if limit <= 0:
+            return []
+        target_source = (source if source is not None else self.settings.DEFAULT_FEED).lower()
+        if target_source in self.sources:
+            if target_source not in self.settings.ENABLED_FEEDS:
+                return []
+            return await self.sources[target_source].fetch_articles(limit=limit)
+        if target_source != "all":
+            raise ValueError(f"Unknown Feed: {target_source}")
 
         # Multi-source parallel ingestion
-        tasks = [src.fetch_articles(limit=limit) for src in self.sources.values()]
+        tasks = [src.fetch_articles(limit=limit) for name, src in self.sources.items()
+                 if name in self.settings.ENABLED_FEEDS]
         results_lists = await asyncio.gather(*tasks, return_exceptions=True)
 
         combined: List[Article] = []

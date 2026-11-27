@@ -58,6 +58,7 @@ describe('live-parse: parseArticlesResponse', () => {
             title: 'Kernel release notes',
             url: 'https://www.kernel.org/pub/linux',
             hn_score: 55,
+            source: 'Hacker News',
           },
         },
       ],
@@ -117,6 +118,7 @@ describe('live-parse: parseArticlesResponse', () => {
         {
           article: {
             title: 'Future Tech',
+            source: 'Hacker News',
             url: 'https://future.test/tech',
             extra_nested: { foo: 123 },
             unrecognized_flag: true,
@@ -133,3 +135,139 @@ describe('live-parse: parseArticlesResponse', () => {
   });
 });
 
+
+
+describe('Ticket 6: Feed Card article fields', () => {
+  const fixture = {
+    id: 'ticket-6-article',
+    title: 'Feed Card parser fixture',
+    url: 'https://publisher.example/story',
+    source: 'Hacker News',
+    hn_score: 478,
+    published_at: '2026-11-20T10:00:00Z',
+    image_url: null,
+  };
+
+  function parseOne(overrides: Record<string, unknown>) {
+    const articles = parseArticlesResponse({
+      articles: [{ article: { ...fixture, ...overrides } }],
+    });
+    expect(articles).toHaveLength(1);
+    expect(articles[0].headline).toBe('Feed Card parser fixture');
+    return articles[0];
+  }
+
+  it.each([
+    ['Hacker News', 'Hacker News'],
+    ['Medium', 'Medium'],
+    ['  Medium  ', 'Medium'],
+  ])('takes Feed name from source case', (source, expected) => {
+    expect(parseOne({ source }).feed).toBe(expected);
+  });
+
+  it.each([undefined, '', '   ', null, 42])(
+    'rejects missing, blank or non-string source: case',
+    (source) => {
+      const article: Record<string, unknown> = { ...fixture, source };
+      if (source === undefined) delete article.source;
+
+      expect(() =>
+        parseArticlesResponse({ articles: [{ article }] })
+      ).toThrow("Invalid article at index 0: missing or empty 'source'");
+    }
+  );
+
+  it('reports the index of the article with missing source', () => {
+    const invalidArticle: Record<string, unknown> = { ...fixture };
+    delete invalidArticle.source;
+
+    expect(() =>
+      parseArticlesResponse({
+        articles: [
+          { article: fixture },
+          { article: invalidArticle },
+        ],
+      })
+    ).toThrow("Invalid article at index 1: missing or empty 'source'");
+  });
+
+  it('keeps an https Cover Image URL', () => {
+    const imageUrl = 'https://cdn.example/cover.png';
+    expect(parseOne({ image_url: imageUrl }).imageUrl).toBe(imageUrl);
+  });
+
+  it.each([
+    'http://cdn.example/cover.png',
+    'javascript:alert(1)',
+    'data:image/png;base64,AAAA',
+    '//cdn.example/cover.png',
+    '/cover.png',
+    '',
+    null,
+    42,
+    undefined,
+  ])('uses no Cover Image for invalid image_url: case', (imageUrl) => {
+    expect(parseOne({ image_url: imageUrl }).imageUrl).toBeNull();
+  });
+
+  it.each([
+    { feed: 'Hacker News', score: 0, expected: 0 },
+    { feed: 'Hacker News', score: 478, expected: 478 },
+    { feed: 'Hacker News', score: undefined, expected: null },
+    { feed: 'Hacker News', score: null, expected: null },
+    { feed: 'Hacker News', score: '478', expected: null },
+    { feed: 'Medium', score: 0, expected: null },
+    { feed: 'Medium', score: 478, expected: null },
+    { feed: 'Google News', score: 478, expected: null },
+  ])(
+    'maps Feed Score for $feed with hn_score $score to $expected',
+    ({ feed, score, expected }) => {
+      const article = parseOne({ source: feed, hn_score: score });
+      expect(article.feed).toBe(feed);
+      expect(article.feedScore).toBe(expected);
+    }
+  );
+
+  it('keeps a Medium Article id when hn_id is zero', () => {
+    const article = parseOne({
+      source: 'Medium',
+      id: 'medium-article-7',
+      hn_id: 0,
+      hn_score: 0,
+    });
+    expect(article.id).toBe('medium-article-7');
+    expect(article.feed).toBe('Medium');
+    expect(article.feedScore).toBeNull();
+    expect(article.state).toEqual({ kind: 'not_checked_yet' });
+    expect(article.isSample).toBe(false);
+  });
+});
+
+
+describe('additional Feed publisher mapping', () => {
+  it.each([
+    ['Google News', 'Google RSS publisher'],
+    ['NewsData.io', 'NewsData publisher'],
+    ['NewsAPI', 'NewsAPI publisher'],
+  ])('keeps the %s Feed distinct from the Publisher', (feed, publisher) => {
+    const [article] = parseArticlesResponse({ articles: [{ article: {
+      id: `${feed}_story`, title: 'A headline', source: feed,
+      publisher: `  ${publisher}  `,
+      url: 'https://news.google.com/rss/articles/story', hn_score: 0,
+      image_url: 'https://images.example/cover.jpg',
+    } }] });
+    expect(article.feed).toBe(feed);
+    expect(article.publisher).toBe(publisher);
+    expect(article.feedScore).toBeNull();
+    expect(article.imageUrl).toBe('https://images.example/cover.jpg');
+    expect(article.state).toEqual({ kind: 'not_checked_yet' });
+  });
+
+  it.each([null, '', '   ', 42])('keeps the domain fallback when Publisher metadata is %s', (publisher) => {
+    const [article] = parseArticlesResponse({ articles: [{ article: {
+      id: 'api_story', title: 'A headline', source: 'NewsAPI', publisher,
+      url: 'https://www.publisher.example/story',
+    } }] });
+    expect(article.publisher).toBe('publisher.example');
+  });
+});

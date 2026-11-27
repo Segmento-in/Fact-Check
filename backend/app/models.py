@@ -15,6 +15,7 @@ class Article(BaseModel):
     published_at: Optional[datetime] = None
     hn_score: int = 0
     source: str = "Hacker News"
+    publisher: Optional[str] = None
     image_url: Optional[str] = None
     category: Optional[str] = None
 
@@ -99,7 +100,7 @@ class ExtractionSummary(BaseModel):
 
     model_config = ConfigDict(populate_by_name=True)
 
-    status: ExtractionStatus
+    status: Literal["ok", "too_short", "no_text", "not_html", "fetch_failed", "not_requested"]
     word_count: int
     text_preview: str
     final_url: Optional[str] = None
