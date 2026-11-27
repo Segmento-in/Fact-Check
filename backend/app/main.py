@@ -1,10 +1,11 @@
 import asyncio
 import time
-from typing import Callable, List, Literal, Optional
+from functools import lru_cache
+from typing import Callable, List, Optional
 from fastapi import Depends, FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.config import Settings, settings as default_settings
+from app.config import FeedSelection, Settings, settings as default_settings
 from app.extraction.article_text import ArticleTextExtractor
 from app.feeds.hackernews import HackerNewsFeed
 from app.ingestion.service import IngestionService
@@ -45,7 +46,9 @@ def get_hn_feed() -> HackerNewsFeed:
     return HackerNewsFeed()
 
 
+@lru_cache(maxsize=1)
 def get_ingestion_service() -> IngestionService:
+    # Retain provider cooldowns across requests; HTTP clients remain per-call.
     return IngestionService()
 
 
@@ -81,9 +84,9 @@ async def get_articles(
         le=default_settings.FEED_MAX_LIMIT,
         description="Number of articles to fetch",
     ),
-    source: Optional[Literal["hackernews", "medium", "all"]] = Query(
+    source: Optional[FeedSelection] = Query(
         default=None,
-        description="Feed: hackernews, medium, all, or the configured default when omitted",
+        description="Feed: hackernews, medium, google_news, newsdata, newsapi, all, or the configured default",
     ),
     extract_text: bool = Query(
         default=True,
@@ -96,7 +99,7 @@ async def get_articles(
     settings: Settings = Depends(get_settings),
 ) -> ArticlesResponse:
     """
-    Fetch news articles across ingestion sources (Hacker News, Medium) with extracted text status.
+    Fetch Articles across configured Feeds with extracted text status.
 
     Returns reports with checked=False (not fact-checked yet).
     Responses are cached per (limit, effective source, extract_text).

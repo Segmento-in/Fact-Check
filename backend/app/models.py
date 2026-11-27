@@ -15,6 +15,7 @@ class Article(BaseModel):
     published_at: Optional[datetime] = None
     hn_score: int = 0
     source: str = "Hacker News"
+    publisher: Optional[str] = None
     image_url: Optional[str] = None
     category: Optional[str] = None
 

@@ -44,7 +44,9 @@ export function parseArticlesResponse(raw: unknown): Article[] {
     const url = artRaw.url.trim();
 
     let publisher = '';
-    if (typeof artRaw.site === 'string' && artRaw.site.trim()) {
+    if (typeof artRaw.publisher === 'string' && artRaw.publisher.trim()) {
+      publisher = artRaw.publisher.trim();
+    } else if (typeof artRaw.site === 'string' && artRaw.site.trim()) {
       publisher = artRaw.site.trim();
     } else if (typeof artRaw.domain === 'string' && artRaw.domain.trim()) {
       publisher = artRaw.domain.trim();

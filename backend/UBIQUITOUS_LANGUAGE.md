@@ -1,6 +1,6 @@
 # Ubiquitous Language — Fact Checker (Backend)
 
-Status: **v2.2** (2026-11-23). Split from the single v1 file and rebuilt from the 6-stage architecture ("factcheck architecture_v1.drawio"). This file holds the **pipeline terms**. Screen terms live in the frontend file.
+Status: **v2.3** (2026-11-27). Split from the single v1 file and rebuilt from the 6-stage architecture ("factcheck architecture_v1.drawio"). This file holds the **pipeline terms**. Screen terms live in the frontend file.
 
 - **Shared terms** (first section) are word-for-word identical in both files. Change one, change both.
 - Terms marked *(open)* are not decided yet.
@@ -24,9 +24,9 @@ Status: **v2.2** (2026-11-23). Split from the single v1 file and rebuilt from th
 | **Verification Report** | The result for one Content: its Claims, each with a Verdict, a Confidence and its proof. | Output, result page, analysis |
 | **Warning Sign** | A pattern found by code (urgency, SHOUTING, a big number with no source, clickbait). It is not a Verdict. | Red flag, risk score, manipulation score |
 | **Sensitive Domain** | A subject area (health, elections, money, safety) where a wrong Verdict can cause serious harm. | Sensitive area, risky topic |
-| **Feed** | A stream of new Articles the platform watches by itself (Hacker News and Medium now, Google News next). | News platform, RSS, API |
+| **Feed** | A stream of Articles delivered by Hacker News, Medium, Google News, NewsData.io or NewsAPI; it never supplies Evidence merely by delivering an Article. | News platform, RSS, API |
 | **Article** | One item that arrives from a Feed. It is a kind of Content. | News, story, post |
-| **Publisher** | The organisation whose site an Article's link points to. It is not the Feed. | Source, outlet, aggregator |
+| **Publisher** | The organisation that published an Article, kept separate from the Feed that delivered it. | Source, outlet, aggregator |
 | **Triage** | An internal priority (High, Medium, Low) that sorts the editor queue. The User never sees it. | Risk score, severity |
 | **Editor** | A person who reviews risky Claims. After they confirm or change one, the User sees "checked by a person". | Admin, moderator |
 | **Could Not Finish** | A check that stopped. The User sees a plain reason and a Try again button. Never a Verdict. | Error, failed verdict |
@@ -169,15 +169,28 @@ Status: **v2.2** (2026-11-23). Split from the single v1 file and rebuilt from th
 - **Article (Pulse) vs Article (Fact Checker)**: Pulse's Article is a database row with a category. Ours is one item from a Feed. Same word, no shared code.
 - **Publisher vs Source**: one organisation can be both. As a **Publisher** its Articles are checked. As a **Source** it gives Evidence about someone else's Claim. Always say which role.
 - **Scripted verdicts (AI Studio prototype)**: that app showed Verdicts and "Evidence" that were hard-coded or written by an LLM with no search. That is not Evidence. Its screens and data shapes are reusable, its answers are not. Never ship a Verdict whose Evidence was not retrieved.
-- **Google News** has two uses: as a **Feed** and as a search for Evidence. Both need the real Publisher link, but Google News RSS links point to Google redirect pages. *(open: GDELT, link decoding, or both)*
+- **Google News** has two uses: a Feed and discovery for Evidence. Feed ingestion keeps the supplied Google News story URL and the Publisher from the RSS source element. It never substitutes a Publisher homepage or calls an RSS description Article Text or Evidence. Resolving the real story URL for full-text extraction remains open; Google News is not added to the Trusted Source List.
 - **Self-published Sources**: `github.com` and `arxiv.org` are on the list, but anyone can publish there. A random README or preprint is weak Evidence. *(open: primary-source-only, or a lower Confidence cap)*
 - **Hacker News is not news**: many items are blogs, opinions and "Show HN" launches. Many Articles will have no check-worthy Claim. That is normal, not a bug.
 - **Repeat Claims**: only an exact match counts. A word-overlap hint may come later. *(try and compare)*
 
 ## Feed quantity and delivery
 
-- Ingestion uses both Hacker News and Medium by default (`DEFAULT_FEED=all`). An explicit Feed filter still selects one provider.
+- Ingestion uses all enabled Feeds in parallel by default (`DEFAULT_FEED=all`). Feeds requiring a key are skipped without a request when their key is empty. An explicit Feed filter still selects one enabled provider.
 - The default total is 60 Articles, capped at 100. Available Articles are interleaved and duplicate URLs count once; one healthy Feed can fill unused places. Quantity depends on provider availability.
 - Hacker News preserves its ranking and scans past skipped stories and duplicate URLs, within `HN_MAX_LIMIT`.
 - Medium uses Pulse's topic tags (artificial-intelligence, technology, data-science, programming, cloud-computing, law) plus cybersecurity. Topics are interleaved with bounded concurrent requests. RSS content supplies Cover Images.
 - `extract_text=false` returns Feed Card metadata without fetching Article Text. Its extraction status is `not_requested`, never `fetch_failed`. Text extraction remains enabled by default for existing callers. Cache entries separate both request types. Articles remain Not checked yet.
+
+## Feed configuration and availability
+
+| Term | Definition | Aliases to avoid |
+| --- | --- | --- |
+| **Enabled Feed** | A Feed selected in backend configuration, which may also require a non-empty provider key before it can be called. | Trusted Source, evidence provider |
+| **Feed Cooldown** | A temporary pause in requests to a Feed after its host reports a rate limit. | Failed Verdict, verification failure |
+
+- Canonical request filters are `hackernews`, `medium`, `google_news`, `newsdata`, `newsapi` and `all`; the default remains a total of 60 Articles, capped at 100. Results interleave and duplicate URLs count once.
+- Google News uses RSS without a key. NewsData.io and NewsAPI require `NEWSDATA_API_KEY` and `NEWSAPI_API_KEY`, respectively. Secrets are stored as masked settings and never returned in Articles.
+- New providers reuse Pulse request and mapping patterns while preserving Fact Checker's Feed/Publisher distinction. New metadata carries stable IDs, nullable dates and HTTPS Cover Images; missing data is not invented.
+- One provider's error does not stop healthy Feeds. Rate-limit cooldowns persist through the process's cached Ingestion Service; they reset when the backend restarts. The existing response cache avoids repeated calls within its TTL.
+- Each new provider makes at most one provider request per uncached Feed call; cursor pagination is not automatic. Query, language, region and supported page sizes are configurable.

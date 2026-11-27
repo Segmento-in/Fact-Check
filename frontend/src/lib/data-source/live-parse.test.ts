@@ -242,3 +242,32 @@ describe('Ticket 6: Feed Card article fields', () => {
     expect(article.isSample).toBe(false);
   });
 });
+
+
+describe('additional Feed publisher mapping', () => {
+  it.each([
+    ['Google News', 'Google RSS publisher'],
+    ['NewsData.io', 'NewsData publisher'],
+    ['NewsAPI', 'NewsAPI publisher'],
+  ])('keeps the %s Feed distinct from the Publisher', (feed, publisher) => {
+    const [article] = parseArticlesResponse({ articles: [{ article: {
+      id: `${feed}_story`, title: 'A headline', source: feed,
+      publisher: `  ${publisher}  `,
+      url: 'https://news.google.com/rss/articles/story', hn_score: 0,
+      image_url: 'https://images.example/cover.jpg',
+    } }] });
+    expect(article.feed).toBe(feed);
+    expect(article.publisher).toBe(publisher);
+    expect(article.feedScore).toBeNull();
+    expect(article.imageUrl).toBe('https://images.example/cover.jpg');
+    expect(article.state).toEqual({ kind: 'not_checked_yet' });
+  });
+
+  it.each([null, '', '   ', 42])('keeps the domain fallback when Publisher metadata is %s', (publisher) => {
+    const [article] = parseArticlesResponse({ articles: [{ article: {
+      id: 'api_story', title: 'A headline', source: 'NewsAPI', publisher,
+      url: 'https://www.publisher.example/story',
+    } }] });
+    expect(article.publisher).toBe('publisher.example');
+  });
+});

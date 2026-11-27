@@ -1,6 +1,6 @@
 # Ubiquitous Language — Fact Checker (Frontend)
 
-Status: **v2.6** (2026-11-23). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
+Status: **v2.7** (2026-11-27). Split from the single v1 file. This file holds the **screens and what the User sees**. Pipeline terms live in the backend file.
 
 - **Shared terms** (first section) are word-for-word identical in both files. Change one, change both.
 - Terms marked *(open)* are not decided yet.
@@ -23,9 +23,9 @@ Status: **v2.6** (2026-11-23). Split from the single v1 file. This file holds th
 | **Verification Report** | The result for one Content: its Claims, each with a Verdict, a Confidence and its proof. | Output, result page, analysis |
 | **Warning Sign** | A pattern found by code (urgency, SHOUTING, a big number with no source, clickbait). It is not a Verdict. | Red flag, risk score, manipulation score |
 | **Sensitive Domain** | A subject area (health, elections, money, safety) where a wrong Verdict can cause serious harm. | Sensitive area, risky topic |
-| **Feed** | A stream of new Articles the platform watches by itself (Hacker News and Medium now, Google News next). | News platform, RSS, API |
+| **Feed** | A stream of Articles delivered by Hacker News, Medium, Google News, NewsData.io or NewsAPI; it never supplies Evidence merely by delivering an Article. | News platform, RSS, API |
 | **Article** | One item that arrives from a Feed. It is a kind of Content. | News, story, post |
-| **Publisher** | The organisation whose site an Article's link points to. It is not the Feed. | Source, outlet, aggregator |
+| **Publisher** | The organisation that published an Article, kept separate from the Feed that delivered it. | Source, outlet, aggregator |
 | **Triage** | An internal priority (High, Medium, Low) that sorts the editor queue. The User never sees it. | Risk score, severity |
 | **Editor** | A person who reviews risky Claims. After they confirm or change one, the User sees "checked by a person". | Admin, moderator |
 | **Could Not Finish** | A check that stopped. The User sees a plain reason and a Try again button. Never a Verdict. | Error, failed verdict |
@@ -150,6 +150,12 @@ Rules: say "false", never "fake". Colour is never the only signal: always icon p
 
 ## Live Feed quantity
 
-- Live mode requests up to 60 Articles with `source=all` and `extract_text=false`, so both Feeds are requested even when the backend default selects one.
+- Live mode requests up to 60 Articles with `source=all` and `extract_text=false`, so all configured Feeds are requested even when the backend default selects one.
 - Feed Cards retain the current Cover Image or Cover Tile, Feed Pill, Publisher, date, Feed Score and Feed Card State. An Article awaiting verification stays Not checked yet.
 - The request timeout is 30 seconds. Sample Data stays at eight Articles; use `NEXT_PUBLIC_DATA_SOURCE=live` to load real Articles.
+
+## Additional Feeds
+
+- Google News, NewsData.io and NewsAPI use the same Feed Cards as Hacker News and Medium. `source` remains the Feed name; optional `publisher` holds the Publisher label. The frontend prefers that label and retains its existing domain fallback.
+- Only Hacker News has a Feed Score. Publisher popularity, provider rankings, sentiment and API-generated summaries never become Verdicts, Confidence or Evidence.
+- The frontend environment file contains public Data Source and API URL settings only. Provider credentials belong only in the backend environment file.
