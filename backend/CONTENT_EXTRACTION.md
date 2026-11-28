@@ -1,6 +1,6 @@
 # Submitted Article link: fetch, extract and clean
 
-Status: implemented; all 146 backend tests passed on 2026-11-28.
+Status: review fixes implemented; all 148 backend tests passed on 2026-11-28.
 Base: GitHub main commit 689d282c009d1c3e65908e2d46eccdd19fe09afc.
 This is the URL-to-text slice of Stage 1, not a Verification Pipeline.
 
@@ -64,8 +64,9 @@ A valid but short extraction includes its cleaned text and actual word count.
 - Enforce download limits even without Content-Length. Never parse a partial
   download after the limit is crossed.
 - Use one total deadline covering DNS, redirects, download and extraction.
-  Parsing runs off the event loop. A timed-out parser retains its worker slot
-  until it actually finishes.
+  Parsing runs off the event loop. DNS and parsing retain their worker slot
+  until the underlying work actually finishes, even after a response timeout.
+  A DNS result arriving after the deadline cannot start an HTTP request.
 - Normalize Unicode to NFC, horizontal whitespace, line endings, and control
   characters. Preserve paragraphs, punctuation, names, dates, numbers and
   negation. No LLM rewrites or speculative reconstruction.
@@ -151,3 +152,39 @@ Invoke-RestMethod -Method Post -Uri 'http://localhost:8000/api/content/extract' 
 - https://www.python-httpx.org/advanced/extensions/#sni_hostname
 - https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html
 - https://trafilatura.readthedocs.io/en/latest/corefunctions.html
+
+## Review fixes (2026-11-28)
+
+The first implementation passed 146 tests, but review reproduced two omissions:
+
+1. Application warnings and HTTPX INFO request logs included private query values.
+2. A timed-out DNS lookup could continue after its concurrency slot was released.
+
+The log-privacy regression was observed failing, then passing after the logging
+fix. Warnings now contain fixed messages and exception classes, never raw URLs
+or exception messages. HTTPX INFO request logging is disabled at application
+startup; production logging configuration must preserve that policy.
+
+The DNS-capacity regression was observed failing with 504 instead of the expected
+503 on a second request. Each complete extraction now owns a strongly referenced,
+shielded worker until fetching/parsing ends. The response still honors its
+deadline. The Safe Fetcher checks the deadline before and after DNS, so expired
+work does not start a later HTTP fetch. Capacity is released when the worker
+finishes, not when its caller times out.
+
+Two concurrency tests were rewritten to verify API responses and recovery.
+They no longer acquire private semaphores or replace an application parser method.
+External HTTP, DNS and third-party parsing remain controlled test boundaries.
+
+Evidence from the isolated validation copy:
+- Log privacy: failing assertion observed before the fix; 1 passed afterward.
+- DNS capacity: expected 503, got 504 before the fix; both regressions passed afterward.
+- Rewritten API checks plus regressions: 4 passed in 2.67s.
+- Full backend suite: 148 passed in 13.83s.
+
+These are genuine red-to-green checks for the two fixes. They do not retroactively
+make the initial bulk implementation a strict TDD exercise.
+
+Deliberate limits and revisit triggers are tracked in [PONYTAIL_DEBT.md](PONYTAIL_DEBT.md).
+The diff was reviewed for correctness, resource lifetimes, logging privacy,
+test coupling and unnecessary abstractions before publishing the follow-up.

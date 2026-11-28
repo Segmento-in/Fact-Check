@@ -283,18 +283,28 @@ async def test_total_deadline_includes_dns_resolution():
 
 @pytest.mark.asyncio
 async def test_saturated_worker_limit_returns_busy_without_fetching():
-    class WaitingFetcher:
-        async def fetch_html(self, url):
-            pytest.fail("Busy worker pool must not start fetching")
+    entered, finish = asyncio.Event(), asyncio.Event()
+    async def held_dns(host, port):
+        entered.set()
+        await finish.wait()
+        return [PUBLIC_IP]
 
-    service = ContentExtractionService(settings(ARTICLES_MAX_CONCURRENT_EXTRACTIONS=1), WaitingFetcher())
-    await service._slots.acquire()
+    def handler(request):
+        return httpx.Response(200, headers={"content-type": "text/html"}, content=HTML)
+
+    config = settings(ARTICLES_MAX_CONCURRENT_EXTRACTIONS=1, ARTICLE_FETCH_TIMEOUT_SECONDS=2)
+    service = ContentExtractionService(config, fetcher(handler, config, held_dns))
+    first = asyncio.create_task(post_link(service, {"url": "https://example.com/first"}))
     try:
-        response = await post_link(service, {"url": "https://example.com/a"})
+        async with asyncio.timeout(1):
+            await entered.wait()
+        response = await post_link(service, {"url": "https://example.com/second"})
         assert response.status_code == 503
         assert response.json()["status"] == "busy"
     finally:
-        service._slots.release()
+        finish.set()
+        first_response = await first
+    assert first_response.status_code == 200
 
 
 def test_cleaning_preserves_negation_numbers_unicode_and_paragraphs():
@@ -355,32 +365,41 @@ async def test_safe_relative_redirect_is_followed():
 
 
 @pytest.mark.asyncio
-async def test_timed_out_parser_holds_worker_slot_until_it_finishes():
-    started, finish = asyncio.Event(), asyncio.Event()
-    config = settings(ARTICLE_FETCH_TIMEOUT_SECONDS=0.02, ARTICLES_MAX_CONCURRENT_EXTRACTIONS=1)
+async def test_timed_out_parser_holds_worker_slot_until_it_finishes(monkeypatch):
+    import threading
+    import trafilatura
+
+    started, finish = threading.Event(), threading.Event()
+    actual_extract = trafilatura.extract
+    def held_parser(*args, **kwargs):
+        started.set()
+        finish.wait(timeout=2)
+        return actual_extract(*args, **kwargs)
+
+    monkeypatch.setattr(trafilatura, "extract", held_parser)
+    config = settings(ARTICLE_FETCH_TIMEOUT_SECONDS=0.15, ARTICLES_MAX_CONCURRENT_EXTRACTIONS=1)
     def handler(request):
         return httpx.Response(200, headers={"content-type": "text/html"}, content=HTML)
 
     service = ContentExtractionService(config, fetcher(handler, config))
-    async def slow_parse(*args, **kwargs):
-        started.set()
-        await finish.wait()
-        from app.models import ExtractionResult
-        return ExtractionResult(status="no_text")
-
-    service.extractor.extract_html = slow_parse
     try:
-        response = await post_link(service, {"url": "https://example.com/a"})
+        response = await post_link(service, {"url": "https://example.com/first"})
         assert started.is_set()
         assert response.status_code == 504
-        assert (await service.extract("https://example.com/other")).status == "busy"
+        busy = await post_link(service, {"url": "https://example.com/second"})
+        assert busy.status_code == 503
+        assert busy.json()["status"] == "busy"
     finally:
         finish.set()
-        for _ in range(20):
-            if not service._slots.locked():
-                break
-            await asyncio.sleep(0)
-    assert not service._slots.locked()
+
+    for _ in range(50):
+        recovered = await post_link(service, {"url": "https://example.com/recovered"})
+        if recovered.status_code != 503:
+            break
+        await asyncio.sleep(0.01)
+    assert recovered.status_code == 200
+    assert recovered.json()["status"] == "ok"
+
 
 @pytest.mark.asyncio
 async def test_numeric_article_table_is_retained():

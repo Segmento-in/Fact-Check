@@ -1,6 +1,6 @@
 # Ubiquitous Language — Fact Checker (Backend)
 
-Status: **v2.4** (2026-11-28). Split from the single v1 file and rebuilt from the 6-stage architecture ("factcheck architecture_v1.drawio"). This file holds the **pipeline terms**. Screen terms live in the frontend file.
+Status: **v2.5** (2026-11-28). Split from the single v1 file and rebuilt from the 6-stage architecture ("factcheck architecture_v1.drawio"). This file holds the **pipeline terms**. Screen terms live in the frontend file.
 
 - **Shared terms** (first section) are word-for-word identical in both files. Change one, change both.
 - Terms marked *(open)* are not decided yet.
@@ -210,5 +210,11 @@ Status: **v2.4** (2026-11-28). Split from the single v1 file and rebuilt from th
   article is silently treated as complete.
 - This slice does not include Chunks, structured author/date/image metadata, or
   Check Page wiring. Those remain separate work. Existing Feed parsing remains
-  compatible. Implementation is complete; all 146 backend tests passed on
+  compatible. Implementation is complete; all 148 backend tests passed on
   2026-11-28. A live publisher smoke test remains to be recorded.
+
+- A response timeout does not free capacity while its DNS or parsing work is still
+  running. Expired DNS work never starts a new HTTP fetch; capacity becomes
+  available when the worker actually finishes.
+- Application extraction logs omit full URLs and exception messages. HTTPX INFO
+  request logging is disabled to keep private query values out of backend logs.

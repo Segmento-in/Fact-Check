@@ -72,6 +72,12 @@ async def resolve_addresses(host: str, port: int) -> list[str]:
     return list(dict.fromkeys(answer[4][0] for answer in answers))
 
 
+def _check_deadline(deadline: float | None) -> None:
+    if deadline is not None and asyncio.get_running_loop().time() >= deadline:
+        raise FetchFailure("timeout")
+
+
+
 class SafeFetcher:
     def __init__(
         self,
@@ -96,14 +102,16 @@ class SafeFetcher:
             addresses = [str(address)]
         if not addresses or not all(_is_public(value) for value in addresses):
             raise FetchFailure("blocked_url")
-        # Prefer IPv4 on hosts that do not provide outbound IPv6.
-        return sorted(addresses, key=lambda value: ipaddress.ip_address(value).version)[0]
+        # ponytail: try one public IP, preferring IPv4; add validated address fallback when a real publisher fails because its first address is unavailable.
+        return min(addresses, key=lambda value: ipaddress.ip_address(value).version)
 
-    async def fetch_html(self, value: str) -> FetchedHTML:
+    async def fetch_html(self, value: str, *, deadline: float | None = None) -> FetchedHTML:
         try:
             url = validate_article_url(value)
             for hop in range(MAX_REDIRECTS + 1):
+                _check_deadline(deadline)
                 address = await self._public_address(url)
+                _check_deadline(deadline)
                 # Pin the connection to the checked IP; TLS still verifies the real
                 # hostname. A fresh client per hop avoids cross-host pool/cookie reuse.
                 target = url.copy_with(host=address)
@@ -155,9 +163,11 @@ class SafeFetcher:
                             raise FetchFailure("too_large")
                         content = bytearray()
                         async for chunk in response.aiter_bytes(chunk_size=65536):
+                            _check_deadline(deadline)
                             if len(content) + len(chunk) > limit:
                                 raise FetchFailure("too_large")
                             content.extend(chunk)
+                        _check_deadline(deadline)
                         return FetchedHTML(bytes(content), str(url))
             raise FetchFailure("fetch_failed")
         except FetchFailure:

@@ -1,5 +1,6 @@
 """Stage 1 API: a submitted Article link becomes cleaned Article Text."""
 import asyncio
+import logging
 from functools import lru_cache
 import re
 from typing import Literal
@@ -12,6 +13,7 @@ from app.config import Settings, settings as default_settings
 from app.extraction.article_text import ArticleTextExtractor
 from app.extraction.safe_fetcher import FetchFailure, SafeFetcher, validate_article_url
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/content", tags=["Content"])
 ContentExtractionStatus = Literal[
     "ok", "too_short", "no_text", "not_html", "fetch_failed", "blocked_url",
@@ -79,50 +81,60 @@ class ContentExtractionService:
         self.settings = settings
         self.fetcher = fetcher if fetcher is not None else SafeFetcher(settings)
         self.extractor = ArticleTextExtractor(settings=settings)
+        # ponytail: worker capacity is per process; add a shared quota when using multiple API replicas or when one client can starve others.
         self._slots = asyncio.Semaphore(max(1, settings.ARTICLES_MAX_CONCURRENT_EXTRACTIONS))
+        self._workers: set[asyncio.Task] = set()
 
     async def extract(self, url: str) -> ContentExtractionResponse:
         if self._slots.locked():
             return result("busy")
         await self._slots.acquire()
-        extraction_task = None
+        deadline = asyncio.get_running_loop().time() + self.settings.ARTICLE_FETCH_TIMEOUT_SECONDS
+        worker = asyncio.create_task(self._extract(url, deadline))
+        self._workers.add(worker)
+        worker.add_done_callback(self._worker_finished)
         try:
-            # One total deadline includes DNS, all redirects, download and parsing.
-            async with asyncio.timeout(self.settings.ARTICLE_FETCH_TIMEOUT_SECONDS):
-                page = await self.fetcher.fetch_html(url)
-                extraction_task = asyncio.create_task(self.extractor.extract_html(
-                    page.content, page.final_url, limit_text=False, include_tables=True,
-                ))
-                extracted = await asyncio.shield(extraction_task)
-                if extracted.status not in {"ok", "too_short"}:
-                    return result(extracted.status, final_url=page.final_url)
-                text = clean_article_text(extracted.text)
-                if not text:
-                    return result("no_text", final_url=page.final_url)
-                # Never silently send a cut-off article to future checking stages.
-                if len(text) > self.settings.ARTICLE_MAX_CHARS:
-                    return result("too_long", final_url=page.final_url)
-                word_count = len(text.split())
-                status = "ok" if word_count >= self.settings.ARTICLE_MIN_WORDS else "too_short"
-                return result(status, text=text, word_count=word_count, final_url=page.final_url)
+            # Return on time without abandoning thread-backed DNS or parsing work.
+            async with asyncio.timeout_at(deadline):
+                return await asyncio.shield(worker)
+        except TimeoutError:
+            return result("timeout")
+
+    def _worker_finished(self, worker: asyncio.Task) -> None:
+        self._workers.discard(worker)
+        if not worker.cancelled():
+            worker.exception()
+        self._slots.release()
+
+    async def _extract(self, url: str, deadline: float) -> ContentExtractionResponse:
+        try:
+            page = await self.fetcher.fetch_html(url, deadline=deadline)
+            if asyncio.get_running_loop().time() >= deadline:
+                return result("timeout")
+            extracted = await self.extractor.extract_html(
+                page.content, page.final_url, limit_text=False, include_tables=True,
+            )
+            if asyncio.get_running_loop().time() >= deadline:
+                return result("timeout")
+            if extracted.status not in {"ok", "too_short"}:
+                return result(extracted.status, final_url=page.final_url)
+            text = clean_article_text(extracted.text)
+            if not text:
+                return result("no_text", final_url=page.final_url)
+            # Never silently send a cut-off article to future checking stages.
+            if len(text) > self.settings.ARTICLE_MAX_CHARS:
+                return result("too_long", final_url=page.final_url)
+            word_count = len(text.split())
+            status = "ok" if word_count >= self.settings.ARTICLE_MIN_WORDS else "too_short"
+            return result(status, text=text, word_count=word_count, final_url=page.final_url)
         except FetchFailure as error:
             return result(error.status)
         except TimeoutError:
             return result("timeout")
-        except Exception:
-            # Do not expose network internals, page content, or URL query values.
+        except Exception as error:
+            # Log only the exception class; messages can contain private URLs.
+            logger.warning("Content extraction failed (%s)", type(error).__name__)
             return result("fetch_failed")
-        finally:
-            if extraction_task is not None and not extraction_task.done():
-                # Python cannot stop a parser thread immediately. Hold its worker
-                # slot until it exits, even if the caller already timed out.
-                def release_when_finished(task):
-                    if not task.cancelled():
-                        task.exception()
-                    self._slots.release()
-                extraction_task.add_done_callback(release_when_finished)
-            else:
-                self._slots.release()
 
 
 @lru_cache(maxsize=1)

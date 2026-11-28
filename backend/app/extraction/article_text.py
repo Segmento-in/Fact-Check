@@ -36,7 +36,7 @@ class ArticleTextExtractor:
                 ) as client:
                     return await self._extract_with_client(client, url)
         except Exception as e:
-            logger.warning("Article extraction failed for %s: %s", url, e)
+            logger.warning("Article extraction failed (%s)", type(e).__name__)
             return ExtractionResult(status="fetch_failed", final_url=url)
 
     async def _extract_with_client(
@@ -57,8 +57,7 @@ class ArticleTextExtractor:
 
                 if response.status_code != 200:
                     logger.warning(
-                        "Article fetch failed for %s: HTTP status %d",
-                        final_url,
+                        "Article fetch failed: HTTP status %d",
                         response.status_code,
                     )
                     return ExtractionResult(status="fetch_failed", final_url=final_url)
@@ -69,9 +68,7 @@ class ArticleTextExtractor:
                     or "application/xhtml+xml" in content_type
                 ):
                     logger.warning(
-                        "Article fetch for %s returned non-HTML Content-Type: %s",
-                        final_url,
-                        content_type,
+                        "Article fetch returned a non-HTML Content-Type",
                     )
                     return ExtractionResult(status="not_html", final_url=final_url)
 
@@ -85,7 +82,7 @@ class ArticleTextExtractor:
                         break
 
         except Exception as e:
-            logger.warning("Article download failed for %s: %s", url, e)
+            logger.warning("Article download failed (%s)", type(e).__name__)
             return ExtractionResult(status="fetch_failed", final_url=final_url)
 
         return await self.extract_html(bytes(content_bytes), final_url)
@@ -99,6 +96,7 @@ class ArticleTextExtractor:
         try:
             import trafilatura
 
+            # ponytail: static HTML only; consider an approved renderer when representative publisher failures justify its cost, keeping blocked pages as failures.
             def _sync_extract(raw_data: bytes) -> Optional[str]:
                 return trafilatura.extract(
                     raw_data,
@@ -111,11 +109,11 @@ class ArticleTextExtractor:
                 _sync_extract, bytes(content_bytes)
             )
         except Exception as e:
-            logger.warning("Trafilatura extraction failed for %s: %s", final_url, e)
+            logger.warning("Trafilatura extraction failed (%s)", type(e).__name__)
             return ExtractionResult(status="no_text", final_url=final_url)
 
         if not extracted_text or not extracted_text.strip():
-            logger.warning("No main article text found for %s", final_url)
+            logger.warning("No main article text found")
             return ExtractionResult(status="no_text", final_url=final_url)
 
         text = extracted_text.strip()
@@ -126,10 +124,9 @@ class ArticleTextExtractor:
 
         if word_count < self.settings.ARTICLE_MIN_WORDS:
             logger.warning(
-                "Extracted text too short (%d words < %d min) for %s",
+                "Extracted text too short (%d words < %d min)",
                 word_count,
                 self.settings.ARTICLE_MIN_WORDS,
-                final_url,
             )
             return ExtractionResult(
                 status="too_short",

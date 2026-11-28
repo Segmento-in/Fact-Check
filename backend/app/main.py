@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import time
 from functools import lru_cache
 from typing import Callable, List, Optional
@@ -19,6 +20,9 @@ from app.models import (
     TrustedSourcesResponse,
 )
 from app.trusted_sources import TRUSTED_SOURCES
+
+# HTTPX INFO logs contain full request URLs, including private query values.
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 app = FastAPI(
     title="Fact Checker API",
