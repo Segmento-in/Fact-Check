@@ -88,6 +88,13 @@ class ArticleTextExtractor:
             logger.warning("Article download failed for %s: %s", url, e)
             return ExtractionResult(status="fetch_failed", final_url=final_url)
 
+        return await self.extract_html(bytes(content_bytes), final_url)
+
+    async def extract_html(
+        self, content_bytes: bytes, final_url: str, *, limit_text: bool = True,
+        include_tables: bool = False,
+    ) -> ExtractionResult:
+        """Reuse main-text parsing after HTML has already been fetched safely."""
         # Run synchronous trafilatura extraction in a separate thread
         try:
             import trafilatura
@@ -96,7 +103,7 @@ class ArticleTextExtractor:
                 return trafilatura.extract(
                     raw_data,
                     include_comments=False,
-                    include_tables=False,
+                    include_tables=include_tables,
                     favor_precision=True,
                 )
 
@@ -112,7 +119,7 @@ class ArticleTextExtractor:
             return ExtractionResult(status="no_text", final_url=final_url)
 
         text = extracted_text.strip()
-        if len(text) > self.settings.ARTICLE_MAX_CHARS:
+        if limit_text and len(text) > self.settings.ARTICLE_MAX_CHARS:
             text = text[: self.settings.ARTICLE_MAX_CHARS]
 
         word_count = len(text.split())

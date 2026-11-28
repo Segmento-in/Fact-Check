@@ -6,6 +6,7 @@ from fastapi import Depends, FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import FeedSelection, Settings, settings as default_settings
+from app.content_extraction import router as content_extraction_router
 from app.extraction.article_text import ArticleTextExtractor
 from app.feeds.hackernews import HackerNewsFeed
 from app.ingestion.service import IngestionService
@@ -24,6 +25,7 @@ app = FastAPI(
     description="Backend API for Fact Checker system",
     version="0.1.0",
 )
+app.include_router(content_extraction_router)
 
 # CORS middleware
 app.add_middleware(

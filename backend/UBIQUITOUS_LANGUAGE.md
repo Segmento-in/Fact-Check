@@ -1,11 +1,11 @@
 # Ubiquitous Language — Fact Checker (Backend)
 
-Status: **v2.3** (2026-11-27). Split from the single v1 file and rebuilt from the 6-stage architecture ("factcheck architecture_v1.drawio"). This file holds the **pipeline terms**. Screen terms live in the frontend file.
+Status: **v2.4** (2026-11-28). Split from the single v1 file and rebuilt from the 6-stage architecture ("factcheck architecture_v1.drawio"). This file holds the **pipeline terms**. Screen terms live in the frontend file.
 
 - **Shared terms** (first section) are word-for-word identical in both files. Change one, change both.
 - Terms marked *(open)* are not decided yet.
 - Coding Agent: read both files before touching code. Update your own side when understanding changes. Never rename a term in code without updating this file.
-- Backend is paused for now (frontend first). This file still guides the old backend clean-up and the later rebuild.
+- Backend work is active for the currently authorized Ticket. The six-stage design remains the guide; implemented stages must be distinguished from planned stages.
 
 ## Shared terms (identical in both files)
 
@@ -194,3 +194,21 @@ Status: **v2.3** (2026-11-27). Split from the single v1 file and rebuilt from th
 - New providers reuse Pulse request and mapping patterns while preserving Fact Checker's Feed/Publisher distinction. New metadata carries stable IDs, nullable dates and HTTPS Cover Images; missing data is not invented.
 - One provider's error does not stop healthy Feeds. Rate-limit cooldowns persist through the process's cached Ingestion Service; they reset when the backend restarts. The existing response cache avoids repeated calls within its TTL.
 - Each new provider makes at most one provider request per uncached Feed call; cursor pagination is not automatic. Query, language, region and supported page sizes are configurable.
+
+## Submitted Article links: extraction slice
+
+- A User may submit an Article link to `POST /api/content/extract`. This returns
+  cleaned Article Text, its actual word count, and the final public URL.
+- A Content link is not restricted to the Trusted Source List. Fetching it never
+  makes it Evidence and never creates a Claim, Verdict, Confidence or report.
+- The Safe Fetcher validates each address and redirect, refuses non-public
+  destinations, pins the checked public IP, preserves TLS verification, and
+  bounds redirects, download size, total time and concurrent extraction.
+- Cleaning uses code and Trafilatura, not an LLM. It preserves wording, numbers,
+  dates and negation. Submitted-link parsing includes tables and excludes comments.
+- Oversized downloads and overlong Article Text are explicit failures; no partial
+  article is silently treated as complete.
+- This slice does not include Chunks, structured author/date/image metadata, or
+  Check Page wiring. Those remain separate work. Existing Feed parsing remains
+  compatible. Implementation is complete; all 146 backend tests passed on
+  2026-11-28. A live publisher smoke test remains to be recorded.
